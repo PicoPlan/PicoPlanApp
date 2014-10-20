@@ -1,0 +1,4 @@
+pico_plan_assets:
+    resource: "@PicoPlanAssetsBundle/Resources/config/routing.php"
+    prefix:   /
+
