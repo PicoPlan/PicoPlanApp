@@ -11,7 +11,7 @@ parameters:
     mailer_user: null
     mailer_password: null
     locale: fr
-    secret: ntfpalc
+    secret: c_un_secret_lol
     debug_toolbar: true
     debug_redirects: false
     use_assetic_controller: true
