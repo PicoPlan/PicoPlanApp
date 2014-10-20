@@ -1,0 +1,4 @@
+pico_p_lan_app_statics:
+    resource: "@PicoPLanAppStaticsBundle/Resources/config/routing.php"
+    prefix:   /
+
