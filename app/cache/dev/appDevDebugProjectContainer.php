@@ -3048,7 +3048,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getUriSignerService()
     {
-        return $this->services['uri_signer'] = new \Symfony\Component\HttpKernel\UriSigner('ntfpalc');
+        return $this->services['uri_signer'] = new \Symfony\Component\HttpKernel\UriSigner('c_un_secret_lol');
     }
 
     /**
@@ -3521,7 +3521,7 @@ class appDevDebugProjectContainer extends Container
             'mailer_user' => NULL,
             'mailer_password' => NULL,
             'locale' => 'fr',
-            'secret' => 'ntfpalc',
+            'secret' => 'c_un_secret_lol',
             'debug_toolbar' => true,
             'debug_redirects' => false,
             'use_assetic_controller' => true,
@@ -3579,7 +3579,7 @@ class appDevDebugProjectContainer extends Container
             'debug.container.dump' => '/var/www/picoplan/PicoPlanApp/app/cache/dev/appDevDebugProjectContainer.xml',
             'debug.controller_resolver.class' => 'Symfony\\Component\\HttpKernel\\Controller\\TraceableControllerResolver',
             'debug.debug_handlers_listener.class' => 'Symfony\\Component\\HttpKernel\\EventListener\\DebugHandlersListener',
-            'kernel.secret' => 'ntfpalc',
+            'kernel.secret' => 'c_un_secret_lol',
             'kernel.http_method_override' => true,
             'kernel.trusted_hosts' => array(
 
