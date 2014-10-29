@@ -1,0 +1,4 @@
+assets:
+    resource: "@AssetsBundle/Resources/config/routing.php"
+    prefix:   /
+
