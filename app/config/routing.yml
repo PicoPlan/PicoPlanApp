@@ -1,4 +1,4 @@
-pico_library_assets:
-    resource: "@PicoLibraryAssetsBundle/Resources/config/routing.yml"
+pico_assets:
+    resource: "@PicoAssetsBundle/Resources/config/routing.yml"
     prefix:   /
 

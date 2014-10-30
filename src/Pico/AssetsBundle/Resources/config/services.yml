@@ -1,0 +1,4 @@
+services:
+#    pico_assets.example:
+#        class: Pico\AssetsBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
