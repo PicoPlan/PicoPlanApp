@@ -1,0 +1,13 @@
+<<<<<<< HEAD
+user_management:
+    resource: "@UserManagementBundle/Resources/config/routing.yml"
+    prefix:   /
+
+pico_library_assets:
+    resource: "@PicoLibraryAssetsBundle/Resources/config/routing.yml"
+=======
+pico_assets:
+    resource: "@PicoAssetsBundle/Resources/config/routing.yml"
+>>>>>>> 62ed4d853a1500119b2f73ae3e39a7111e5118c2
+    prefix:   /
+
