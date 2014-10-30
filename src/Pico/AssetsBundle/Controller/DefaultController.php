@@ -6,8 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+    public function indexAction()
     {
-        return $this->render('PicoAssetsBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('PicoAssetsBundle:Default:index.html.twig', array(
+            'username' => 'User',
+            'title' => 'PicoPlan'
+        ));
     }
 }
