@@ -39,6 +39,10 @@ class User
      */
     private $birthDate;
 
+    /**
+     * @ORM\Column(type="interger", length=2)
+     */
+    private $security_lvl;
 
     /**
      * Get id
