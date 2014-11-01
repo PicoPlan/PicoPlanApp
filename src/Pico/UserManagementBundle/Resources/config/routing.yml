@@ -1,0 +1,7 @@
+# HOMEPAGE
+user_management_homepage_with_name:
+    path:     /utilisateur/{name}
+    defaults: { _controller: UserManagementBundle:User:index }
+user_management_homepage_without_name:
+    path:     /utilisateur/
+    defaults: { _controller: UserManagementBundle:User:index}

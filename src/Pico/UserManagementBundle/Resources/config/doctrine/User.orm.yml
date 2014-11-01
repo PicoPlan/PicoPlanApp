@@ -1,0 +1,29 @@
+Pico\UserManagementBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: Pico\UserManagementBundle\Entity\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        firstName:
+            type: string
+            length: 255
+            column: first_name
+        lastName:
+            type: string
+            length: 255
+            column: last_name
+        email:
+            type: string
+            length: 255
+        phone:
+            type: integer
+        birthDate:
+            type: string
+            length: 255
+            column: birth_date
+    lifecycleCallbacks: {  }
