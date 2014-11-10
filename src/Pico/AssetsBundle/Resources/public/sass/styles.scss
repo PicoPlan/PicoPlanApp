@@ -6,8 +6,9 @@
 @import "_icons.scss";
 @import "_colors.scss";
 
+//prout
 
-body {
+* {
     @include border-radius(0);
 }
 
@@ -18,6 +19,12 @@ body {
     border-right: 1px solid $grey;
     ul {
         li {
+            input {
+                @include border-radius(0);
+            }
+            .btn {
+                @include border-radius(0);
+            }
             margin-top: 0px;
             &.active {
                 a {
@@ -29,6 +36,9 @@ body {
                 font-weight: bold;
                 color: $darkgrey;
                 @include border-radius(0);
+                span {
+                    margin-right: 10px;
+                }
             }
         }
     }
