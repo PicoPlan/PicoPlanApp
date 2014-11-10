@@ -9,7 +9,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         return $this->render('PicoAssetsBundle:Default:index.html.twig', array(
-            'username' => 'User',
+            'username' => '',
             'title' => 'PicoPlan'
         ));
     }

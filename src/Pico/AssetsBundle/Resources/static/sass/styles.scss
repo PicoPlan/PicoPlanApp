@@ -1,9 +1,35 @@
-@import "bootstrap-compass";
 @import "bootstrap-variables";
 @import "bootstrap";
 
 @import "compass";
 
+@import "_icons.scss";
+@import "_colors.scss";
+
+
 body {
     @include border-radius(0);
+}
+
+#sidebar {
+    padding: 70px 0px 0px 0px;
+    background: $whitesmoke;
+    height: 100vh;
+    border-right: 1px solid $grey;
+    ul {
+        li {
+            margin-top: 0px;
+            &.active {
+                a {
+                    background-color: $grey;
+                    @include border-radius(0);
+                }
+            }
+            a {
+                font-weight: bold;
+                color: $darkgrey;
+                @include border-radius(0);
+            }
+        }
+    }
 }
