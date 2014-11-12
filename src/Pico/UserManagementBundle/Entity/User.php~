@@ -168,4 +168,83 @@ class User
     {
         return $this->birthDate;
     }
+    /**
+     * @var string
+     */
+    private $login;
+
+    /**
+     * @var string
+     */
+    private $mdp;
+
+
+    /**
+     * Set login
+     *
+     * @param string $login
+     * @return User
+     */
+    public function setLogin($login)
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    /**
+     * Get login
+     *
+     * @return string 
+     */
+    public function getLogin()
+    {
+        return $this->login;
+    }
+
+    /**
+     * Set mdp
+     *
+     * @param string $mdp
+     * @return User
+     */
+    public function setMdp($mdp)
+    {
+        $this->mdp = $mdp;
+
+        return $this;
+    }
+
+    /**
+     * Get mdp
+     *
+     * @return string 
+     */
+    public function getMdp()
+    {
+        return $this->mdp;
+    }
+
+    /**
+     * Set security_lvl
+     *
+     * @param integer $securityLvl
+     * @return User
+     */
+    public function setSecurityLvl($securityLvl)
+    {
+        $this->security_lvl = $securityLvl;
+
+        return $this;
+    }
+
+    /**
+     * Get security_lvl
+     *
+     * @return integer 
+     */
+    public function getSecurityLvl()
+    {
+        return $this->security_lvl;
+    }
 }
