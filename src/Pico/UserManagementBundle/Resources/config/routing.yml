@@ -5,3 +5,7 @@ user_management_homepage_with_name:
 user_management_homepage_without_name:
     path:     /utilisateur/
     defaults: { _controller: UserManagementBundle:User:index}
+#INSCRIPTION
+user_management_inscription:
+    path:     /utilisateur/inscription
+    defaults: { _controller: UserManagementBundle:User:inscription}
