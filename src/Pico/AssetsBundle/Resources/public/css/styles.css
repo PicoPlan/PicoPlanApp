@@ -370,8 +370,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url(/fonts/bootstrap/glyphicons-halflings-regular.eot?1414672521);
-  src: url(/fonts/bootstrap/glyphicons-halflings-regular.eot?&1414672521#iefix) format("embedded-opentype"), url(/fonts/bootstrap/glyphicons-halflings-regular.woff?1414672521) format("woff"), url(/fonts/bootstrap/glyphicons-halflings-regular.ttf?1414672521) format("truetype"), url(/fonts/bootstrap/glyphicons-halflings-regular.svg?1414672521#glyphicons_halflingsregular) format("svg");
+  src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot");
+  src: url("../fonts/bootstrap/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/bootstrap/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/bootstrap/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/bootstrap/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
 }
 /* line 21, ../../../../../../../../../../home/roland/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.0.1/assets/stylesheets/bootstrap/_glyphicons.scss */
 .glyphicon {
@@ -8201,9 +8201,52 @@ button.close {
     display: none !important;
   }
 }
-/* line 7, ../sass/styles.scss */
-body {
+/* line 11, ../sass/styles.scss */
+* {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
+}
+
+/* line 15, ../sass/styles.scss */
+#sidebar {
+  padding: 70px 0px 0px 0px;
+  background: #F8F8F8;
+  height: 100vh;
+  border-right: 1px solid #E6E6E6;
+}
+/* line 21, ../sass/styles.scss */
+#sidebar ul li {
+  margin-top: 0px;
+}
+/* line 22, ../sass/styles.scss */
+#sidebar ul li input {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+/* line 25, ../sass/styles.scss */
+#sidebar ul li .btn {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+/* line 30, ../sass/styles.scss */
+#sidebar ul li.active a {
+  background-color: #E6E6E6;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+/* line 35, ../sass/styles.scss */
+#sidebar ul li a {
+  font-weight: bold;
+  color: #5E5E5E;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+/* line 39, ../sass/styles.scss */
+#sidebar ul li a span {
+  margin-right: 10px;
 }
