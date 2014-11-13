@@ -26,4 +26,14 @@ Pico\UserManagementBundle\Entity\User:
             type: string
             length: 255
             column: birth_date
+        login:
+            type: string
+            length: 255
+            column: login
+        mdp:
+            type: string
+            length: 255
+            column: mdp
+        security_lvl:
+            type: integer
     lifecycleCallbacks: {  }
