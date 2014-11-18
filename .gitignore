@@ -15,3 +15,9 @@ composer.phar
 
 #metas
 *.meta
+
+#bundle ressource
+!web/bundles/
+!vendor/adesigns/
+!vendor/willdurand
+!vendor/friendsofsymfony
