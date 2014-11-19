@@ -1,8 +1,0 @@
-# HOMEPAGE
-user_management_homepage:
-    path:     /utilisateur/homepage
-    defaults: { _controller: UserManagementBundle:User:index}
-#INSCRIPTION
-user_management_inscription:
-    path:     /utilisateur/inscription
-    defaults: { _controller: UserManagementBundle:User:inscription}
