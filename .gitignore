@@ -9,7 +9,7 @@ build/
 vendor/
 bin/
 composer.phar
-
+web/dev
 #sass source
 *.scssc
 

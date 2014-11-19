@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new Pico\UserManagementBundle\UserManagementBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
+            new Pico\NotificationBundle\PicoNotificationBundle(),
+            new Pico\LeagueBundle\PicoLeagueBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
