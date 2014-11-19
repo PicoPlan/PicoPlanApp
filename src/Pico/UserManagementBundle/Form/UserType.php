@@ -22,7 +22,6 @@ class UserType extends AbstractType
             ->add('birthDate','text')
             ->add('login','text')
             ->add('mdp','password')
-            ->add('mdp2','password')
         ;
     }
     

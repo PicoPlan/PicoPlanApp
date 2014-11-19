@@ -4,6 +4,8 @@ namespace Pico\UserManagementBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Pico\UserManagementBundle\Entity\User;
+use Pico\UserManagementBundle\Form\UserType;
 
 class UserController extends Controller
 {
@@ -18,7 +20,7 @@ class UserController extends Controller
     {
         $user = new User();
         
-        $this->get('form.factory')->create(new UserType(), $user);
+        $form = $this->get('form.factory')->create(new UserType(), $user);
         
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -26,10 +28,12 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('blog_view_by_id', array('id'=>$article->getId())));
+        #    return $this->redirect($this->generateUrl('########', array('id'=>$\\\\\->getId())));
         }
        
-
-        return $this->render('UserManagementBundle:Default:inscription.html.twig');
+        return $this->render('UserManagementBundle:Default:inscription.html.twig', array(
+            'username' => 'Inscription',
+            'title' => 'PicoPlan'
+        ));
     }
 }
