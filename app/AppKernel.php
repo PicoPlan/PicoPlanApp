@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Pico\AssetsBundle\PicoAssetsBundle(),
             new Pico\UserManagementBundle\UserManagementBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new Pico\NotificationBundle\PicoNotificationBundle(),
             new Pico\LeagueBundle\PicoLeagueBundle(),
         );
