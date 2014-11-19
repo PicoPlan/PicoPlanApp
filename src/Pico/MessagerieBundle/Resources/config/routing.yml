@@ -1,3 +1,6 @@
-pico_messagerie_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: PicoMessagerieBundle:Default:index }
+ajout:
+    path:     /add
+    defaults: { _controller: PicoMessagerieBundle:Messagerie:add }
+afficher:
+    path:     /test
+    defaults: { _controller: PicoMessagerieBundle:Messagerie:view }
