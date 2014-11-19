@@ -17,7 +17,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Pico\AssetsBundle\PicoAssetsBundle(),
-            new Pico\UserManagementBundle\UserManagementBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new Pico\NotificationBundle\PicoNotificationBundle(),
@@ -38,8 +37,8 @@ class AppKernel extends Kernel
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
     public function init(){
-	date_default_timezone_set("Europe/Paris");
-	parent::init();
+	   date_default_timezone_set("Europe/Paris");
+	   parent::init();
     }
 
 }

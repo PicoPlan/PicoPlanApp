@@ -6,10 +6,6 @@ pico_notification:
     resource: "@PicoNotificationBundle/Resources/config/routing.yml"
     prefix:   /
 
-user_management:
-    resource: "@UserManagementBundle/Resources/config/routing.yml"
-    prefix:   /
-
 pico_assets:
     resource: "@PicoAssetsBundle/Resources/config/routing.yml"
     prefix:   /
