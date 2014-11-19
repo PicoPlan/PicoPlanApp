@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new Pico\NotificationBundle\PicoNotificationBundle(),
             new Pico\LeagueBundle\PicoLeagueBundle(),
+            new Pico\UserBundle\UserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

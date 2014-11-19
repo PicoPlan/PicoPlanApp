@@ -10,17 +10,20 @@ security:
         in_memory:
             memory:
                 users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+                    user:  { password: toto, roles: [ 'ROLE_USER' ] }
+                    admin: { password: root, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
         main_firewall:
             pattern: ^/
             anonymous: true
+            provider:  in_memory
+            form_login:
+                login_path: user_form_login
+                check_path: user_form_login_check
+            logout:
+                path: user_logout
+                target: /
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
