@@ -3,12 +3,14 @@ app/bootstrap.php.cache
 app/cache/*
 app/config/parameters.yml
 app/logs/*
+app/bootstrap.php.cache
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 build/
 vendor/
 bin/
 composer.phar
+composer.lock
 web/dev
 #sass source
 *.scssc
