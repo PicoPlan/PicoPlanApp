@@ -15,24 +15,25 @@ class AppKernel extends Kernel {
 				new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle (),
 				new FOS\JsRoutingBundle\FOSJsRoutingBundle (),
 				new ADesigns\CalendarBundle\ADesignsCalendarBundle (),
-				
+
 				// Les persos
 				new Pico\MessagerieBundle\PicoMessagerieBundle (),
 				new Pico\NotificationBundle\PicoNotificationBundle (),
 				new Pico\LeagueBundle\PicoLeagueBundle (),
 				new Pico\AssetsBundle\PicoAssetsBundle (),
-				new Pico\UserManagementBundle\UserManagementBundle () 
+                new Pico\UserBundle\UserBundle(),
+
 		);
-		
+
 		if (in_array ( $this->getEnvironment (), array (
 				'dev',
-				'test' 
+				'test'
 		) )) {
 			$bundles [] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle ();
 			$bundles [] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle ();
 			$bundles [] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle ();
 		}
-		
+
 		return $bundles;
 	}
 	public function registerContainerConfiguration(LoaderInterface $loader) {
@@ -41,5 +42,6 @@ class AppKernel extends Kernel {
 	public function init() {
 		date_default_timezone_set ( "Europe/Paris" );
 		parent::init ();
-	}
+    }
 }
+

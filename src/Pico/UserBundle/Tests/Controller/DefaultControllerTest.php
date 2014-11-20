@@ -1,6 +1,6 @@
 <?php
 
-namespace Pico\UserManagementBundle\Tests\Controller;
+namespace Pico\UserBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

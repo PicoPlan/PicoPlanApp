@@ -1,16 +1,15 @@
 pico_messagerie:
     resource: "@PicoMessagerieBundle/Resources/config/routing.yml"
     prefix:   /mp/
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
 pico_league:
     resource: "@PicoLeagueBundle/Resources/config/routing.yml"
     prefix:   /
 
 pico_notification:
     resource: "@PicoNotificationBundle/Resources/config/routing.yml"
-    prefix:   /
-
-user_management:
-    resource: "@UserManagementBundle/Resources/config/routing.yml"
     prefix:   /
 
 pico_assets:
@@ -22,3 +21,19 @@ fos_js_routing:
 
 adesigns_calendar:
     resource: "@ADesignsCalendarBundle/Resources/config/routing.xml" 
+
+# FIREWALL
+    # LOGIN
+user_form_login:
+    path: /user_login
+    defaults: { _controller: UserBundle:Security:login }
+
+    # LOGIN CHECK
+user_form_login_check:
+    pattern: /user_login_check
+
+    # LOGOUT
+user_logout:
+    pattern: /user_logout
+
+# /FIREWALL
