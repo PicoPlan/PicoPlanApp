@@ -1,0 +1,3 @@
+user_homepage:
+    path:    /acceuil
+    defaults: { _controller: UserBundle:User:index }
