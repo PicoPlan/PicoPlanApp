@@ -29,7 +29,6 @@ class SecurityController extends Controller
       'last_username' => $session->get(SecurityContext::LAST_USERNAME),
       'error'         => $error,
       'title'         => 'PicoPlan',
-      'username'         => 'Connexion',
     ));
   }
 }
