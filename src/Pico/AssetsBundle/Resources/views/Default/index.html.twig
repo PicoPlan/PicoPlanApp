@@ -21,7 +21,13 @@
                 <li><a href="">Prout 3 : Le retour</a></li>
               </ul>
               <ul class="nav navbar-nav pull-right">
-                <li><a href="#">{{ username }}</a></li>
+                <li><a href="#">{% if app.user != null %}
+                                  {{ app.user.username }}
+                                {% else %}
+                                  Invité
+                                {% endif %}
+                    </a>
+                </li>
               </ul>
             </nav>
         </header>
