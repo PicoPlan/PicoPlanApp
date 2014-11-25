@@ -3,8 +3,10 @@ security:
         Symfony\Component\Security\Core\User\User: plaintext
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_USER:       ROLE_USER
+        ROLE_MODERATEUR: [ROLE_USER]
+        ROLE_LIGUE_CREATEUR: [ROLE_MODERATEUR]
+        ROLE_ADMIN: [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
         in_memory:
@@ -25,5 +27,20 @@ security:
                 path: user_logout
                 target: /
 
+    # URL SECURITY
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+
+        # LOGIN
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: http }
+
+        # LOGOUT
+        - { path: ^/logout, roles: IS_AUTHENTICATED_REMEMBERED, requires_channel: http }
+
+        # AFFICHAGE DE LA VUE PROFIL UTILISATEUR
+        - { path: ^/profil, roles: ROLE_USER }
+
+        # AFFICHAGE DE LA VUE DE GESTION DE LIGUE (Leo mets le path qui te plait)
+        - { path: ^/ligues/gestion, roles: ROLE_MODERATEUR }
+
+        # AFFICHAGE DE LA PARTIE ADMIN (useless)
+        - { path: ^/admin, roles: ROLE_ADMIN }

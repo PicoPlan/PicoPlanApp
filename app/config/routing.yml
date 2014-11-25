@@ -23,15 +23,15 @@ adesigns_calendar:
 # FIREWALL
     # LOGIN
 user_form_login:
-    path: /user_login
+    path: /login
     defaults: { _controller: UserBundle:Security:login }
 
     # LOGIN CHECK
 user_form_login_check:
-    pattern: /user_login_check
+    pattern: /login_check
 
     # LOGOUT
 user_logout:
-    pattern: /user_logout
+    pattern: /logout
 
 # /FIREWALL
