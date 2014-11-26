@@ -15,13 +15,15 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Pico\AssetsBundle\PicoAssetsBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new Pico\NotificationBundle\PicoNotificationBundle(),
             new Pico\LeagueBundle\PicoLeagueBundle(),
             new Pico\UserBundle\UserBundle(),
+            new Pico\AssetsBundle\PicoAssetsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
