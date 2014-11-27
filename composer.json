@@ -20,7 +20,6 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/jsrouting-bundle": "~1.5",
         "adesigns/calendar-bundle": "~1.1",
-        "doctrine/doctrine-fixtures-bundle": "dev-master",
         "friendsofsymfony/user-bundle": "dev-master"
     },
     "require-dev": {
