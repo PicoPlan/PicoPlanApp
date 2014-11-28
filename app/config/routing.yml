@@ -1,7 +1,9 @@
+pico_messagerie:
+    resource: "@PicoMessagerieBundle/Resources/config/routing.yml"
+    prefix:   /mp/
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /
-
 pico_league:
     resource: "@PicoLeagueBundle/Resources/config/routing.yml"
     prefix:   /
