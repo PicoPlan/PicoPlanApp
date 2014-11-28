@@ -9,6 +9,7 @@ build/
 vendor/
 bin/
 composer.phar
+composer.lock
 web/dev
 #sass source
 *.scssc
