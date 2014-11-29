@@ -2,6 +2,7 @@
 namespace Pico\MessageBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Pico\UserBundle\Entity;
 
 /**
  * messages
@@ -21,7 +22,7 @@ class messages
     private $id;
 
     /**
-     * @ORM\Column(name="user_from", type="integer")
+     * @ORM\ManyToOne(targetEntity="Pico\UserBundle\Entity\User")
      */
     private $userFrom;
 
@@ -50,14 +51,15 @@ class messages
     private $topVu;
 
     /**
-     * 
-     * @ORM\Column(name="user_to", type="integer")
+     * @ORM\ManyToOne(targetEntity="Pico\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $userTo;
 
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->topVu = 0;
     }
 
     /**

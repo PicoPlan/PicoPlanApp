@@ -6,6 +6,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Pico\MessageBundle\Entity\messages;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Pico\MessageBundle\Form\messagesType;
 
 class MessageController extends Controller
 {
@@ -16,32 +18,31 @@ class MessageController extends Controller
     public function getEssentiel()
     {
         // On chope les essentiels
-        // $user = $this->get('security.context')->getToken()->getUser();
-        $user = $this->container->get('security.context')
-            ->getToken()
-            ->getUser();
-        $EntityManager = $this->getDoctrine()->getManager();
-        return array(
-            $EntityManager,
-            $user
-        );
+        if ($this->get("security.context")->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $user = $this->get('security.context')
+                ->getToken()
+                ->getUser();
+            
+            $EntityManager = $this->getDoctrine()->getManager();
+            return array(
+                $EntityManager,
+                $user
+            );
+        } else {
+            throw new AccessDeniedException('Vous devez etre connecté !!');
+        }
     }
 
     public function addAction()
     {
         list ($EntityManager, $user) = $this->getEssentiel();
         $Message = new messages();
-        $Form = $this->get('form.factory')
-            ->createBuilder('form', $Message)
-            ->add('title', 'text')
-            ->add('text', 'textarea')
-            ->add('save', 'submit')
-            ->getForm();
-        $request = $this->getRequest();
-        $Form->handleRequest($request);
-        if ($Form->isValid()) {
+        $Form = $this->get('form.factory')->create(new messagesType(), $Message);
+        if ($Form->handleRequest($this->getRequest())
+            ->isValid()) {
             // On lie les messages à l'user
-            $Message->setUser($user);
+            $Message->setUserFrom($user);
+            $Message->setUserTo($user);
             
             // On sauvegarde les entités
             $EntityManager->persist($user);
@@ -49,11 +50,13 @@ class MessageController extends Controller
             
             // On balance en base
             $EntityManager->flush();
+            
+            return new Response('Message Ajouté');
         } else {
             
-            echo $Form;
-            
-            return new Response('Ok');
+            return $this->render('PicoMessageBundle:Message:add.html.twig', array(
+                'Form' => $Form->createView()
+            ));
         }
     }
 
