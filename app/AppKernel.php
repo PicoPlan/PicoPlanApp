@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Pico\LeagueBundle\PicoLeagueBundle(),
             new Pico\UserBundle\UserBundle(),
             new Pico\AssetsBundle\PicoAssetsBundle(),
+            new Pico\MessageBundle\PicoMessageBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

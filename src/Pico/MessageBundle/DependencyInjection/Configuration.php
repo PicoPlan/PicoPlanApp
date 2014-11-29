@@ -1,6 +1,6 @@
 <?php
 
-namespace Pico\MessagerieBundle\DependencyInjection;
+namespace Pico\MessageBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

@@ -1,6 +1,0 @@
-ajout:
-    path:     /add
-    defaults: { _controller: PicoMessagerieBundle:Messagerie:add }
-afficher:
-    path:     /test
-    defaults: { _controller: PicoMessagerieBundle:Messagerie:view }

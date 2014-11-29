@@ -82,7 +82,12 @@
             <div class="row">
             </div>
           </div> <!-- End block content -->
+            <!-- Body Dynamique -->
+      		<div id='body'>
+      			{% block body %}{% endblock %}
+      		</div>
         </div> <!-- End main row -->
+        
       </div> <!-- End CONTAINER -->
       <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script> <!-- FOSRoutingJsBundle -->
       <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
