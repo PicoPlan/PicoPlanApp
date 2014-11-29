@@ -1,5 +1,5 @@
 pico_messagerie:
-    resource: "@PicoMessagerieBundle/Resources/config/routing.yml"
+    resource: "@PicoMessageBundle/Resources/config/routing.yml"
     prefix:   /mp/
 user:
     resource: "@UserBundle/Resources/config/routing.yml"

@@ -1,6 +1,6 @@
 <?php
 
-namespace Pico\MessagerieBundle\Tests\Controller;
+namespace Pico\MessageBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

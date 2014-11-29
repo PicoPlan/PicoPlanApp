@@ -1,6 +1,6 @@
 <?php
 
-namespace Pico\MessagerieBundle\Entity;
+namespace Pico\MessageBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 
