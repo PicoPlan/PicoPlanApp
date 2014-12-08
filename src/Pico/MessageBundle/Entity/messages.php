@@ -23,6 +23,7 @@ class messages
 
     /**
      * @ORM\ManyToOne(targetEntity="Pico\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $userFrom;
 

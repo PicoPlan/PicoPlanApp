@@ -1,1 +1,21 @@
-{{ ListeMessages }}
+<table>
+	<thead>
+		<tr>
+			<th>De</th>
+			<th>Titre</th>
+			<th>Message</th>
+			<th>Vu</th>
+		</tr>
+	</thead>
+	<tbody>
+  {% for Message in ListeMessages %}
+    <li>
+    	<a href='#'>
+    		<span>
+    			<h3>{{ Message.title }}</h3>
+    			<p>{{ Message.text }}</p>
+			</span>
+		</a>
+	</li>
+  {% endfor %}
+</ul>

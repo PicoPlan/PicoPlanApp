@@ -63,16 +63,10 @@ class MessageController extends Controller
     public function viewAction()
     {
         list ($EntityManager, $user) = $this->getEssentiel();
-        // $user = $user->find(3);
-        
-        // var_dump($user);
-        if (null === $user) {
-            throw new NotFoundHttpException("Vous n'êtes pas connecté.");
-        }
         
         // On récupère la liste des candidatures de cette annonce
         $ListeMessages = $EntityManager->getRepository('PicoMessageBundle:messages')->findBy(array(
-            'user' => $user
+            'userTo' => $user
         ));
         
         return $this->render('PicoMessageBundle:Message:view.html.twig', array(
