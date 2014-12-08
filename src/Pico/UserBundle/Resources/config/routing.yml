@@ -1,5 +1,5 @@
 user_homepage:
-    path:    /acceuil
+    path:    /accueil
     defaults: { _controller: UserBundle:User:index }
 user_profile:
     path:    /profil
