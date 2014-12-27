@@ -3,10 +3,10 @@ pico_messagerie:
     prefix:   /mp/
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /user/
 pico_league:
     resource: "@PicoLeagueBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /league/
 
 pico_notification:
     resource: "@PicoNotificationBundle/Resources/config/routing.yml"
