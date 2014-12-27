@@ -9,7 +9,7 @@ class UserController extends Controller
 
     public function indexAction()
     {
-        return $this->render('UserBundle:Default:index.html.twig', array(
+        return $this->render('::base.html.twig', array(
        	'title' => 'PicoPlan'
         ));
     }
