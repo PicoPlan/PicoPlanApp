@@ -17,3 +17,6 @@ web/dev
 
 #metas
 *.meta
+app/SymfonyRequirements.php
+app/check.php
+.project
