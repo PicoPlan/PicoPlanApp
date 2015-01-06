@@ -22,6 +22,12 @@ class Club
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Pico\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $userCreator;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
@@ -53,6 +59,30 @@ class Club
         return $this->id;
     }
 
+    /**
+     * Set userCreator
+     *
+     * @param integer $userCreator
+     * @return Club
+     */
+    public function setUserCreator($userCreator)
+    {
+        $this->userCreator = $userCreator;
+    
+        return $this;
+    }
+    
+    /**
+     * Get userCreator
+     *
+     * @return integer
+     */
+    public function getUserCreator()
+    {
+        return $this->userCreator;
+    }
+    
+    
     /**
      * Set nom
      *

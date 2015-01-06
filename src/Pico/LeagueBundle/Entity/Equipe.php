@@ -21,6 +21,19 @@ class Equipe
      */
     private $id;
 
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Pico\LeagueBundle\Entity\Sport")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idSport;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Pico\LeagueBundle\Entity\Club")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idClub;
+    
     /**
      * @var string
      *
@@ -46,6 +59,50 @@ class Equipe
         return $this->id;
     }
 
+    /**
+     * Set idSport
+     *
+     * @param integer $idSport
+     * @return Equipe
+     */
+    public function setIdSport($idSport)
+    {
+        $this->idSport = $idSport;
+    
+        return $this;
+    }
+    /**
+     * Get idSport
+     *
+     * @return integer
+     */
+    public function getIdSport()
+    {
+        return $this->idSport;
+    }
+    
+    /**
+     * Set idClub
+     *
+     * @param integer $idClub
+     * @return Equipe
+     */
+    public function setIdClub($idClub)
+    {
+        $this->idClub = $idClub;
+    
+        return $this;
+    }
+    /**
+     * Get idClub
+     *
+     * @return integer
+     */
+    public function getIdClub()
+    {
+        return $this->idClub;
+    }
+    
     /**
      * Set nom
      *

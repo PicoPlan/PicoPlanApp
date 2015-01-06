@@ -22,6 +22,18 @@ class League
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Pico\LeagueBundle\Entity\Sport")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $idSport;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Pico\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $userCreator;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
@@ -46,6 +58,51 @@ class League
         return $this->id;
     }
 
+    /**
+     * Set idSport
+     *
+     * @param integer $idSport
+     * @return League
+     */
+    public function setIdSport($idSport)
+    {
+        $this->idSport = $idSport;
+    
+        return $this;
+    }
+    /**
+     * Get idSport
+     *
+     * @return integer
+     */
+    public function getIdSport()
+    {
+        return $this->idSport;
+    }
+    
+    /**
+     * Set userCreator
+     *
+     * @param integer $userCreator
+     * @return League
+     */
+    public function setUserCreator($userCreator)
+    {
+        $this->userCreator = $userCreator;
+    
+        return $this;
+    }
+    
+    /**
+     * Get userCreator
+     *
+     * @return integer
+     */
+    public function getUserCreator()
+    {
+        return $this->userCreator;
+    }
+    
     /**
      * Set nom
      *

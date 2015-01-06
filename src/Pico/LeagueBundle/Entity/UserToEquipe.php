@@ -22,6 +22,20 @@ class UserToEquipe
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Pico\UserBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+    
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Pico\LeagueBundle\Entity\Equipe")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $equipe;
+    
+    
+    /**
      * @var integer
      *
      * @ORM\Column(name="bool_accepted", type="smallint")
@@ -39,6 +53,55 @@ class UserToEquipe
         return $this->id;
     }
 
+
+    /**
+     * Set equipe
+     *
+     * @param integer $equipe
+     * @return UserToEquipe
+     */
+    public function setEquipe($equipe)
+    {
+        $this->equipe = $equipe;
+    
+        return $this;
+    }
+    
+    /**
+     * Get equipe
+     *
+     * @return integer
+     */
+    public function getEquipe()
+    {
+        return $this->equipe;
+    }
+    
+    
+    /**
+     * Set user
+     *
+     * @param integer $userCreator
+     * @return UserToEquipe
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+    
+    /**
+     * Get user
+     *
+     * @return integer
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+    
+    
     /**
      * Set boolAccepted
      *
