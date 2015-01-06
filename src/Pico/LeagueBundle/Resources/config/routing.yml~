@@ -3,5 +3,5 @@ pico_league_affichage:
     defaults: { _controller: PicoLeagueBundle:League:index }
 
 pico_league_affichage_ajax:
-    path:     /ajax/affichage/{Type}
+    path:     /ajax/affichage/{type}
     defaults: { _controller: PicoLeagueBundle:League:getAffichage }
