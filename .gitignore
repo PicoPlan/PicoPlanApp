@@ -20,3 +20,7 @@ web/dev
 app/SymfonyRequirements.php
 app/check.php
 .project
+
+#Eclipse
+.buildpath
+.settings/
