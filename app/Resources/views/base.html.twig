@@ -84,12 +84,11 @@
           </div> <!-- End sidebar -->
           <div class="col-sm-10" id="content"> <!-- Block content -->
             <div class="row">
+              <div id='body'>
+                {% block content %}{% endblock %}
+              </div>
             </div>
           </div> <!-- End block content -->
-            <!-- Body Dynamique -->
-      		<div id='body'>
-      			{% block body %}{% endblock %}
-      		</div>
         </div> <!-- End main row -->
         
       </div> <!-- End CONTAINER -->
