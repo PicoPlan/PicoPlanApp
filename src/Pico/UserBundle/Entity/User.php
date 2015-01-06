@@ -26,23 +26,23 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
      */
-    private $nom;
+    protected $last_name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
+     * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
      */
-    private $prenom;
+    protected $first_name;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="telephone", type="integer", nullable=true)
+     * @ORM\Column(name="phone", type="integer", nullable=false)
      */
-    private $telephone;
+    protected $phone;
 
     /**
      * Set nom
