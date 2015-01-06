@@ -16,7 +16,11 @@
 $("button").click(function(){
 	var type = $(this).html();
   	$.get("../ajax/affichage/"+type,function(data,status){
-    	$('#dynamique').html(data);
+  		if(status == 'success') {
+    		$('#dynamique').html(data);
+    	} else {
+    		alert('erreur');
+    	}
   	});
 });
 </script>
