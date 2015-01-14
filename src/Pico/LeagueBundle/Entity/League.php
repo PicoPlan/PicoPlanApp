@@ -25,7 +25,7 @@ class League
      * @ORM\ManyToOne(targetEntity="Pico\LeagueBundle\Entity\Sport")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $idSport;
+    private $sport;
     
     /**
      * @ORM\ManyToOne(targetEntity="Pico\UserBundle\Entity\User")
@@ -59,25 +59,25 @@ class League
     }
 
     /**
-     * Set idSport
+     * Set sport
      *
-     * @param integer $idSport
+     * @param integer $sport
      * @return League
      */
-    public function setIdSport($idSport)
+    public function setSport($sport)
     {
-        $this->idSport = $idSport;
+        $this->sport = $sport;
     
         return $this;
     }
     /**
-     * Get idSport
+     * Get sport
      *
      * @return integer
      */
-    public function getIdSport()
+    public function getSport()
     {
-        return $this->idSport;
+        return $this->sport;
     }
     
     /**
