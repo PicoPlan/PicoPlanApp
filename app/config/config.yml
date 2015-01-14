@@ -73,6 +73,9 @@ swiftmailer:
 
 # FOSUserBundle Configuration
 fos_user:
-    db_driver:     orm                         # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
-    firewall_name: main_firewall               # Le nom du firewall derrière lequel on utilisera ces utilisateurs
-    user_class:    Pico\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    db_driver:     orm                         # Database type to be used
+    firewall_name: main_firewall               # Firewall name
+    user_class:    Pico\UserBundle\Entity\User # Entity User class
+    registration: # Custom registration
+        form:
+            type: pico_user_registration  

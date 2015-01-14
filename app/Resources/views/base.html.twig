@@ -26,10 +26,19 @@
                 <li><a href="">Prout 3 : Le retour</a></li>
               </ul>
               <ul class="nav navbar-nav pull-right">
-                <li>{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                 Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                  <li>
+                    <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
+                  </li>
+                  <li>
+                    <a href="{{ path('fos_user_security_logout') }}">
+                      <span class="glyphicon glyphicon-off"></span>
+                    </a>
+                  </li>
                 {% else %}
+                  <li>
                     <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                  </li>
                 {% endif %}
                 </li>
               </ul>
@@ -84,16 +93,30 @@
           </div> <!-- End sidebar -->
           <div class="col-sm-10" id="content"> <!-- Block content -->
             <div class="row">
+              <div id='body'>
+                {% if alert_info is defined %}
+                  <div id="alert-info" class="alert alert-{{ alert_class }}">
+                      <p>
+                        {{ alert_info}}
+                      </p>
+                  </div>
+                {% endif %}
+                {% block content %}{% endblock %}
+              </div>
             </div>
           </div> <!-- End block content -->
-            <!-- Body Dynamique -->
-      		<div id='body'>
-      			{% block body %}{% endblock %}
-      		</div>
         </div> <!-- End main row -->
         
       </div> <!-- End CONTAINER -->
       <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script> <!-- FOSRoutingJsBundle -->
       <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+      <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+      <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+      {% javascripts
+        '@PicoAssetsBundle/Resources/public/javascripts/*'
+        '@PicoAssetsBundle/Resources/public/javascripts/library/*'
+        '@PicoAssetsBundle/Resources/public/javascripts/bootstrap/**' %}
+        <script src="{{ asset_url }}"></script>
+      {% endjavascripts %}
     </body>
 </html>
