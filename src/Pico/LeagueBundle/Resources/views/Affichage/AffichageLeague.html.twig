@@ -1,0 +1,16 @@
+{% set title = 'League' %}
+{% extends "PicoAssetsBundle:Default:index.html.twig" %}
+{% block body %}
+<div id='affichageLeague'>
+	<h3>{{League.nom}} - {{League.sport.nom}}</h3>
+	<br />
+	<h4>Description :</h4>
+	<p>{{League.description}}</p>
+	<br />
+	<h4>Calendrier</h4>
+	<span class='calendar'>Calendrier à venir ici</span>
+	<br />
+	<h4>Membres :</h4>
+	<span class='membres'>Liste des membres à venir ici</span>
+</div>
+{% endblock %}

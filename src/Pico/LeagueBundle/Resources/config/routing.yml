@@ -1,6 +1,9 @@
 pico_league_affichage:
-    path:     /affichage/
-    defaults: { _controller: PicoLeagueBundle:League:index }
+    path:     /affichage/{Type}/{Id}
+    defaults: { _controller: PicoLeagueBundle:League:index,Type: false, Id: false}
+    requirements:
+        Id:  \d+
+        Type: Leagues|Clubs|Equipes
 
 pico_league_affichage_ajax:
     path:     /ajax/affichage/{Type}

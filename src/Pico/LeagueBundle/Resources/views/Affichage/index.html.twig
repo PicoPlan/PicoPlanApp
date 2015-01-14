@@ -2,7 +2,6 @@
 {% extends "PicoAssetsBundle:Default:index.html.twig" %}
 {% block body %}
 <li class='selection'>
-
 	<ul><button type="button">Leagues</button></ul>
 	<ul><button type="button">Clubs</button></ul>
 	<ul><button type="button">Equipes</button></ul>
@@ -14,8 +13,9 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" ></script>
 <script type="text/javascript">
 $("button").click(function(){
-	var type = $(this).html();
-  	$.get("../ajax/affichage/"+type,function(data,status){
+	var url = "{{url('pico_league_affichage_ajax',{'Type' : 'to_replace'})}}";
+	url = url.replace("to_replace", $(this).html());
+  	$.get(url,function(data,status){
   		if(status == 'success') {
     		$('#dynamique').html(data);
     	} else {
