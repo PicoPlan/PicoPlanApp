@@ -15,9 +15,29 @@ class LeagueController extends Controller
      * indexAction
      * Affiche le menu de choix des sous vues (récuperation en ajax)
      */
-    public function indexAction()
+    public function indexAction($Type=false,$Id=false)
     {
-        return $this->render('PicoLeagueBundle:Affichage:index.html.twig');
+        if($Type == false OR $Id==false) {
+            return $this->render('PicoLeagueBundle:Affichage:index.html.twig');
+        } else {
+            switch ($Type) {
+                case 'Leagues':
+                    $Liste = $EntityManager->getRepository('PicoLeagueBundle:League')->findBy(array(), array('nom' => 'Desc'));
+                    $InfoComplementaire = array('sport');
+                    break;
+                case 'Clubs':
+                    $Liste = $EntityManager->getRepository('PicoLeagueBundle:Club')->findBy(array(), array('nom' => 'Desc'));
+                    $InfoComplementaire = array('sport');
+                    break;
+                case 'Equipes':
+                    $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array(), array('nom' => 'Desc'));
+                    $InfoComplementaire = array('sport','club');
+                    break;
+                default:
+                    throw new \Exception('Quelque chose a mal tourné !');
+                    break;
+            }
+        }
     }
     
     /**
