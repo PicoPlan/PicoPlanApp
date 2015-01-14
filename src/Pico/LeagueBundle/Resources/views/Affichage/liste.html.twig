@@ -23,7 +23,7 @@
 					{% for info in InfoComplementaire %}
 						<td>{{attribute(Information, info).nom}}</td>
 					{% endfor %}
-					<td><a href='../../affichage/{{Type}}/{{Information.id}}'> Lien represente par une fleche </a></td>
+					<td><a href='{{url('pico_league_affichage', {'Type': Type,'Id': Information.id}) }}'> Lien represente par une fleche </a></td>
 				</tr>
 			{% endfor %}
 			</tbody>

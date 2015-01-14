@@ -1,74 +1,105 @@
 <?php
-
 namespace Pico\LeagueBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class LeagueController extends Controller
 {
-    /**
-     *   Gestion de l'affichage
-     */
 
+    /**
+     * Gestion de l'affichage
+     */
     
     /**
      * indexAction
+     * Affiche la page du $Type $Id
+     * Default :
      * Affiche le menu de choix des sous vues (récuperation en ajax)
      */
-    public function indexAction($Type=false,$Id=false)
+    public function indexAction($Type = false, $Id = false)
     {
-        if($Type == false OR $Id==false) {
-            return $this->render('PicoLeagueBundle:Affichage:index.html.twig');
-        } else {
+        $EntityManager = $this->getDoctrine()->getManager();
+        if ($Type !== false and $Id !== false) {
             switch ($Type) {
                 case 'Leagues':
-                    $Liste = $EntityManager->getRepository('PicoLeagueBundle:League')->findBy(array(), array('nom' => 'Desc'));
-                    $InfoComplementaire = array('sport');
+                    $League = $EntityManager->getRepository('PicoLeagueBundle:League')->find($Id);
+                    if (is_null($League)) {
+                        break;
+                    }
+                    // Si pas de liste en renvois sur la page par defaut
+                    return $this->render('PicoLeagueBundle:Affichage:AffichageLeague.html.twig', array(
+                        'League' => $League
+                    ));
                     break;
                 case 'Clubs':
-                    $Liste = $EntityManager->getRepository('PicoLeagueBundle:Club')->findBy(array(), array('nom' => 'Desc'));
-                    $InfoComplementaire = array('sport');
+                    $Club = $EntityManager->getRepository('PicoLeagueBundle:Club')->find($Id);
+                    if (is_null($Club)) {
+                        break;
+                    }
+                    // Si pas de liste en renvois sur la page par defaut
+                    return $this->render('PicoLeagueBundle:AffichageClub:index.html.twig');
                     break;
                 case 'Equipes':
-                    $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array(), array('nom' => 'Desc'));
-                    $InfoComplementaire = array('sport','club');
+                    $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->find($Id);
+                    // Si pas de liste en renvois sur la page par defaut
+                    return $this->render('PicoLeagueBundle:Affichage:index.html.twig');
                     break;
                 default:
                     throw new \Exception('Quelque chose a mal tourné !');
                     break;
             }
         }
+        
+        return $this->render('PicoLeagueBundle:Affichage:index.html.twig');
     }
-    
+
     /**
      * Renvois la liste des entitées en fonction du type
-     * Valeurs possibles : Leagues, Clubs, Equipes 
+     * Valeurs possibles : Leagues, Clubs, Equipes
      */
     public function getAffichageAction($Type)
     {
         $EntityManager = $this->getDoctrine()->getManager();
         switch ($Type) {
             case 'Leagues':
-                $Liste = $EntityManager->getRepository('PicoLeagueBundle:League')->findBy(array(), array('nom' => 'Desc'));
-                $InfoComplementaire = array('sport');
-            break;
+                $Liste = $EntityManager->getRepository('PicoLeagueBundle:League')->findBy(array(), array(
+                    'nom' => 'Desc'
+                ));
+                $InfoComplementaire = array(
+                    'sport'
+                );
+                break;
             case 'Clubs':
-                $Liste = $EntityManager->getRepository('PicoLeagueBundle:Club')->findBy(array(), array('nom' => 'Desc'));
-                $InfoComplementaire = array('sport');
-            break;
+                $Liste = $EntityManager->getRepository('PicoLeagueBundle:Club')->findBy(array(), array(
+                    'nom' => 'Desc'
+                ));
+                $InfoComplementaire = array(
+                    'sport'
+                );
+                break;
             case 'Equipes':
-                $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array(), array('nom' => 'Desc'));
-                $InfoComplementaire = array('sport','club');
-            break;
+                $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array(), array(
+                    'nom' => 'Desc'
+                ));
+                $InfoComplementaire = array(
+                    'sport',
+                    'club'
+                );
+                break;
             default:
                 throw new \Exception('Quelque chose a mal tourné !');
-            break;
+                break;
         }
-        if(empty($Liste)) {
+        if (empty($Liste)) {
             $Error = 'Pas disponnible :/';
         } else {
             $Error = false;
         }
-        return $this->render('PicoLeagueBundle:Affichage:liste.html.twig',array('Type'=>$Type,'Liste'=>$Liste,'InfoComplementaire'=>$InfoComplementaire,'Error'=>$Error));
+        return $this->render('PicoLeagueBundle:Affichage:liste.html.twig', array(
+            'Type' => $Type,
+            'Liste' => $Liste,
+            'InfoComplementaire' => $InfoComplementaire,
+            'Error' => $Error
+        ));
     }
 }
