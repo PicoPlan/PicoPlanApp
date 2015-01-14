@@ -1,0 +1,19 @@
+{% set title = 'Club' %}
+{% extends "PicoAssetsBundle:Default:index.html.twig" %}
+{% block body %}
+<div id='affichageClub'>
+	<h3>{{Club.nom}}</h3>
+	<br />
+	<h4>Description :</h4>
+	<p>{{Club.description}}</p>
+	<br />
+	<h4>Adresse :</h4>
+	<p>{{Club.adresse}}</p>
+	<br />
+	<h4>Calendrier</h4>
+	<span class='calendar'>Calendrier à venir ici</span>
+	<br />
+	<h4>Membres :</h4>
+	<span class='membres'>Liste des membres à venir ici</span>
+</div>
+{% endblock %}
