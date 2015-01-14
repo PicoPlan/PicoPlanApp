@@ -3,6 +3,7 @@
 namespace Pico\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
@@ -36,6 +37,11 @@ class UserController extends Controller
                 );
 
             return $this->render('UserBundle:User:home.html.twig', $data);
+        }
+        else {
+            $url = $this->generateUrl('fos_user_security_login');
+
+            return $this->redirect($url, 301);
         }
 
     }
