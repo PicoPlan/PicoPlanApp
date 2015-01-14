@@ -2,6 +2,8 @@
 namespace Pico\LeagueBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Pico\LeagueBundle\Entity\Club;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LeagueController extends Controller
 {
@@ -9,7 +11,43 @@ class LeagueController extends Controller
     /**
      * Gestion de l'affichage
      */
-    
+    /**
+     * Retourne un array contenant les elements essentiels a chaque fonction
+     */
+    public function getEssentiel()
+    {
+        // On chope les essentiels
+        if ($this->get("security.context")->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $user = $this->get('security.context')
+                ->getToken()
+                ->getUser();
+            
+            $EntityManager = $this->getDoctrine()->getManager();
+            return array(
+                $EntityManager,
+                $user
+            );
+        } else {
+            throw new AccessDeniedException('Vous devez etre connecté !!');
+        }
+    }
+
+    public function test()
+    {
+        list ($EntityManager, $User) = $this->getEssentiel();
+        // var_dump($User);
+        $Club = new Club();
+        $Club->setUserCreator($User);
+        $Club->setNom('Le club de Punkoleo');
+        $Club->setAdresse('42 rue du Geek - 75020 - Paris');
+        $Club->setDescription('Club pour tout les geeks, sports proposés : BabyFoot, CS1.6, League of Legend');
+        // On sauvegarde les entités
+        // $EntityManager->persist($User);
+        $EntityManager->persist($Club);
+        // On balance en base
+        $EntityManager->flush();
+    }
+
     /**
      * indexAction
      * Affiche la page du $Type $Id
@@ -18,6 +56,7 @@ class LeagueController extends Controller
      */
     public function indexAction($Type = false, $Id = false)
     {
+        // $this->test();
         $EntityManager = $this->getDoctrine()->getManager();
         if ($Type !== false and $Id !== false) {
             switch ($Type) {
@@ -37,7 +76,7 @@ class LeagueController extends Controller
                         break;
                     }
                     // Si pas de liste en renvois sur la page par defaut
-                    return $this->render('PicoLeagueBundle:AffichageClub:index.html.twig');
+                    return $this->render('PicoLeagueBundle:Affichage:AffichageClub.html.twig',array('Club'=>$Club));
                     break;
                 case 'Equipes':
                     $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->find($Id);
@@ -73,9 +112,7 @@ class LeagueController extends Controller
                 $Liste = $EntityManager->getRepository('PicoLeagueBundle:Club')->findBy(array(), array(
                     'nom' => 'Desc'
                 ));
-                $InfoComplementaire = array(
-                    'sport'
-                );
+                $InfoComplementaire = array();
                 break;
             case 'Equipes':
                 $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array(), array(
