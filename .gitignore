@@ -24,3 +24,7 @@ app/check.php
 #Eclipse
 .buildpath
 .settings/
+
+#web assets
+web/css
+web/js
