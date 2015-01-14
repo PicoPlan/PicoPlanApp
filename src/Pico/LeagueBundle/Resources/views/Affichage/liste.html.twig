@@ -1,5 +1,6 @@
 {% set title = '{{Type}}' %}
-{% block body %}
+{% block content %}
+{{url('pico_league_affichage')}}
 	<h2>{{Type}}</h2>
 	{% if Error != false %}
 		{{Error}}
