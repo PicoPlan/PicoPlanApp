@@ -4,6 +4,8 @@ namespace Pico\LeagueBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Pico\LeagueBundle\Entity\Equipe;
 use Pico\LeagueBundle\Entity\Sport;
+use Pico\LeagueBundle\Entity\League;
+use Pico\LeagueBundle\Entity\Club;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LeagueController extends Controller
