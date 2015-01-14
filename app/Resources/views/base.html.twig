@@ -94,6 +94,13 @@
           <div class="col-sm-10" id="content"> <!-- Block content -->
             <div class="row">
               <div id='body'>
+                {% if alert_info is defined %}
+                  <div id="alert-info" class="alert alert-{{ alert_class }}">
+                      <p>
+                        {{ alert_info}}
+                      </p>
+                  </div>
+                {% endif %}
                 {% block content %}{% endblock %}
               </div>
             </div>

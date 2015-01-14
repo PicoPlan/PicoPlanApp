@@ -23,10 +23,12 @@ class RegistrationController extends FOSRegistrationController
         }
 
         $alert_info = "Votre compte est bien enregistré !";
+        $alert_class = "success";
 
         return $this->render('::base.html.twig', array(
             'user' => $user,
             'alert_info' => $alert_info,
+            'alert_class' => $alert_class,
         ));
     }
 }
