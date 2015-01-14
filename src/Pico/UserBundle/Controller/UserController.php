@@ -20,11 +20,24 @@ class UserController extends Controller
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        var_dump('uech');
-
         return $this->render('::base.html.twig', array(
             'user' => $user,
         ));
+    }
+
+    public function homeAction() {
+        if ($this->get("security.context")->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $user = $this->get('security.context')
+                ->getToken()
+                ->getUser();
+
+            $data = array(
+                'user' => $user,
+                );
+
+            return $this->render('UserBundle:User:home.html.twig', $data);
+        }
+
     }
 }
 
