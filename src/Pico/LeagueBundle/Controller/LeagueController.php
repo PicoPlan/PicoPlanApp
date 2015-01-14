@@ -2,7 +2,8 @@
 namespace Pico\LeagueBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Pico\LeagueBundle\Entity\Club;
+use Pico\LeagueBundle\Entity\Equipe;
+use Pico\LeagueBundle\Entity\Sport;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LeagueController extends Controller
@@ -36,14 +37,25 @@ class LeagueController extends Controller
     {
         list ($EntityManager, $User) = $this->getEssentiel();
         // var_dump($User);
+        $Sport = new Sport();
+        $Sport->setNom('Rugby');
+        $Sport->setDescription('Un sport de Badass');
+        $EntityManager->persist($Sport);
+        
         $Club = new Club();
         $Club->setUserCreator($User);
-        $Club->setNom('Le club de Punkoleo');
-        $Club->setAdresse('42 rue du Geek - 75020 - Paris');
-        $Club->setDescription('Club pour tout les geeks, sports proposés : BabyFoot, CS1.6, League of Legend');
-        // On sauvegarde les entités
-        // $EntityManager->persist($User);
+        $Club->setNom('Le club des vrais');
+        $Club->setAdresse('42 rue des vrais - 75020 - Paris');
+        $Club->setDescription('Club de bonhome t\'as vu !');
         $EntityManager->persist($Club);
+        
+        $Equipe = new Equipe();
+        $Equipe->setSport($Sport);
+        $Equipe->setClub($Club);
+        $Equipe->setNom('Les vrais rugbyman !');
+        $Equipe->setListeModo(serialize(array('1','2','3')));
+        $EntityManager->persist($Equipe);
+        
         // On balance en base
         $EntityManager->flush();
     }
@@ -56,7 +68,7 @@ class LeagueController extends Controller
      */
     public function indexAction($Type = false, $Id = false)
     {
-        // $this->test();
+        $this->test();
         $EntityManager = $this->getDoctrine()->getManager();
         if ($Type !== false and $Id !== false) {
             switch ($Type) {
@@ -79,9 +91,12 @@ class LeagueController extends Controller
                     return $this->render('PicoLeagueBundle:Affichage:AffichageClub.html.twig',array('Club'=>$Club));
                     break;
                 case 'Equipes':
-                    $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->find($Id);
+                    $Equipe = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->find($Id);
+                    if (is_null($Equipe)) {
+                        break;
+                    }
                     // Si pas de liste en renvois sur la page par defaut
-                    return $this->render('PicoLeagueBundle:Affichage:index.html.twig');
+                    return $this->render('PicoLeagueBundle:Affichage:AffichageEquipe.html.twig',array('Equipe'=>$Equipe));
                     break;
                 default:
                     throw new \Exception('Quelque chose a mal tourné !');
