@@ -4,6 +4,8 @@ namespace Pico\LeagueBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Pico\LeagueBundle\Entity\Equipe;
 use Pico\LeagueBundle\Entity\Sport;
+use Pico\LeagueBundle\Entity\League;
+use Pico\LeagueBundle\Entity\Club;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LeagueController extends Controller
@@ -36,7 +38,7 @@ class LeagueController extends Controller
     public function test()
     {
         list ($EntityManager, $User) = $this->getEssentiel();
-
+        
         $Sport = new Sport();
         $Sport->setNom('Rugby');
         $Sport->setDescription('Un sport de gentlemen joué par des hooligans');
@@ -65,14 +67,22 @@ class LeagueController extends Controller
         $Equipe->setSport($Sport);
         $Equipe->setClub($Club);
         $Equipe->setNom('Les vrais rugbyman !');
-        $Equipe->setListeModo(serialize(array('1','2','3')));
+        $Equipe->setListeModo(serialize(array(
+            '1',
+            '2',
+            '3'
+        )));
         $EntityManager->persist($Equipe);
         
         $Equipe = new Equipe();
         $Equipe->setSport($Sport2);
         $Equipe->setClub($Club);
         $Equipe->setNom('Les vrais Babyfooteux !');
-        $Equipe->setListeModo(serialize(array('1','2','3')));
+        $Equipe->setListeModo(serialize(array(
+            '1',
+            '2',
+            '3'
+        )));
         $EntityManager->persist($Equipe);
         
         // On balance en base
@@ -87,11 +97,11 @@ class LeagueController extends Controller
      */
     public function indexAction($Type = false, $Id = false)
     {
-        $this->test();
+        // $this->test();
         $EntityManager = $this->getDoctrine()->getManager();
         if ($Type !== false and $Id !== false) {
             switch ($Type) {
-                case 'Leagues':
+                case 'Ligues':
                     $League = $EntityManager->getRepository('PicoLeagueBundle:League')->find($Id);
                     if (is_null($League)) {
                         break;
@@ -107,7 +117,9 @@ class LeagueController extends Controller
                         break;
                     }
                     // Si pas de liste en renvois sur la page par defaut
-                    return $this->render('PicoLeagueBundle:Affichage:AffichageClub.html.twig',array('Club'=>$Club));
+                    return $this->render('PicoLeagueBundle:Affichage:AffichageClub.html.twig', array(
+                        'Club' => $Club
+                    ));
                     break;
                 case 'Equipes':
                     $Equipe = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->find($Id);
@@ -115,7 +127,9 @@ class LeagueController extends Controller
                         break;
                     }
                     // Si pas de liste en renvois sur la page par defaut
-                    return $this->render('PicoLeagueBundle:Affichage:AffichageEquipe.html.twig',array('Equipe'=>$Equipe));
+                    return $this->render('PicoLeagueBundle:Affichage:AffichageEquipe.html.twig', array(
+                        'Equipe' => $Equipe
+                    ));
                     break;
                 default:
                     throw new \Exception('Quelque chose a mal tourné !');
@@ -134,7 +148,7 @@ class LeagueController extends Controller
     {
         $EntityManager = $this->getDoctrine()->getManager();
         switch ($Type) {
-            case 'Leagues':
+            case 'Ligues':
                 $Liste = $EntityManager->getRepository('PicoLeagueBundle:League')->findBy(array(), array(
                     'nom' => 'Desc'
                 ));
@@ -144,9 +158,11 @@ class LeagueController extends Controller
                 break;
             case 'Clubs':
                 $Liste = $EntityManager->getRepository('PicoLeagueBundle:Club')->findBy(array(), array(
+                    
                     'nom' => 'Desc'
                 ));
-                $InfoComplementaire = array();
+                $InfoComplementaire = array(
+                );
                 break;
             case 'Equipes':
                 $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array(), array(
