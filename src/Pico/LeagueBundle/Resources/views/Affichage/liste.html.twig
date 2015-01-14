@@ -12,6 +12,7 @@
 					{% for info in InfoComplementaire %}
 						<th>{{info}}</th>
 					{% endfor %}
+					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,6 +23,7 @@
 					{% for info in InfoComplementaire %}
 						<td>{{attribute(Information, info).nom}}</td>
 					{% endfor %}
+					<td><a href='../../affichage/{{Type}}/{{Information.id}}'> Lien represente par une fleche </a></td>
 				</tr>
 			{% endfor %}
 			</tbody>
