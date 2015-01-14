@@ -1,6 +1,6 @@
 {% set title = 'League' %}
-{% extends "PicoAssetsBundle:Default:index.html.twig" %}
-{% block body %}
+{% extends "::base.html.twig" %}
+{% block content %}
 <div id='affichageLeague'>
 	<h3>{{League.nom}} - {{League.sport.nom}}</h3>
 	<br />

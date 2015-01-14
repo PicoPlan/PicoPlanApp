@@ -7,19 +7,23 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Nom</th>
-					<th>Description</th>
+					<th>Nom </th>
+					<th>Description </th>
 					{% for info in InfoComplementaire %}
-						<th>{{info}}</th>
+						<th>{{info|capitalize}} </th>
 					{% endfor %}
-					<th>Action</th>
+					<th>Action </th>
 				</tr>
 			</thead>
 			<tbody>
 			{% for Information in Liste %}
 				<tr>
 					<td>{{Information.nom}}</td>
-					<td>{{Information.description}}</td>
+					{% if Information.method('description') is defined %} 
+						<td>{{Information.description}}</td>
+					{% else %}
+						<td>N/R</td>
+					{% endif %}
 					{% for info in InfoComplementaire %}
 						<td>{{attribute(Information, info).nom}}</td>
 					{% endfor %}

@@ -1,14 +1,11 @@
 {% set title = 'Equipe' %}
-{% extends "PicoAssetsBundle:Default:index.html.twig" %}
-{% block body %}
-<div id='affichageClub'>
+{% extends "::base.html.twig" %}
+{% block content %}
+<div id='affichageEquipe'>
 	<h3>{{Equipe.nom}} - {{Equipe.club.nom}}</h3>
 	<br />
-	<h4>Description :</h4>
-	<p>{{Club.description}}</p>
-	<br />
 	<h4>Sport :</h4>
-	<p>{{Club.sport}}</p>
+	<p>{{Equipe.sport.nom}}</p>
 	<br />
 	<h4>Calendrier</h4>
 	<span class='calendar'>Calendrier à venir ici</span>
