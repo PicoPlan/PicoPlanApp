@@ -1,6 +1,30 @@
 {% set title = '{{Type}}' %}
 {% block body %}
-{{Type}}
-<br />
-{{Liste}}
+	<h2>{{Type}}</h2>
+	{% if Error != false %}
+		{{Error}}
+	{% else %}
+		<table>
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Description</th>
+					{% for info in InfoComplementaire %}
+						<th>{{info}}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+			{% for Information in Liste %}
+				<tr>
+					<td>{{Information.nom}}</td>
+					<td>{{Information.description}}</td>
+					{% for info in InfoComplementaire %}
+						<td>{{attribute(Information, info).nom}}</td>
+					{% endfor %}
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{%endif%}
 {% endblock %}

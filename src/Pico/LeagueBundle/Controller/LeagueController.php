@@ -30,20 +30,25 @@ class LeagueController extends Controller
         switch ($Type) {
             case 'Leagues':
                 $Liste = $EntityManager->getRepository('PicoLeagueBundle:League')->findBy(array(), array('nom' => 'Desc'));
+                $InfoComplementaire = array('sport');
             break;
             case 'Clubs':
                 $Liste = $EntityManager->getRepository('PicoLeagueBundle:Club')->findBy(array(), array('nom' => 'Desc'));
+                $InfoComplementaire = array('sport');
             break;
             case 'Equipes':
                 $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array(), array('nom' => 'Desc'));
+                $InfoComplementaire = array('sport','club');
             break;
             default:
                 throw new \Exception('Quelque chose a mal tourné !');
             break;
         }
         if(empty($Liste)) {
-            $Liste = 'Aucun '.$Type.' disponnible :/';
+            $Error = 'Pas disponnible :/';
+        } else {
+            $Error = false;
         }
-        return $this->render('PicoLeagueBundle:Affichage:liste.html.twig',array('Type'=>$Type,'Liste'=>$Liste));
+        return $this->render('PicoLeagueBundle:Affichage:liste.html.twig',array('Type'=>$Type,'Liste'=>$Liste,'InfoComplementaire'=>$InfoComplementaire,'Error'=>$Error));
     }
 }
