@@ -53,7 +53,6 @@ class MessageController extends Controller
             
             return new Response('Message Ajouté');
         } else {
-            
             return $this->render('PicoMessageBundle:Message:add.html.twig', array(
                 'Form' => $Form->createView()
             ));
