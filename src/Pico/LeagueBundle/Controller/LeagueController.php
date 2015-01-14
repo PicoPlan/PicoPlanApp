@@ -36,23 +36,42 @@ class LeagueController extends Controller
     public function test()
     {
         list ($EntityManager, $User) = $this->getEssentiel();
-        // var_dump($User);
+
         $Sport = new Sport();
         $Sport->setNom('Rugby');
-        $Sport->setDescription('Un sport de Badass');
+        $Sport->setDescription('Un sport de gentlemen joué par des hooligans');
         $EntityManager->persist($Sport);
+        
+        $Sport2 = new Sport();
+        $Sport2->setNom('BabyFoot');
+        $Sport2->setDescription('Un sport de gentlemen joué par des hooligans');
+        $EntityManager->persist($Sport2);
+        
+        $League = new League();
+        $League->setNom('Rugby');
+        $League->setDescription('La ligue des rugbyman');
+        $League->setSport($Sport);
+        $League->setUserCreator($User);
+        $EntityManager->persist($League);
         
         $Club = new Club();
         $Club->setUserCreator($User);
-        $Club->setNom('Le club des vrais');
-        $Club->setAdresse('42 rue des vrais - 75020 - Paris');
-        $Club->setDescription('Club de bonhome t\'as vu !');
+        $Club->setNom('Le club de Ynov');
+        $Club->setAdresse('42 rue de Ynov - 75020 - Paris');
+        $Club->setDescription('Club de geek !');
         $EntityManager->persist($Club);
         
         $Equipe = new Equipe();
         $Equipe->setSport($Sport);
         $Equipe->setClub($Club);
         $Equipe->setNom('Les vrais rugbyman !');
+        $Equipe->setListeModo(serialize(array('1','2','3')));
+        $EntityManager->persist($Equipe);
+        
+        $Equipe = new Equipe();
+        $Equipe->setSport($Sport2);
+        $Equipe->setClub($Club);
+        $Equipe->setNom('Les vrais Babyfooteux !');
         $Equipe->setListeModo(serialize(array('1','2','3')));
         $EntityManager->persist($Equipe);
         
