@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LeagueController extends Controller
 {
+    //yo
 
     /**
      * Gestion de l'affichage
