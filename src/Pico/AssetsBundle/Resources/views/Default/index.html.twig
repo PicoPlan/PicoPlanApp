@@ -22,8 +22,8 @@
               </div>
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#">headerlink</a></li>
-                <li><a href="#">Prout 2</a></li>
-                <li><a href="">Prout 3 : Le retour</a></li>
+                <li><a href="#">Lien 2</a></li>
+                <li><a href="">Lien 3 : Le retour</a></li>
               </ul>
               <ul class="nav navbar-nav pull-right">
                 <li><a href="#">{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -64,7 +64,7 @@
                 </a>
               </li>
               <li role="presentation">
-                <a href="#">
+                <a href="{{url('pico_league_affichage')}}">
                   <span class="glyphicon glyphicon-list"></span>
                   Ligues
                 </a>
