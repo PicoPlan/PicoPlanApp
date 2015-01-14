@@ -1,11 +1,13 @@
-{% set title = 'Leagues' %}
-{% extends "PicoAssetsBundle:Default:index.html.twig" %}
-{% block body %}
-<li class='selection'>
-	<ul><button type="button">Leagues</button></ul>
-	<ul><button type="button">Clubs</button></ul>
-	<ul><button type="button">Equipes</button></ul>
-</li>
+{% set title = 'Ligues' %}
+{% extends "::base.html.twig" %}
+{% block content %}
+<ul class='selection'>
+	<li><button type="button">Ligues</button></li>
+	<br />
+	<li><button type="button">Clubs</button></li>
+	<br />
+	<li><button type="button">Equipes</button></li>
+</ul>
 
 <div id='dynamique'>
 </div>
