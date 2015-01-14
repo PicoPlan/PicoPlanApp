@@ -1,15 +1,13 @@
 {% set title = 'Ligues' %}
 {% extends "::base.html.twig" %}
 {% block content %}
-<ul class='selection'>
-	<li><button type="button">Ligues</button></li>
-	<br />
-	<li><button type="button">Clubs</button></li>
-	<br />
-	<li><button type="button">Equipes</button></li>
+<ul class='nav-tabs list-unstyled' class='selection'>
+	<li><button type="button" class='btn' >Ligues</button></li>
+	<li><button type="button" class='btn' >Clubs</button></li>
+	<li><button type="button" class='btn' >Equipes</button></li>
 </ul>
-
-<div id='dynamique'>
+<br />
+<div class='' id='dynamique'>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" ></script>
