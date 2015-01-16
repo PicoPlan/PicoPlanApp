@@ -4,6 +4,7 @@ namespace Pico\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class UserController extends Controller
 {
@@ -44,6 +45,15 @@ class UserController extends Controller
             return $this->redirect($url, 301);
         }
 
+    }
+
+    public function showAction() {
+        $user = $this->get('security.context')
+            ->getToken()
+            ->getUser();
+
+        return $this->render('UserBundle:User:show.html.twig', array(
+            'user' => $user));
     }
 }
 

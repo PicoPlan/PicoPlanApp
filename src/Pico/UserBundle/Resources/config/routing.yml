@@ -2,5 +2,5 @@ user_homepage:
     path:    /
     defaults: { _controller: UserBundle:User:home }
 user_profile:
-    path:    /profil
-    defaults: { _controller: UserBundle:User:index }
+    path:    /profile
+    defaults: { _controller: UserBundle:User:show }
