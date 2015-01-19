@@ -52,8 +52,31 @@ class UserController extends Controller
             ->getToken()
             ->getUser();
 
+        $data = array(
+            'username' => array(
+                'content' => $user->getUsername(),
+                'title' => 'Pseudo',
+                'icon' => 'glyphicon-star'),
+            'last_name' => array(
+                'content' => $user->getLastName(),
+                'title' => 'Nom',
+                'icon' => 'glyphicon-user'),
+            'first_name' => array(
+                'content' => $user->getFirstName(),
+                'title' => 'Prénom',
+                'icon' => 'glyphicon-user'),
+            'email' => array(
+                'content' => $user->getEmail(),
+                'title' => 'Email',
+                'icon' => 'glyphicon-envelope'),
+            'phone' => array(
+                'content' => $user->getPhone(),
+                'title' => 'Téléphone',
+                'icon' => 'glyphicon-phone')
+        );
+
         return $this->render('UserBundle:User:show.html.twig', array(
-            'user' => $user));
+            'data' => $data));
     }
 }
 

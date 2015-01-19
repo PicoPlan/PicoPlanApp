@@ -1,10 +1,58 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-  <h1>{{ app.user.lastName }}</h1>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="profile-box">
+        <div class="profile-heading row">
+          <div class="profile-picture col-sm-2">
+            <img src="{{ asset('bundles/picoassets/images/roland.jpg') }}" alt="profile_picture">
+          </div>
+          <div class="profile-title col-sm-10">
+            <p>{{ data.username.content }}</p>
+          </div>
+        </div>
+        <div class="profile-content">
+          <div class="profile-info">
+            {% for item in data %}
+              <div class="row profile-row">
+                <div class="col-sm-2 profile-info-icon">
+                  <span class="glyphicon {{ item.icon }}"></span>
+                </div>
+                <div class="col-sm-2 profile-info-title">
+                  <p>{{ item.title }}</p>
+                </div>
+                <div class="col-sm-8 profile-info-content">
+                  <p>{{ item.content }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <div class="col-md-8">
-    <div class="panel pael-default">
+    <div class="col-sm-6">
+      <div id="calendar"></div>
     </div>
   </div>
 {% endblock content %}
+
+{% block extrascript %}
+    <!-- FULL CALENDAR CODE -->
+
+      <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script> <!-- ADesignCalendar -->
+      <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script>
+      <script>
+        $(document).ready(function() {
+
+            // page is now ready, initialize the calendar...
+
+            $('#calendar').fullCalendar({
+                // put your options and callbacks here
+            })
+
+        });
+    </script>
+{% endblock extrascript %}
