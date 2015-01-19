@@ -8239,22 +8239,23 @@ body {
 .profile-box .profile-heading .profile-title p {
   font-size: 50px;
   font-weight: bolder;
+  text-align: center;
 }
-/* line 85, ../sass/styles.scss */
+/* line 86, ../sass/styles.scss */
 .profile-box .profile-content .profile-info .profile-row {
   margin: 0px;
   padding: 15px;
   border-bottom: 1px solid lightgrey;
 }
-/* line 89, ../sass/styles.scss */
+/* line 90, ../sass/styles.scss */
 .profile-box .profile-content .profile-info .profile-row div {
   vertical-align: middle;
 }
-/* line 91, ../sass/styles.scss */
+/* line 92, ../sass/styles.scss */
 .profile-box .profile-content .profile-info .profile-row div p {
   margin: 0px;
 }
-/* line 95, ../sass/styles.scss */
+/* line 96, ../sass/styles.scss */
 .profile-box .profile-content .profile-info .profile-row .profile-info-icon {
   color: #5E5E5E;
 }
@@ -8262,7 +8263,7 @@ body {
 /***********************
     --- CALENDAR -----
 **********************/
-/* line 107, ../sass/styles.scss */
+/* line 108, ../sass/styles.scss */
 #calendar {
   padding: 15px;
   background-color: white;
