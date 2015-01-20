@@ -1,0 +1,15 @@
+calendar_manager_homepage:
+    path:     /form/{type}/{id}
+    defaults: { _controller: CalendarManagerBundle:Default:add }
+
+calendar_manager_edit:
+    path:     /edit/{id}
+    defaults: { _controller: CalendarManagerBundle:Default:modify }
+
+calendar_manager_see:
+    path:     /see/{id}
+    defaults: { _controller: CalendarManagerBundle:Default:see }
+
+calendar_manager_delete:
+    path:     /delete/{id}
+    defaults: { _controller: CalendarManagerBundle:Default:delete }

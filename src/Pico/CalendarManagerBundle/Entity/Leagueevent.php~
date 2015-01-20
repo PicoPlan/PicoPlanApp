@@ -1,0 +1,83 @@
+<?php
+
+namespace Pico\CalendarManagerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Leagueevent
+ */
+class Leagueevent
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var integer
+     */
+    private $event;
+
+    /**
+     * @var integer
+     */
+    private $club;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set event
+     *
+     * @param integer $event
+     * @return Leagueevent
+     */
+    public function setEvent($event)
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * Get event
+     *
+     * @return integer 
+     */
+    public function getEvent()
+    {
+        return $this->event;
+    }
+
+    /**
+     * Set club
+     *
+     * @param integer $club
+     * @return Leagueevent
+     */
+    public function setClub($club)
+    {
+        $this->club = $club;
+
+        return $this;
+    }
+
+    /**
+     * Get club
+     *
+     * @return integer 
+     */
+    public function getClub()
+    {
+        return $this->club;
+    }
+}

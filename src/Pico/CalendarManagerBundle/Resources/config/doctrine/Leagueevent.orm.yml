@@ -1,0 +1,18 @@
+Pico\CalendarManagerBundle\Entity\Leagueevent:
+    type: entity
+    table: null
+    repositoryClass: Pico\CalendarManagerBundle\Entity\LeagueeventRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        event:
+            type: integer
+            column: Event
+        club:
+            type: integer
+            column: Club
+    lifecycleCallbacks: {  }
