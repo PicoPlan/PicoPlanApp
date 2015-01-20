@@ -1,0 +1,36 @@
+{% set title = '{{Type}}' %}
+{% block content %}
+	<h2>{{Type}}</h2>
+	{% if Error != false %}
+		{{Error}}
+	{% else %}
+		<table class='table'>
+			<thead>
+				<tr>
+					<th>Nom </th>
+					<th>Description </th>
+					{% for info in InfoComplementaire %}
+						<th>{{info|capitalize}} </th>
+					{% endfor %}
+					<th>Action </th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for Information in Liste %}
+				<tr>
+					<td>{{Information.nom}}</td>
+					{% if Information.description is defined %} 
+						<td>{{Information.description}}</td>
+					{% else %}
+						<td>N/R</td>
+					{% endif %}
+					{% for info in InfoComplementaire %}
+						<td>{{attribute(Information, info).nom}}</td>
+					{% endfor %}
+					<td><a href='{{url('pico_league_affichage', {'Type': Type,'Id': Information.id}) }}'> Lien represente par une fleche </a></td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{%endif%}
+{% endblock %}

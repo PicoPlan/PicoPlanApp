@@ -1,0 +1,5 @@
+services:
+    pico_user.registration.form.type:
+        class: Pico\UserBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: pico_user_registration}

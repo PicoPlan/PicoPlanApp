@@ -15,20 +15,17 @@ class AppKernel extends Kernel
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            //new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
-            new Pico\AssetsBundle\PicoAssetsBundle(),
-            new Pico\UserManagementBundle\UserManagementBundle(),
             new Pico\NotificationBundle\PicoNotificationBundle(),
             new Pico\LeagueBundle\PicoLeagueBundle(),
-<<<<<<< Updated upstream
-=======
             new Pico\UserBundle\UserBundle(),
             new Pico\AssetsBundle\PicoAssetsBundle(),
             new Pico\MessageBundle\PicoMessageBundle(),
             new Pico\CalendarManagerBundle\CalendarManagerBundle(),
->>>>>>> Stashed changes
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,20 +1,19 @@
+pico_messagerie:
+    resource: "@PicoMessageBundle/Resources/config/routing.yml"
+    prefix:   /mp/
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
 pico_league:
     resource: "@PicoLeagueBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /league/
 
 pico_notification:
     resource: "@PicoNotificationBundle/Resources/config/routing.yml"
-    prefix:   /
-
-user_management:
-    resource: "@UserManagementBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /notif/
 
 pico_assets:
     resource: "@PicoAssetsBundle/Resources/config/routing.yml"
-<<<<<<< Updated upstream
-    prefix:   /
-=======
     prefix:   /assets/
 
 calendar_manager:
@@ -51,4 +50,3 @@ fos_user_change_password:
 
 
 # /FIREWALL
->>>>>>> Stashed changes

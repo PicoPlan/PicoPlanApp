@@ -3,21 +3,28 @@ app/bootstrap.php.cache
 app/cache/*
 app/config/parameters.yml
 app/logs/*
+app/bootstrap.php.cache
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 build/
 vendor/
 bin/
 composer.phar
-
+composer.lock
+web/dev
 #sass source
 *.scssc
 
 #metas
 *.meta
+app/SymfonyRequirements.php
+app/check.php
+.project
 
-#bundle ressource
-!web/bundles/
-!vendor/adesigns/
-!vendor/willdurand
-!vendor/friendsofsymfony
+#Eclipse
+.buildpath
+.settings/
+
+#web assets
+web/css
+web/js

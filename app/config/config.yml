@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -70,3 +70,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# FOSUserBundle Configuration
+fos_user:
+    db_driver:     orm                         # Database type to be used
+    firewall_name: main_firewall               # Firewall name
+    user_class:    Pico\UserBundle\Entity\User # Entity User class
+    registration: # Custom registration
+        form:
+            type: pico_user_registration  
