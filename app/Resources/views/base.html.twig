@@ -26,7 +26,7 @@
               <ul class="nav navbar-nav pull-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                   <li>
-                    <a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
+                    <a href="{{ path('user_show') }}">{{ app.user.username }}</a>
                   </li>
                   <li>
                     <a href="{{ path('fos_user_security_logout') }}">
@@ -64,7 +64,7 @@
                 </a>
               </li>
               <li role="presentation">
-                <a href="#">
+                <a href="{{ path('user_show') }}">
                   <span class="glyphicon glyphicon-user"></span>
                   Ma page
                 </a>

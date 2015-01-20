@@ -8152,36 +8152,41 @@ button.close {
 }
 
 /* line 15, ../sass/styles.scss */
+body {
+  background-color: #F3F3F3;
+}
+
+/* line 19, ../sass/styles.scss */
 #sidebar {
   padding: 70px 0px 0px 0px;
   background: #F8F8F8;
   height: 100vh;
   border-right: 1px solid #E6E6E6;
 }
-/* line 21, ../sass/styles.scss */
+/* line 25, ../sass/styles.scss */
 #sidebar ul li {
   margin-top: 0px;
 }
-/* line 22, ../sass/styles.scss */
+/* line 26, ../sass/styles.scss */
 #sidebar ul li input {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-/* line 25, ../sass/styles.scss */
+/* line 29, ../sass/styles.scss */
 #sidebar ul li .btn {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-/* line 30, ../sass/styles.scss */
+/* line 34, ../sass/styles.scss */
 #sidebar ul li.active a {
   background-color: #E6E6E6;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-/* line 35, ../sass/styles.scss */
+/* line 39, ../sass/styles.scss */
 #sidebar ul li a {
   font-weight: bold;
   color: #5E5E5E;
@@ -8189,12 +8194,77 @@ button.close {
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-/* line 39, ../sass/styles.scss */
+/* line 43, ../sass/styles.scss */
 #sidebar ul li a span {
   margin-right: 10px;
 }
 
-/* line 47, ../sass/styles.scss */
+/* line 51, ../sass/styles.scss */
 #content {
   margin-top: 70px;
+}
+
+/**********************
+    --- PROFILE-BOX --
+**********************/
+/* line 59, ../sass/styles.scss */
+.profile-box {
+  background-color: #FFF;
+}
+/* line 61, ../sass/styles.scss */
+.profile-box .profile-heading {
+  background-color: #1C7EBB;
+  min-height: 150px;
+  color: #FFF;
+  margin: 0px;
+}
+/* line 66, ../sass/styles.scss */
+.profile-box .profile-heading .profile-picture {
+  margin-top: 25px;
+}
+/* line 68, ../sass/styles.scss */
+.profile-box .profile-heading .profile-picture img {
+  height: 100px;
+  border: 5px solid #2B9ADF;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+/* line 74, ../sass/styles.scss */
+.profile-box .profile-heading .profile-title {
+  line-height: 150px;
+  vertical-align: middle;
+}
+/* line 77, ../sass/styles.scss */
+.profile-box .profile-heading .profile-title p {
+  font-size: 50px;
+  font-weight: bolder;
+  text-align: center;
+}
+/* line 86, ../sass/styles.scss */
+.profile-box .profile-content .profile-info .profile-row {
+  margin: 0px;
+  padding: 15px;
+  border-bottom: 1px solid lightgrey;
+}
+/* line 90, ../sass/styles.scss */
+.profile-box .profile-content .profile-info .profile-row div {
+  vertical-align: middle;
+}
+/* line 92, ../sass/styles.scss */
+.profile-box .profile-content .profile-info .profile-row div p {
+  margin: 0px;
+}
+/* line 96, ../sass/styles.scss */
+.profile-box .profile-content .profile-info .profile-row .profile-info-icon {
+  color: #5E5E5E;
+}
+
+/***********************
+    --- CALENDAR -----
+**********************/
+/* line 108, ../sass/styles.scss */
+#calendar {
+  padding: 15px;
+  background-color: white;
 }
