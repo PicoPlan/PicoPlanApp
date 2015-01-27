@@ -8259,12 +8259,28 @@ body {
 .profile-box .profile-content .profile-info .profile-row .profile-info-icon {
   color: #5E5E5E;
 }
+/* line 102, ../sass/styles.scss */
+.profile-box .profile-edit {
+  padding: 15px;
+}
 
 /***********************
     --- CALENDAR -----
 **********************/
-/* line 108, ../sass/styles.scss */
+/* line 111, ../sass/styles.scss */
 #calendar {
   padding: 15px;
   background-color: white;
+}
+
+/************************************
+    ---- ALERT-INFO -------------
+************************************/
+/* line 121, ../sass/styles.scss */
+#alert-info {
+  position: fixed;
+  top: 70px;
+  width: 80%;
+  height: 50px;
+  z-index: 2000;
 }

@@ -22,8 +22,11 @@
                 <div class="col-sm-2 profile-info-title">
                   <p>{{ item.title }}</p>
                 </div>
-                <div class="col-sm-8 profile-info-content">
+                <div class="col-sm-7 profile-info-content">
                   <p>{{ item.content }}</p>
+                </div>
+                <div class="col-sm-1">
+                  <a href="{{ url('user_edit') }}">Edit</a>
                 </div>
               </div>
             {% endfor %}

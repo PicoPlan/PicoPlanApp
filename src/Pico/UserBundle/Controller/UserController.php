@@ -78,5 +78,42 @@ class UserController extends Controller
         return $this->render('UserBundle:User:show.html.twig', array(
             'data' => $data));
     }
+
+    public function editAction() {
+        $user = $this->get('security.context')
+            ->getToken()
+            ->getUser();
+
+        $request = $this->getRequest()->request->get('name');
+
+        $formBuilder = $this->get("form.factory")->createBuilder("form", $user);
+
+        $formBuilder
+            ->add("last_name", "text")
+            ->add("first_name", "text")
+            ->add("email", "text")
+            ->add("phone", "number");
+
+        $form = $formBuilder->getForm();
+
+
+        // foreach($data as $key => $value) {
+        //     if($key == "email") {
+        //         $user->setEmail($value);
+        //     }
+        // }
+
+        // $this->get('fos_user.user_manager')->updateUser($user);
+
+        $alert_info = serialize($request);
+        $alert_class = "success";
+        $url = $this->generateUrl('user_show');
+        return $this->render('UserBundle:User:edit.html.twig', array(
+            'alert_info' => $alert_info,
+            'alert_class' => $alert_class,
+            "form" => $form->createView(),
+            'user' => $user,
+            ));
+    }
 }
 
