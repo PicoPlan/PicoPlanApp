@@ -88,7 +88,7 @@ class Groupevent
     public function setParam($id, $eventid)
     {
         $this->setEvent($eventid);
-        $this->setUser($id);
+        $this->setEquipe($id);
         return $this;
     }
 }

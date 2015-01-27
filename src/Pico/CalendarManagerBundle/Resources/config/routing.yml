@@ -2,6 +2,10 @@ calendar_manager_homepage:
     path:     /form/{type}/{id}
     defaults: { _controller: CalendarManagerBundle:Default:add }
 
+calendar_manager_events:
+    path:     /getevents/{type}/{id}
+    defaults: { _controller: CalendarManagerBundle:Default:getevents }
+
 calendar_manager_edit:
     path:     /edit/{id}
     defaults: { _controller: CalendarManagerBundle:Default:modify }

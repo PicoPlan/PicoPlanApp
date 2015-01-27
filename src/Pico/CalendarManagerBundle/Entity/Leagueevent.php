@@ -26,7 +26,7 @@ class Leagueevent
      * @var integer
      * @ORM\OneToOne(targetEntity="Pico\LeagueBundle\Entity\League")
      */
-    private $club;
+    private $league;
 
 
     /**
@@ -65,30 +65,30 @@ class Leagueevent
     /**
      * Set club
      *
-     * @param integer $club
+     * @param integer $League
      * @return Leagueevent
      */
-    public function setClub($club)
+    public function setLeague($League)
     {
-        $this->club = $club;
+        $this->League = $League;
 
         return $this;
     }
 
     /**
-     * Get club
+     * Get League
      *
      * @return integer 
      */
-    public function getClub()
+    public function getLeague()
     {
-        return $this->club;
+        return $this->League;
     }
 
     public function setParam($id, $eventid)
     {
         $this->setEvent($eventid);
-        $this->setUser($id);
+        $this->setLeague($id);
         return $this;
     }
 }

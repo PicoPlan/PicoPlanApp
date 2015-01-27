@@ -12,7 +12,7 @@ Pico\CalendarManagerBundle\Entity\Leagueevent:
         event:
             type: integer
             column: Event
-        club:
+        league:
             type: integer
-            column: Club
+            column: League
     lifecycleCallbacks: {  }

@@ -88,7 +88,7 @@ class Clubevent
     public function setParam($id, $eventid)
     {
         $this->setEvent($eventid);
-        $this->setUser($id);
+        $this->setClub($id);
         return $this;
     }
 }
