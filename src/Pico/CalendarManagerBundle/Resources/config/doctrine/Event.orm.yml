@@ -1,0 +1,24 @@
+Pico\CalendarManagerBundle\Entity\Event:
+    type: entity
+    table: null
+    repositoryClass: Pico\CalendarManagerBundle\Entity\EventRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: string
+            length: 255
+        datetimeStart:
+            type: datetime
+            column: datetime_start
+        datetimeEnd:
+            type: datetime
+            column: datetime_end
+    lifecycleCallbacks: {  }

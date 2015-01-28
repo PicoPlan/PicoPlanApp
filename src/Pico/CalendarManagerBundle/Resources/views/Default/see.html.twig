@@ -1,0 +1,22 @@
+{% block body %}
+
+ <div>{{ event.title }}</div>
+ <div>{{ event.description }}</div>
+ <div>{{ event.datetimeStart|date('Y-m-d : h-i-s') }}</div>
+ <div>{{ event.datetimeEnd|date('Y-m-d : h-i-s') }}</div>
+
+ {% if repeatingexist is defined %}
+ <div>{{ repeatingexist.weekday }}</div>
+ <div>{{ repeatingexist.dateStartrepeat|date('Y-m-d') }}</div>
+ <div>{{ repeatingexist.dateEndrepeat|date('Y-m-d') }}</div>
+ <div>{{ repeatingexist.frequency }}</div>
+ {% endif %}
+
+ <a href="{{ path('calendar_manager_edit', { 'id': event.id }) }}">
+ 	Modifier
+ </a>
+ <a href="{{ path('calendar_manager_delete', { 'id': event.id }) }}">
+ 	Supprimer
+ </a>
+
+{% endblock %}
