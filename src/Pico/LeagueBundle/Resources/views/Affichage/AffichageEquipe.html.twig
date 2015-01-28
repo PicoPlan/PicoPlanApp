@@ -2,7 +2,14 @@
 {% extends "::base.html.twig" %}
 {% block content %}
 <div id='affichageEquipe'>
-	<h3>{{Equipe.nom}} - {{Equipe.club.nom}}</h3>
+	<h3>{{Equipe.nom}} </h3>
+	<h5>Club : <a href='{{url('pico_league_affichage', {'Type': 'Clubs','Id': Equipe.club.id}) }}'>{{Equipe.club.nom}}</a></h5>
+	{% if League[0] is defined %}
+		<h5>Ligue : <a href='{{url('pico_league_affichage', {'Type': 'Clubs','Id': League[0].id}) }}'>{{League[0].nom}}</a></h5>
+	{% endif %} 
+	<br />
+	<h4>Description :</h4>
+	<p>{{Equipe.description}}</p>
 	<br />
 	<h4>Sport :</h4>
 	<p>{{Equipe.sport.nom}}</p>
@@ -11,6 +18,26 @@
 	<span class='calendar'>Calendrier à venir ici</span>
 	<br />
 	<h4>Membres :</h4>
-	<span class='membres'>Liste des membres à venir ici</span>
+	<table class='table'>
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Status</th>
+		</thead>
+		<tbody>
+			{% for Membre in Membres %}
+				<tr>
+					<td>{{Membre.User | capitalize }}</td>
+					<td>
+						{%if Membre.boolAccepted == 1 %}
+						Accepté
+						{% else %}
+						En Attente
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 </div>
 {% endblock %}
