@@ -10,10 +10,29 @@
 	<h4>Adresse :</h4>
 	<p>{{Club.adresse}}</p>
 	<br />
-	<h4>Calendrier</h4>
-	<span class='calendar'>Calendrier à venir ici</span>
+	{% include 'PicoLeagueBundle:Affichage:subView/calendrier.html.twig' with {'type': 'club','id':Club.id} %}
 	<br />
-	<h4>Membres :</h4>
-	<span class='membres'>Liste des membres à venir ici</span>
+	<br />
+	<h4>Equipes :</h4>
+	<span class='equipe'>
+		<table class='table'>
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Sport</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for Equipe in Equipes %}
+					<tr>
+						<td>{{ Equipe.nom | capitalize }}</td>
+						<td>{{ Equipe.sport.nom | capitalize }}</td>
+						<td><a href='{{url('pico_league_affichage', {'Type': 'Equipes','Id': Equipe.id}) }}'><div class='glyphicon glyphicon-arrow-right text-center'></div></a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>	
+	</span>
 </div>
 {% endblock %}

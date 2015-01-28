@@ -43,6 +43,7 @@ class UserToEquipe
     private $boolAccepted;
 
 
+
     /**
      * Get id
      *

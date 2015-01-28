@@ -1,27 +1,31 @@
 {% set title = 'Ligues' %}
 {% extends "::base.html.twig" %}
 {% block content %}
-<ul class='nav-tabs list-unstyled' class='selection'>
-	<li><button type="button" class='btn' >Ligues</button></li>
-	<li><button type="button" class='btn' >Clubs</button></li>
-	<li><button type="button" class='btn' >Equipes</button></li>
-</ul>
-<br />
-<div class='' id='dynamique'>
-</div>
+	<ul class='nav-tabs list-unstyled' class='selection'>
+		<li><button type="button" class='btn' >Ligues</button></li>
+		<li><button type="button" class='btn' >Clubs</button></li>
+		<li><button type="button" class='btn' >Equipes</button></li>
+	</ul>
+	<br />
+	<div class='' id='dynamique'>
+	</div>
+{% endblock %}
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js" ></script>
-<script type="text/javascript">
-$("button").click(function(){
-	var url = "{{url('pico_league_affichage_ajax',{'Type' : 'to_replace'})}}";
-	url = url.replace("to_replace", $(this).html());
-  	$.get(url,function(data,status){
-  		if(status == 'success') {
-    		$('#dynamique').html(data);
-    	} else {
-    		alert('erreur');
-    	}
-  	});
-});
-</script>
+
+{% block extrascript %}
+	{% javascripts '@PicoLeagueBundle/Resources/public/league.js' output='league.js' %}
+    	<script type="text/javascript">
+			$("button").click(function(){
+				var url = "{{url('pico_league_affichage_ajax',{'Type' : 'to_replace'})}}";
+				url = url.replace("to_replace", $(this).html());
+  				$.get(url,function(data,status){
+  					if(status == 'success') {
+    					$('#dynamique').html(data);
+    				} else {
+    					alert('erreur');
+    				}
+    			});
+			});
+		</script>
+	{% endjavascripts %}
 {% endblock %}
