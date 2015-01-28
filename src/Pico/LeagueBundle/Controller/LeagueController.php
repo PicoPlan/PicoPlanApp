@@ -159,33 +159,6 @@ class LeagueController extends Controller
         return $this->render('PicoLeagueBundle:Affichage:index.html.twig');
     }
     
-    private function getEquipesFromLeague($League)
-    {
-        $EntityManager = $this->getDoctrine()->getManager();
-        $Equipes = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array('sport' => $League->getSport()));
-        return $Equipes;
-    }
-    
-    private function getLeagueFromEquipe($Equipe)
-    {        
-        $EntityManager = $this->getDoctrine()->getManager();
-        $League = $EntityManager->getRepository('PicoLeagueBundle:League')->findBy(array('sport' => $Equipe->getSport()));
-        return $League;
-    }
-    
-    private function getMembreFromEquipe($Equipe)
-    {
-        $EntityManager = $this->getDoctrine()->getManager();
-        $Membres = $EntityManager->getRepository('PicoLeagueBundle:UserToEquipe')->findBy(array('equipe'=>$Equipe));
-        return $Membres;
-    }
-    
-    private function getEquipeFromClub($Club)
-    {
-        $EntityManager = $this->getDoctrine()->getManager();
-        $Equipes =  $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array('club' => $Club));
-        return $Equipes;        
-    }
 
     /**
      * Renvois la liste des entitées en fonction du type
@@ -235,5 +208,38 @@ class LeagueController extends Controller
             'InfoComplementaire' => $InfoComplementaire,
             'Error' => $Error
         ));
+    }
+    
+    /**
+     * Methodes interne a la classe
+     * @param unknown $League
+     * @return unknown
+     */
+    private function getEquipesFromLeague($League)
+    {
+        $EntityManager = $this->getDoctrine()->getManager();
+        $Equipes = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array('sport' => $League->getSport()));
+        return $Equipes;
+    }
+    
+    private function getLeagueFromEquipe($Equipe)
+    {
+        $EntityManager = $this->getDoctrine()->getManager();
+        $League = $EntityManager->getRepository('PicoLeagueBundle:League')->findBy(array('sport' => $Equipe->getSport()));
+        return $League;
+    }
+    
+    private function getMembreFromEquipe($Equipe)
+    {
+        $EntityManager = $this->getDoctrine()->getManager();
+        $Membres = $EntityManager->getRepository('PicoLeagueBundle:UserToEquipe')->findBy(array('equipe'=>$Equipe));
+        return $Membres;
+    }
+    
+    private function getEquipeFromClub($Club)
+    {
+        $EntityManager = $this->getDoctrine()->getManager();
+        $Equipes =  $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array('club' => $Club));
+        return $Equipes;
     }
 }

@@ -10,8 +10,7 @@
 	<h4>Adresse :</h4>
 	<p>{{Club.adresse}}</p>
 	<br />
-	<h4>Calendrier</h4>
-	<span class='calendar'>Calendrier à venir ici</span>
+	{% include 'PicoLeagueBundle:Affichage:subView/calendrier.html.twig' with {'type': 'club','id':Club.id} %}
 	<br />
 	<br />
 	<h4>Equipes :</h4>

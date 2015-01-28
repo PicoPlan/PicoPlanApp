@@ -7,8 +7,7 @@
 	<h4>Description :</h4>
 	<p>{{League.description}}</p>
 	<br />
-	<h4>Calendrier</h4>
-	<span class='calendar'>Calendrier à venir ici</span>
+	{% include 'PicoLeagueBundle:Affichage:subView/calendrier.html.twig' with {'type': 'league','id':League.id, 'AllowedUser':true} %}
 	<br />
 	<h4>Equipes :</h4>
 	<span class='equipe'>

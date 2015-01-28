@@ -1,0 +1,17 @@
+<h4>Calendrier</h4>
+<span class="col-md-12">
+	<span class='calendar col-md-4' >
+		Calendrier à venir ici
+	</span>
+	{% if AllowedUser %}
+	<span class="DynamicAddEvent col-md-8">
+		<a href='javascript:addEvent("{{type}}","{{id}}")'>Ajouter un evenement</a>
+	</span>
+	{% endif %}
+</span>
+
+{% block extrascript %}
+	{% javascripts '@PicoLeagueBundle/Resources/public/league.js' output='league.js' %}
+    	<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
