@@ -29,7 +29,7 @@ class UserToEquipe
     
     
     /**
-     * @ORM\ManyToMany(targetEntity="Pico\LeagueBundle\Entity\Equipe")
+     * @ORM\ManyToOne(targetEntity="Pico\LeagueBundle\Entity\Equipe")
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipe;

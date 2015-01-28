@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Pico\UserBundle\UserBundle(),
             new Pico\AssetsBundle\PicoAssetsBundle(),
             new Pico\MessageBundle\PicoMessageBundle(),
+            new Pico\CalendarManagerBundle\CalendarManagerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -41,8 +42,8 @@ class AppKernel extends Kernel
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
     public function init(){
-	   date_default_timezone_set("Europe/Paris");
-	   parent::init();
+	date_default_timezone_set("Europe/Paris");
+	parent::init();
     }
 
 }

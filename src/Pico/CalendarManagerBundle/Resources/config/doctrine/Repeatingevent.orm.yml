@@ -1,0 +1,24 @@
+Pico\CalendarManagerBundle\Entity\Repeatingevent:
+    type: entity
+    table: null
+    repositoryClass: Pico\CalendarManagerBundle\Entity\RepeatingeventRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        event:
+            type: integer
+        weekday:
+            type: integer
+        dateStartrepeat:
+            type: date
+            column: date_startrepeat
+        dateEndrepeat:
+            type: date
+            column: date_endrepeat
+        frequency:
+            type: integer
+    lifecycleCallbacks: {  }
