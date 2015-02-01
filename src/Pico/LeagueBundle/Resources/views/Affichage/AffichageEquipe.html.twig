@@ -28,48 +28,54 @@
 			</thead>
 			<tbody>
 				{% for Membre in Membres %}
-					<tr>
-						<td>{{Membre.User | capitalize }}</td>
-						<td>
-								{%if Membre.boolAccepted == 1 %}
-									Accepté
-								{% else %}
-									En Attente
-								{% endif %}
-							
-						</td>
-						{%if isAllowed%}
+					{%if Membre.id == app.user.id %}
+					{% else %}
+						<tr>
+							<td>{{Membre.User | capitalize }}</td>
 							<td>
-								<form class="gestion-equipe form-inline">
-								{% if Membre.boolAccepted != 1 %}
-									<div class="form-group">
-										<input class="form-control" type="radio" id="accepter_{{Membre.Id}}" name="etat_{{Membre.Id}}" value="verify" />
-										<label for="accepter_{{Membre.Id}}"><div class='glyphicon glyphicon-ok'></div></label>
-									</div>
-								{% else %}
-									<div class="form-group">
-										<button type="reset" class="glyphicon glyphicon-trash"></button>
-									</div>
-								{% endif%}
-									<div class="form-group">
-										<input class="form-control" type="radio" id="exclure_{{Membre.Id}}" name="etat_{{Membre.Id}}" value="delete" />
-										<label for="exclure_{{Membre.Id}}"><div class='glyphicon glyphicon glyphicon-remove'></div></label>
-									</div>
-								</form>
+									{%if Membre.boolAccepted == 1 %}
+										Accepté
+									{% else %}
+										En Attente
+									{% endif %}
 							</td>
-						{%endif%}
-					</tr>
+							{%if isAllowed%}
+								<td>
+									<form class="gestion-equipe form-inline">
+									{% if Membre.boolAccepted != 1 %}
+										<div class="form-group">
+											<input class="form-control" type="radio" id="accepter_{{Membre.Id}}" name="etat_{{Membre.Id}}" value="verify" />
+											<label for="accepter_{{Membre.Id}}"><div class='glyphicon glyphicon-ok'></div></label>
+										</div>
+									{% else %}
+										<div class="form-group">
+											<button type="reset" class="glyphicon glyphicon-trash"></button>
+										</div>
+									{% endif%}
+										<div class="form-group">
+											<input class="form-control" type="radio" id="exclure_{{Membre.Id}}" name="etat_{{Membre.Id}}" value="delete" />
+											<label for="exclure_{{Membre.Id}}"><div class='glyphicon glyphicon glyphicon-remove'></div></label>
+										</div>
+									</form>
+								</td>
+							{%endif%}
+						</tr>
+					{% endif %}
 				{% endfor %}
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="{%if isAllowed%} 3 {% else %} 2 {%endif%}">
-						<a href ="{{url('subscribe_to_equipe', {'Id': Equipe.club.id}) }}">Postuler dans l'equipe</a>
-						{%if isAllowed%}
-						-
-						<a href ="javascript:gestionEquipe('{{Equipe.Id}}')">Gerer les invitations</a>
-						{% endif %}
+					<td>
+						{{ app.user.username | capitalize }} 
 					</td>
+					<td>
+						<a href ="{{url('subscribe_to_equipe', {'Id': Equipe.id}) }}">Postuler dans l'equipe</a>
+					</td>
+					{%if isAllowed%}
+						<td >
+						<a href ="javascript:gestionEquipe('{{Equipe.Id}}')">Gerer les invitations</a>
+						</td>
+					{% endif %}
 			</tfoot>
 			</table>
 	</span>
