@@ -1,5 +1,4 @@
 <?php
-
 namespace Pico\LeagueBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,54 +11,49 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Equipe
 {
+
     /**
-     * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var integer @ORM\Column(name="id", type="integer")
+     *      @ORM\Id
+     *      @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    
     /**
      * @ORM\ManyToOne(targetEntity="Pico\LeagueBundle\Entity\Sport")
      * @ORM\JoinColumn(nullable=false)
      */
     private $sport;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Pico\LeagueBundle\Entity\Club")
      * @ORM\JoinColumn(nullable=false)
      */
     private $club;
-    
+
     /**
-     * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @var string @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @var string @ORM\Column(name="description", type="text")
      */
     private $description;
-    
+
     /**
-     * @var string
      *
-     * @ORM\Column(name="liste_modo", type="text")
+     * @var string @ORM\Column(name="liste_modo", type="text")
      */
     private $listeModo;
-
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -69,15 +63,16 @@ class Equipe
     /**
      * Set sport
      *
-     * @param integer $sport
+     * @param integer $sport            
      * @return Equipe
      */
     public function setSport($sport)
     {
         $this->sport = $sport;
-    
+        
         return $this;
     }
+
     /**
      * Get sport
      *
@@ -87,19 +82,20 @@ class Equipe
     {
         return $this->sport;
     }
-    
+
     /**
      * Set club
      *
-     * @param integer $club
+     * @param integer $club            
      * @return Equipe
      */
     public function setClub($club)
     {
         $this->club = $club;
-    
+        
         return $this;
     }
+
     /**
      * Get club
      *
@@ -109,24 +105,24 @@ class Equipe
     {
         return $this->club;
     }
-    
+
     /**
      * Set nom
      *
-     * @param string $nom
+     * @param string $nom            
      * @return Equipe
      */
     public function setNom($nom)
     {
         $this->nom = $nom;
-
+        
         return $this;
     }
 
     /**
      * Get nom
      *
-     * @return string 
+     * @return string
      */
     public function getNom()
     {
@@ -136,16 +132,16 @@ class Equipe
     /**
      * Set description
      *
-     * @param string $description
+     * @param string $description            
      * @return League
      */
     public function setDescription($description)
     {
         $this->description = $description;
-    
+        
         return $this;
     }
-    
+
     /**
      * Get description
      *
@@ -155,26 +151,33 @@ class Equipe
     {
         return $this->description;
     }
+
     /**
      * Set listeModo
      *
-     * @param string $listeModo
+     * @param array $listeModo            
      * @return Equipe
      */
     public function setListeModo($listeModo)
     {
-        $this->listeModo = $listeModo;
-
+        foreach ($listeModo as $modo) {
+            if (is_object($modo)) {
+                $listeId = $modo->getId();
+            }
+        }
+        $this->listeModo = serialize($listeId);
+        
         return $this;
     }
 
     /**
      * Get listeModo
      *
-     * @return string 
+     * @return string
      */
     public function getListeModo()
     {
-        return $this->listeModo;
+        $ListeModo = unserialize($this->listeModo);
+        return $ListeModo;
     }
 }

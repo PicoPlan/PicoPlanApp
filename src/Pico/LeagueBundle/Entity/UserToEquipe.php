@@ -43,7 +43,10 @@ class UserToEquipe
     private $boolAccepted;
 
 
-
+    public function __construct()
+    {
+        $this->boolAccepted = 0;
+    } 
     /**
      * Get id
      *

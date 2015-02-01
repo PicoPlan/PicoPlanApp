@@ -10,7 +10,7 @@
 	<h4>Adresse :</h4>
 	<p>{{Club.adresse}}</p>
 	<br />
-	{% include 'PicoLeagueBundle:Affichage:subView/calendrier.html.twig' with {'type': 'club','id':Club.id} %}
+	{% include 'PicoLeagueBundle:Affichage:subView/calendrier.html.twig' with {'type': 'club','id':Club.id, 'AllowedUser':isAllowed} %}
 	<br />
 	<br />
 	<h4>Equipes :</h4>

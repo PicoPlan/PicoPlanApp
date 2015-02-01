@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class EquipeRepository extends EntityRepository
 {
+    public function getEquipesFromLeague($League)
+    {
+        $Equipes = $this->_em->getRepository('PicoLeagueBundle:Equipe')->findBy(array('sport' => $League->getSport()));
+        return $Equipes;
+    }   
+    
+    public function getEquipeFromClub($Club)
+    {
+        $Equipes =  $this->_em->getRepository('PicoLeagueBundle:Equipe')->findBy(array('club' => $Club));
+        return $Equipes;
+    }
 }

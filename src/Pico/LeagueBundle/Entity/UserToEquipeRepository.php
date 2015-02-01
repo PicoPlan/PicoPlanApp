@@ -1,5 +1,4 @@
 <?php
-
 namespace Pico\LeagueBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
@@ -12,4 +11,48 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserToEquipeRepository extends EntityRepository
 {
+
+    /**
+     * Retourne la liste des membres depuis une entitée Equipe
+     * 
+     * @param Equipe $Equipe            
+     * @return User
+     */
+    public function getUserFromEquipe($Equipe)
+    {
+        $Membres = $this->_em->getRepository('PicoLeagueBundle:UserToEquipe')->findBy(array(
+            'equipe' => $Equipe
+        ));
+        return $Membres;
+    }
+
+    /**
+     * Ajoute la demande du user a l'equipe.
+     * Renvois false si le user etais déja present
+     * Renvois true sinon
+     * @param User $User
+     * @param Equipe $Equipe
+     * @return boolean
+     */
+    public function addUser($User, $Equipe)
+    {
+        //Verification de la demande
+        $IsAlreadyIn = $this->_em->getRepository('PicoLeagueBundle:UserToEquipe')->findBy(array(
+            'user' => $User,
+            'equipe' => $Equipe
+        ));
+        if (!empty($IsAlreadyIn)) {
+            return false;
+        }
+        //Ajout
+        $UserToEquipe = new UserToEquipe();
+        $UserToEquipe->setEquipe($Equipe);
+        $UserToEquipe->setUser($User);
+        
+        //On sauvegarde
+        $this->_em->persist($UserToEquipe);
+        $this->_em->flush();
+        
+        return true;
+    }
 }

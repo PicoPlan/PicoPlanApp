@@ -1,14 +1,29 @@
 <h4>Calendrier</h4>
 <span class="col-md-12">
-	<span class='calendar col-md-4' >
 		Calendrier à venir ici
-	</span>
-	{% if AllowedUser %}
-	<span class="DynamicAddEvent col-md-8">
-		<a href='javascript:addEvent("{{type}}","{{id}}")'>Ajouter un evenement</a>
-	</span>
-	{% endif %}
 </span>
+{% if AllowedUser %}
+	<span class="col-md-12">
+		<button onclick='javascript:displayFormEvent("{{type}}","{{id}}")' type="button" data-toggle="modal" data-target="#DynamicAddEventModal">Ajouter un evenement</button>
+	</span>
+	<div id="DynamicAddEventModal" class="modal fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Ajouter un evenement</h4>
+	      </div>
+	      <div class="DynamicAddEvent modal-body">
+	        <p>One fine body&hellip;</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+	        <button type="button" onclick="document.getElementById('pico_calendarmanagerbundle_event_save').click();" class="btn btn-primary">Sauvegarder</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+{% endif %}
 
 {% block extrascript %}
 	{% javascripts '@PicoLeagueBundle/Resources/public/league.js' output='league.js' %}
