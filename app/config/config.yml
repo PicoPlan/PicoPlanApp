@@ -33,7 +33,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [PicoAssetsBundle]
+    bundles:        [PicoAssetsBundle,PicoLeagueBundle,CalendarManagerBundle]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

@@ -44,6 +44,13 @@ class Equipe
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+    
+    /**
+     * @var string
+     *
      * @ORM\Column(name="liste_modo", type="text")
      */
     private $listeModo;
@@ -126,6 +133,28 @@ class Equipe
         return $this->nom;
     }
 
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return League
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+    
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
     /**
      * Set listeModo
      *

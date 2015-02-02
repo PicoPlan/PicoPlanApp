@@ -1,0 +1,18 @@
+Pico\CalendarManagerBundle\Entity\Userevent:
+    type: entity
+    table: null
+    repositoryClass: Pico\CalendarManagerBundle\Entity\UsereventRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        event:
+            type: integer
+            column: Event
+        user:
+            type: integer
+            column: User
+    lifecycleCallbacks: {  }

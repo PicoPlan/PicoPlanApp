@@ -1,0 +1,8 @@
+{% block body %}
+ {{ form_start(form, {'attr': {'class':'form-horizontal' } } ) }}
+{{ form_rest(form) }}
+
+{{ form_widget(form.save, {'attr': {'class':'btn btn-primary col-s' } } ) }}
+
+ {{ form_end(form )}}
+{% endblock %}
