@@ -1,3 +1,39 @@
-{% block body %}
-{{ dump(eventlist.0.1) }}
-{% endblock %}
+<head>
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+<link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
+<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/jquery/jquery-1.8.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/fullcalendar/jquery.fullcalendar.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/adesignscalendar/js/calendar-settings.js') }}"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+		$('#calendar').fullCalendar({
+			defaultDate: '2014-11-12',
+			eventLimit: true, // allow "more" link when too many events
+			defaultView: 'agendaWeek',
+			allDaySlot: false,
+			events: [
+			{% for events in eventlist %}
+
+            	{
+            		title: '{{ events.event.title }}',
+            		start: '{{ events.event.datetimeStart|date("Y-m-d")}}T{{ events.event.datetimeStart|date("H:i:s")}}',
+            		end: '{{ events.event.datetimeEnd|date("Y-m-d")}}T{{ events.event.datetimeEnd|date("H:i:s")}}',
+            		allDay: false,
+            		//ROUTE
+            		url: Routing.generate('calendar_manager_see', { "id": '{{ events.event.id }}'})
+            	},
+
+            {% endfor %}
+            {}
+			]
+		});
+		
+	});
+</script>
+</head>
+<body>
+{% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+</body>

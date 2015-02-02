@@ -70,7 +70,7 @@ class Leagueevent
      */
     public function setLeague($League)
     {
-        $this->League = $League;
+        $this->league = $League;
 
         return $this;
     }
