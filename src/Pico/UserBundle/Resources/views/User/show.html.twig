@@ -26,11 +26,16 @@
                   <p>{{ item.content }}</p>
                 </div>
                 <div class="col-sm-1">
-                  <a href="{{ url('user_edit') }}">Edit</a>
+                  <a href="{{ path('user_edit') }}">Edit</a>
                 </div>
               </div>
             {% endfor %}
           </div>
+          <form action="{{ url('user_edit') }}" method="POST">
+            <button type="submit" class="btn btn-primary">
+              Edit
+            </button>
+          </form>
         </div>
       </div>
     </div>

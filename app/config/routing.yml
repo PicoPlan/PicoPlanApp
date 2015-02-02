@@ -2,8 +2,9 @@ pico_messagerie:
     resource: "@PicoMessageBundle/Resources/config/routing.yml"
     prefix:   /mp/
 user:
-    resource: "@UserBundle/Resources/config/routing.yml"
+    resource: "@PicoUserBundle/Resources/config/routing.yml"
     prefix:   /
+
 pico_league:
     resource: "@PicoLeagueBundle/Resources/config/routing.yml"
     prefix:   /league/
@@ -38,7 +39,7 @@ fos_user_register:
 
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
+    prefix: /edit-profile
 
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"

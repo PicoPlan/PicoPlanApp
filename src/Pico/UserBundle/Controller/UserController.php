@@ -9,6 +9,10 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class UserController extends Controller
 {
 
+    public function getParent(){
+        return 'FOSUserBundle';
+    }
+
     public function indexAction()
     {
         return $this->render('::base.html.twig', array(
@@ -37,7 +41,7 @@ class UserController extends Controller
                 'user' => $user,
                 );
 
-            return $this->render('UserBundle:User:home.html.twig', $data);
+            return $this->render('PicoUserBundle:User:home.html.twig', $data);
         }
         else {
             $url = $this->generateUrl('fos_user_security_login');
@@ -72,11 +76,13 @@ class UserController extends Controller
             'phone' => array(
                 'content' => $user->getPhone(),
                 'title' => 'Téléphone',
-                'icon' => 'glyphicon-phone')
+                'icon' => 'glyphicon-phone'),
         );
 
-        return $this->render('UserBundle:User:show.html.twig', array(
-            'data' => $data));
+
+        return $this->render('PicoUserBundle:User:show.html.twig', array(
+            'data' => $data,
+        ));
     }
 
     public function editAction() {
@@ -84,7 +90,6 @@ class UserController extends Controller
             ->getToken()
             ->getUser();
 
-        $request = $this->getRequest()->request->get('name');
 
         $formBuilder = $this->get("form.factory")->createBuilder("form", $user);
 
@@ -96,6 +101,9 @@ class UserController extends Controller
 
         $form = $formBuilder->getForm();
 
+        if(isset($request)){
+
+        }
 
         // foreach($data as $key => $value) {
         //     if($key == "email") {
@@ -115,5 +123,6 @@ class UserController extends Controller
             'user' => $user,
             ));
     }
+
 }
 
