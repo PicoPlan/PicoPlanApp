@@ -11,3 +11,7 @@ user_show:
 user_edit:
     path: /user-edit/
     defaults: { _controller: PicoUserBundle:Profile:edit }
+
+user_register:
+    path: /user-register/
+    defaults: { _controller: PicoUserBundle:Registration:register }

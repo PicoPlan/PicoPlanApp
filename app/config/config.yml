@@ -78,4 +78,7 @@ fos_user:
     user_class:    Pico\UserBundle\Entity\User # Entity User class
     registration: # Custom registration
         form:
-            type: pico_user_registration  
+            type: pico_user_registration
+    profile:    # Custom Profile controller
+        form:
+            type: pico_user_profile
