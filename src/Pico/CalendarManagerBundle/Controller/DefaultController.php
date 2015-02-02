@@ -181,7 +181,7 @@ class DefaultController extends Controller
       $Groupattached = $DoctrineManager->getRepository('PicoLeagueBundle:UserToEquipe')->findByUser($id);
       foreach ($Groupattached as $groupefind) 
       {
-        $eventlist = array_merge($eventlist , byGroup($groupefind->getEquipe(), $DoctrineManager, $eventlist));
+        $eventlist = array_merge(byGroup($groupefind->getEquipe(), $DoctrineManager, $eventlist));
       }
 
 
@@ -204,7 +204,7 @@ class DefaultController extends Controller
       //Club lié
       $Club = $DoctrineManager->getRepository('PicoLeagueBundle:Equipe')->find($id);
       if(!is_null($Club)){$ClubId = $Club->getClub()->getId();
-      $eventlist = array_merge($eventlist , byClub($ClubId, $DoctrineManager, $eventlist));}
+      $eventlist = array_merge(byClub($ClubId, $DoctrineManager, $eventlist));}
 
       return $eventlist;
     }
@@ -212,10 +212,11 @@ class DefaultController extends Controller
     //Club
     function byClub($id, $DoctrineManager, $eventlist)
     {
+      $EventRepository = $DoctrineManager->getRepository('CalendarManagerBundle:Event');
       $ClubEvents = $DoctrineManager->getRepository('CalendarManagerBundle:Clubevent')->findByClub($id);
       foreach ($ClubEvents as $eventtoload) 
       {
-        $eventfind = $EventRepository->find($eventtoload['Event']);
+        $eventfind = $EventRepository->find($eventtoload->getEvent());
         $eventlist[] = $eventfind;
       }
       
@@ -225,22 +226,33 @@ class DefaultController extends Controller
     //League
     function byLeague($id, $DoctrineManager, $eventlist)
     {
+      $EventRepository = $DoctrineManager->getRepository('CalendarManagerBundle:Event');
       $LeagueEvents = $DoctrineManager->getRepository('CalendarManagerBundle:Leagueevent')->findByLeague($id);
       foreach ($LeagueEvents as $eventtoload) 
       {
-        $eventfind = $EventRepository->find($eventtoload['Event']);
+        $eventfind = $EventRepository->find($eventtoload->getEvent());
         $eventlist[] = $eventfind;
       }
 
       return $eventlist;
     }
 
-    if($type = 'user'){$eventlist[] = byUser($id, $DoctrineManager, $eventlist);}
-    if($type = 'group'){byGroup($id, $DoctrineManager, $eventlist);}
-    if($type = 'club'){byClub($id, $DoctrineManager, $eventlist);}
-    if($type = 'league'){byLeague($id, $DoctrineManager, $eventlist);}
+    if($type == 'user'){$eventlist[] = byUser($id, $DoctrineManager, $eventlist);}
+    if($type =='group'){$eventlist[] = byGroup($id, $DoctrineManager, $eventlist);}
+    if($type == 'club'){$eventlist[] = byClub($id, $DoctrineManager, $eventlist);}
+    if($type == 'league'){$eventlist[] = byLeague($id, $DoctrineManager, $eventlist);}
 
-    return $this->render('CalendarManagerBundle:Default:getevents.html.twig', array('eventlist'=>$eventlist));
+    //Search Repeating
+    $RepeatingRepository = $DoctrineManager->getRepository('CalendarManagerBundle:Repeatingevent');
+    foreach ($eventlist[0] as $event) {
+      $Repeatingfind = $RepeatingRepository->findByEvent($event->getId());
+      $ArrEvent = array('event'=> $event);
+      $ArrRepeat = array('repeatingevent'=>$Repeatingfind);
+      $merged = array_merge($ArrEvent, $ArrRepeat);
+      $list[]=$merged;
+    }
+
+    return $this->render('CalendarManagerBundle:Default:getevents.html.twig', array('eventlist'=>$list));
   }  
    
 }

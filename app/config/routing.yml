@@ -19,6 +19,8 @@ pico_assets:
 calendar_manager:
     resource: "@CalendarManagerBundle/Resources/config/routing.yml"
     prefix:   /oki/
+    options:
+        expose: true
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
