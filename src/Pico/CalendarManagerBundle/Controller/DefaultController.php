@@ -13,6 +13,7 @@ use Pico\CalendarManagerBundle\Form\EventType;
 use Pico\CalendarManagerBundle\Form\RepeatingeventType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -237,22 +238,40 @@ class DefaultController extends Controller
       return $eventlist;
     }
 
-    if($type == 'user'){$eventlist[] = byUser($id, $DoctrineManager, $eventlist);}
-    if($type =='group'){$eventlist[] = byGroup($id, $DoctrineManager, $eventlist);}
-    if($type == 'club'){$eventlist[] = byClub($id, $DoctrineManager, $eventlist);}
-    if($type == 'league'){$eventlist[] = byLeague($id, $DoctrineManager, $eventlist);}
 
-    //Search Repeating
-    $RepeatingRepository = $DoctrineManager->getRepository('CalendarManagerBundle:Repeatingevent');
-    foreach ($eventlist[0] as $event) {
-      $Repeatingfind = $RepeatingRepository->findByEvent($event->getId());
-      $ArrEvent = array('event'=> $event);
-      $ArrRepeat = array('repeatingevent'=>$Repeatingfind);
-      $merged = array_merge($ArrEvent, $ArrRepeat);
-      $list[]=$merged;
-    }
+      if($type == 'user'){$eventlist[] = byUser($id, $DoctrineManager, $eventlist);}
+      if($type =='group'){$eventlist[] = byGroup($id, $DoctrineManager, $eventlist);}
+      if($type == 'club'){$eventlist[] = byClub($id, $DoctrineManager, $eventlist);}
+      if($type == 'league'){$eventlist[] = byLeague($id, $DoctrineManager, $eventlist);}
 
-    return $this->render('CalendarManagerBundle:Default:getevents.html.twig', array('eventlist'=>$list));
-  }  
-   
+      //Search Repeating
+      $RepeatingRepository = $DoctrineManager->getRepository('CalendarManagerBundle:Repeatingevent');
+      $arrayreturned = array();
+      foreach ($eventlist[0] as $event)
+      {
+       
+        $Repeatingfind = $RepeatingRepository->findOneByEvent($event->getId());
+        //+1 jour +1semaine +2semaine +1mois
+        if(!is_null($Repeatingfind))
+        {
+          $frequency = $Repeatingfind->getFrequency();
+          while($Repeatingfind->getDateEndrepeat() > $event->getDatetimeEnd())
+          { 
+            $arrayreturned[] = clone $event;
+            $datestart = clone $event->getDatetimeStart();
+            $datestart2 = $datestart->modify($frequency);
+            $event->setDatetimeStart($datestart2);
+
+            $dateend = clone $event->getDatetimeEnd();
+            $dateend2 = $dateend->modify($frequency);
+            $event->setDatetimeEnd($dateend2);
+
+          }
+        }
+       }
+
+
+
+      return $this->render('CalendarManagerBundle:Default:getevents.html.twig', array('eventlist'=>$arrayreturned));
+    }  
 }

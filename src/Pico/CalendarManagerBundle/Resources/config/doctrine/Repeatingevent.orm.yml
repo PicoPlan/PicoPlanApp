@@ -20,5 +20,6 @@ Pico\CalendarManagerBundle\Entity\Repeatingevent:
             type: date
             column: date_endrepeat
         frequency:
-            type: integer
+            type: string
+            length: 255
     lifecycleCallbacks: {  }

@@ -18,12 +18,12 @@ $(document).ready(function() {
 			{% for events in eventlist %}
 
             	{
-            		title: '{{ events.event.title }}',
-            		start: '{{ events.event.datetimeStart|date("Y-m-d")}}T{{ events.event.datetimeStart|date("H:i:s")}}',
-            		end: '{{ events.event.datetimeEnd|date("Y-m-d")}}T{{ events.event.datetimeEnd|date("H:i:s")}}',
+            		title: '{{ events.title }}',
+            		start: '{{ events.datetimeStart|date("Y-m-d")}}T{{ events.datetimeStart|date("H:i:s")}}',
+            		end: '{{ events.datetimeEnd|date("Y-m-d")}}T{{ events.datetimeEnd|date("H:i:s")}}',
             		allDay: false,
             		//ROUTE
-            		url: Routing.generate('calendar_manager_see', { "id": '{{ events.event.id }}'})
+            		url: Routing.generate('calendar_manager_see', { "id": '{{ events.id }}'})
             	},
 
             {% endfor %}
@@ -36,4 +36,7 @@ $(document).ready(function() {
 </head>
 <body>
 {% include 'ADesignsCalendarBundle::calendar.html.twig' %}
+{% for events in eventlist %}
+	{{ events.datetimeStart|date("H:i:s") }}
+{% endfor %}
 </body>

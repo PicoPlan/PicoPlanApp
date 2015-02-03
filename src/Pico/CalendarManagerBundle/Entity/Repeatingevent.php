@@ -39,8 +39,8 @@ class Repeatingevent
     private $dateEndrepeat;
 
     /**
-     * @var integer
-     * @ORM\Column(type="integer")
+     * @var string
+     * @ORM\Column(type="string", length=255, unique=false)
      */
     private $frequency;
 
@@ -127,7 +127,7 @@ class Repeatingevent
     /**
      * Set frequency
      *
-     * @param integer $frequency
+     * @param string $frequency
      * @return Repeatingevent
      */
     public function setFrequency($frequency)
@@ -140,7 +140,7 @@ class Repeatingevent
     /**
      * Get frequency
      *
-     * @return integer 
+     * @return string 
      */
     public function getFrequency()
     {
