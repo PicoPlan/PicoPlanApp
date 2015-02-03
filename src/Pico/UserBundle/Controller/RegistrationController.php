@@ -19,4 +19,13 @@ class RegistrationController extends FOSRegistrationController
     public function getParent() {
         return "FOSUserBundle";
     }
+
+    public function registerAction(Request $request) {
+        # Return the parent register action
+        # So special stuff here
+
+        $response = parent::registerAction($request);
+
+        return $response;
+    }
 }

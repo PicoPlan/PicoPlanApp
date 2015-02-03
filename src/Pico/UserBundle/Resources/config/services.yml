@@ -1,10 +1,11 @@
 services:
-    pico_user_registration.form.type:
+    pico_user.registration.form.type:
         class: Pico\UserBundle\Form\Type\RegistrationFormType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: pico_user_registration }
     pico_user.profile.form.type:
         class: Pico\UserBundle\Form\Type\ProfileFormType
-        tag:
+        arguments: [%fos_user.model.user.class%]
+        tags:
             - { name: form.type, alias: pico_user_profile }
