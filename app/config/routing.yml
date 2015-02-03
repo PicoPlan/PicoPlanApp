@@ -1,9 +1,11 @@
 pico_messagerie:
     resource: "@PicoMessageBundle/Resources/config/routing.yml"
     prefix:   /mp/
-user:
-    resource: "@UserBundle/Resources/config/routing.yml"
+
+pico_user:
+    resource: "@PicoUserBundle/Resources/config/routing.yml"
     prefix:   /
+
 pico_league:
     resource: "@PicoLeagueBundle/Resources/config/routing.yml"
     prefix:   /league/
@@ -19,6 +21,8 @@ pico_assets:
 calendar_manager:
     resource: "@CalendarManagerBundle/Resources/config/routing.yml"
     prefix:   /oki/
+    options:
+        expose: true
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
@@ -46,7 +50,7 @@ fos_user_resetting:
 
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile/change-password
+    prefix: /change-password
 
 
 # /FIREWALL

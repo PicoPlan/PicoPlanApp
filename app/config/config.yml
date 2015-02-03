@@ -33,7 +33,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [PicoAssetsBundle,PicoLeagueBundle]
+    bundles:        [PicoAssetsBundle,PicoLeagueBundle,CalendarManagerBundle]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -76,6 +76,9 @@ fos_user:
     db_driver:     orm                         # Database type to be used
     firewall_name: main_firewall               # Firewall name
     user_class:    Pico\UserBundle\Entity\User # Entity User class
+    profile:    # Custom Profile form
+        form:
+            type: pico_user_profile
     registration: # Custom registration
         form:
-            type: pico_user_registration  
+            type: pico_user_registration

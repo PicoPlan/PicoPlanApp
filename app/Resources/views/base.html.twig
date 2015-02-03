@@ -93,6 +93,7 @@
             <div id='body'>
               {% if (alert_info is defined) and (alert_info != false) %}
                 <div id="alert-info" class="alert alert-{{ alert_class }}">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <p>
                       {{ alert_info}}
                     </p>
