@@ -22,7 +22,7 @@ class AppKernel extends Kernel
             new ADesigns\CalendarBundle\ADesignsCalendarBundle(),
             new Pico\NotificationBundle\PicoNotificationBundle(),
             new Pico\LeagueBundle\PicoLeagueBundle(),
-            new Pico\UserBundle\UserBundle(),
+            new Pico\UserBundle\PicoUserBundle(),
             new Pico\AssetsBundle\PicoAssetsBundle(),
             new Pico\MessageBundle\PicoMessageBundle(),
             new Pico\CalendarManagerBundle\CalendarManagerBundle(),

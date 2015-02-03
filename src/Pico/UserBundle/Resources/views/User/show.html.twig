@@ -28,6 +28,12 @@
               </div>
             {% endfor %}
           </div>
+          <form action="{{ url('user_edit') }}" method="POST">
+            <button type="submit" class="btn btn-primary pull-right">
+              Edit
+            </button>
+          </form>
+          <div class="clearfix"></div>
         </div>
       </div>
     </div>

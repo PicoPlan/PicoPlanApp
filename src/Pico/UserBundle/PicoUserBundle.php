@@ -4,7 +4,7 @@ namespace Pico\UserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class UserBundle extends Bundle
+class PicoUserBundle extends Bundle
 {
 	public function getParent()
   {
