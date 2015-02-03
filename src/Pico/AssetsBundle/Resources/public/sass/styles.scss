@@ -99,6 +99,9 @@ body {
             }
         }
     }
+    .profile-edit {
+        padding: 15px;
+    }
 }
 
 /***********************
@@ -108,4 +111,17 @@ body {
 #calendar {
     padding: 15px;
     background-color: white;
+}
+
+
+/************************************
+    ---- ALERT-INFO -------------
+************************************/
+
+#alert-info {
+    position: fixed;
+    top: 70px;
+    width: 80%;
+    height: 50px;
+    z-index: 2000;
 }
