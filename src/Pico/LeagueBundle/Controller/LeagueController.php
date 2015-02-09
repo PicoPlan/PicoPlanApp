@@ -2,152 +2,183 @@
 namespace Pico\LeagueBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Pico\LeagueBundle\Entity\Equipe;
 use Pico\LeagueBundle\Entity\Sport;
 use Pico\LeagueBundle\Entity\League;
 use Pico\LeagueBundle\Entity\Club;
 use Pico\LeagueBundle\Entity\UserToEquipe;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LeagueController extends Controller
 {
 
+    private $CurrentUser;
+
+    private $em;
+
     /**
-     * Gestion de l'affichage
+     * Initialisation
+     * Récuperation de l'entity manger
+     * Récuperation de l'utilisateur courant
      */
-    /**
-     * Retourne un array contenant les elements essentiels a chaque fonction
-     */
-    public function getEssentiel()
+    public function __init()
     {
-        // On chope les essentiels
         if ($this->get("security.context")->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $user = $this->get('security.context')
+            $this->CurrentUser = $this->get('security.context')
                 ->getToken()
                 ->getUser();
-            
-            $EntityManager = $this->getDoctrine()->getManager();
-            return array(
-                $EntityManager,
-                $user
-            );
         } else {
-            throw new AccessDeniedException('Vous devez etre connecté !!');
+            $this->CurrentUser = false;
         }
+        
+        $this->em = $this->em = $this->getDoctrine()->getManager();
     }
 
+    /**
+     * Macro :
+     * Demande de connexion
+     */
+    private function throwAccessDenied()
+    {
+        throw new AccessDeniedException('Vous devez etre connecté');
+    }
+
+    /**
+     * Tmporaire :
+     * Fonction d'aide au devloppement
+     * Permet l'ajout de league, club et equipe
+     */
     public function test()
     {
-        list ($EntityManager, $User) = $this->getEssentiel();
-        
         $Sport = new Sport();
         $Sport->setNom('Rugby');
         $Sport->setDescription('Un sport de gentlemen joué par des hooligans');
-        $EntityManager->persist($Sport);
+        $this->em->persist($Sport);
         
         $Sport2 = new Sport();
         $Sport2->setNom('BabyFoot');
         $Sport2->setDescription('Un sport de gentlemen joué par des hooligans');
-        $EntityManager->persist($Sport2);
+        $this->em->persist($Sport2);
         
         $League = new League();
         $League->setNom('Rugby');
         $League->setDescription('La ligue des rugbyman');
         $League->setSport($Sport);
         $League->setUserCreator($User);
-        $EntityManager->persist($League);
+        $this->em->persist($League);
         
         $Club = new Club();
         $Club->setUserCreator($User);
         $Club->setNom('Le club de Ynov');
         $Club->setAdresse('42 rue de Ynov - 75020 - Paris');
         $Club->setDescription('Club de geek !');
-        $EntityManager->persist($Club);
+        $this->em->persist($Club);
         
         $Equipe = new Equipe();
         $Equipe->setSport($Sport);
         $Equipe->setClub($Club);
         $Equipe->setNom('Les vrais rugbyman !');
         $Equipe->setDescription('Pour les bonhommes');
-        $Equipe->setListeModo(serialize(array(
-            '1',
-            '2',
-            '3'
-        )));
-        $EntityManager->persist($Equipe);
-        
+        $Equipe->setListeModo(array(
+            $this->CurrentUser
+        ));
+        $this->em->persist($Equipe);
         
         $UserToEquipe = new UserToEquipe();
         $UserToEquipe->setUser($User);
         $UserToEquipe->setEquipe($Equipe);
         $UserToEquipe->setBoolAccepted(0);
-        $EntityManager->persist($UserToEquipe);
-
+        $this->em->persist($UserToEquipe);
+        
         $Equipe = new Equipe();
         $Equipe->setSport($Sport2);
         $Equipe->setClub($Club);
         $Equipe->setNom('Les vrais Babyfooteux !');
         $Equipe->setDescription('Pour les gardiens');
-        $Equipe->setListeModo(serialize(array(
-            '1',
-            '2',
-            '3'
-        )));
-        $EntityManager->persist($Equipe);
+        $Equipe->setListeModo(array(
+            $this->CurrentUser
+        ));
+        $this->em->persist($Equipe);
         
         // On balance en base
-        $EntityManager->flush();
+        $this->em->flush();
     }
 
     /**
-     * indexAction
-     * Affiche la page du $Type $Id
+     * Affiche la page specifique d'une league, d'un club ou d'une equipe
      * Default :
-     * Affiche le menu de choix des sous vues (récuperation en ajax)
+     * Affiche le menu de choix
      */
-    public function indexAction($Type = false, $Id = false)
+    public function indexAction($Type = false, $Id = false, $InfoSupp = false)
     {
-//         $this->test();
-        $EntityManager = $this->getDoctrine()->getManager();
-        
+        var_dump($InfoSupp);
+        $this->__init();
+        // Si les parametres sont remplis, on va chercher les infos
         if ($Type !== false and $Id !== false) {
             switch ($Type) {
                 case 'Ligues':
-                    $League = $EntityManager->getRepository('PicoLeagueBundle:League')->find($Id);
+                    
+                    // La league
+                    $League = $this->em->getRepository('PicoLeagueBundle:League')->find($Id);
                     if (is_null($League)) {
                         break;
                     }
-                    $Equipes = $this->getEquipesFromLeague($League);
-                    // Si pas de liste en renvois sur la page par defaut
+                    // Les equipes
+                    $Equipes = $this->em->getRepository('PicoLeagueBundle:Equipe')->getEquipesFromLeague($League);
+                    // Verfication des droit du user
+                    $IsAllowedUser = true;
+                    // Vue League
                     return $this->render('PicoLeagueBundle:Affichage:AffichageLeague.html.twig', array(
                         'League' => $League,
                         'Equipes' => $Equipes,
+                        'isAllowed' => $IsAllowedUser,
+                        'alert_info' => $InfoSupp,
+                        'alert_class' => 'info'
                     ));
                     break;
                 case 'Clubs':
-                    $Club = $EntityManager->getRepository('PicoLeagueBundle:Club')->find($Id);
+                    
+                    // Le club
+                    $Club = $this->em->getRepository('PicoLeagueBundle:Club')->find($Id);
                     if (is_null($Club)) {
                         break;
                     }
-                    $Equipes = $this->getEquipeFromClub($Club);
-                    // Si pas de liste en renvois sur la page par defaut
+                    // Les equipes
+                    $Equipes = $this->em->getRepository('PicoLeagueBundle:Equipe')->getEquipeFromClub($Club);
+                    // Verfication des droit du user
+                    $IsAllowedUser = ($Club->getUserCreator() == $this->CurrentUser);
+                    // Vue Club
                     return $this->render('PicoLeagueBundle:Affichage:AffichageClub.html.twig', array(
                         'Club' => $Club,
                         'Equipes' => $Equipes,
+                        'isAllowed' => $IsAllowedUser,
+                        'alert_info' => $InfoSupp,
+                        'alert_class' => 'info'
                     ));
                     break;
                 case 'Equipes':
-                    $Equipe = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->find($Id);
+                    
+                    // L'equipe
+                    $Equipe = $this->em->getRepository('PicoLeagueBundle:Equipe')->find($Id);
                     if (is_null($Equipe)) {
                         break;
                     }
-                    $League = $this->getLeagueFromEquipe($Equipe);
-                    $Membres = $this->getMembreFromEquipe($Equipe);
-                    // Si pas de liste en renvois sur la page par defaut
+                    // La league
+                    $League = $this->em->getRepository('PicoLeagueBundle:League')->getLeagueFromEquipe($Equipe);
+                    // Les membres
+                    $Membres = $this->em->getRepository('PicoLeagueBundle:UserToEquipe')->getUserFromEquipe($Equipe);
+                    var_dump(empty($Membres));
+                    // Verfication des droit du user
+                    $IsAllowedUser = ($this->CurrentUser != false && in_array($this->CurrentUser->getId(), $Equipe->getListeModo()));
+                    // Vue Equipe
                     return $this->render('PicoLeagueBundle:Affichage:AffichageEquipe.html.twig', array(
                         'League' => $League,
                         'Equipe' => $Equipe,
-                        'Membres'=> $Membres
+                        'Membres' => $Membres,
+                        'isAllowed' => $IsAllowedUser,
+                        'alert_info' => $InfoSupp,
+                        'alert_class' => 'info'
                     ));
                     break;
                 default:
@@ -155,39 +186,43 @@ class LeagueController extends Controller
                     break;
             }
         }
-        
+        // Vue principale : on demande les infos
         return $this->render('PicoLeagueBundle:Affichage:index.html.twig');
     }
-    
 
     /**
-     * Renvois la liste des entitées en fonction du type
-     * Valeurs possibles : Leagues, Clubs, Equipes
+     * Renvois la liste des leagues, club ou equipe
      */
     public function getAffichageAction($Type)
     {
-        $EntityManager = $this->getDoctrine()->getManager();
+        $this->__init();
         switch ($Type) {
             case 'Ligues':
-                $Liste = $EntityManager->getRepository('PicoLeagueBundle:League')->findBy(array(), array(
+                
+                // Récuperation des leagues par nom décroissant
+                $Liste = $this->em->getRepository('PicoLeagueBundle:League')->findBy(array(), array(
                     'nom' => 'Desc'
                 ));
+                // Information propre au type
                 $InfoComplementaire = array(
                     'sport'
                 );
                 break;
             case 'Clubs':
-                $Liste = $EntityManager->getRepository('PicoLeagueBundle:Club')->findBy(array(), array(
-                    
+                
+                // Récuperation des clubs par nom décroissant
+                $Liste = $this->em->getRepository('PicoLeagueBundle:Club')->findBy(array(), array(
                     'nom' => 'Desc'
                 ));
-                $InfoComplementaire = array(
-                );
+                $InfoComplementaire = array();
                 break;
             case 'Equipes':
-                $Liste = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array(), array(
+                
+                // Récuperation des equipes par nom décroissant
+                $Liste = $this->em->getRepository('PicoLeagueBundle:Equipe')->findBy(array(), array(
                     'nom' => 'Desc'
                 ));
+                // Information propre au type
                 $InfoComplementaire = array(
                     'sport',
                     'club'
@@ -197,11 +232,15 @@ class LeagueController extends Controller
                 throw new \Exception('Quelque chose a mal tourné !');
                 break;
         }
+        
+        // Verification des data
         if (empty($Liste)) {
             $Error = 'Pas disponnible :/';
         } else {
             $Error = false;
         }
+        
+        // On retourne la vue
         return $this->render('PicoLeagueBundle:Affichage:liste.html.twig', array(
             'Type' => $Type,
             'Liste' => $Liste,
@@ -209,37 +248,107 @@ class LeagueController extends Controller
             'Error' => $Error
         ));
     }
-    
+
     /**
-     * Methodes interne a la classe
-     * @param unknown $League
-     * @return unknown
+     * Action de soubscription a l'equipe du membre courant
+     *
+     * @param Equipe.Id $Id            
      */
-    private function getEquipesFromLeague($League)
+    public function subscribeToEquipeAction($Id)
     {
-        $EntityManager = $this->getDoctrine()->getManager();
-        $Equipes = $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array('sport' => $League->getSport()));
-        return $Equipes;
+        $this->__init();
+        // On vérifie les droits
+        if (! $this->CurrentUser) {
+            $this->throwAccessDenied();
+        }
+        // On récupere l'equipe
+        $Equipe = $this->em->getRepository('PicoLeagueBundle:Equipe')->find($Id);
+        
+        // On ajoute le membre
+        $Succes = $this->em->getRepository('PicoLeagueBundle:UserToEquipe')->addUser($this->CurrentUser, $Equipe);
+        
+        if ($Succes) {
+            $Message = "Votre demande à bien été prise en compte";
+        } else {
+            $Message = "Vous aviez déjà postulé dans cette equipe. Un message vous sera envoyé lorsque votre requete aura été traitée.";
+        }
+        // On redirige sur la vue de l'equipe
+        return $this->redirect($this->generateUrl('pico_league_affichage', array(
+            'Type' => 'Equipes',
+            'Id' => $Id,
+            'InfoSupp' => $Message
+        )));
     }
-    
-    private function getLeagueFromEquipe($Equipe)
+
+    /**
+     *
+     * @param unknown $Id            
+     */
+    public function gestionEquipeAction($Id)
     {
-        $EntityManager = $this->getDoctrine()->getManager();
-        $League = $EntityManager->getRepository('PicoLeagueBundle:League')->findBy(array('sport' => $Equipe->getSport()));
-        return $League;
-    }
-    
-    private function getMembreFromEquipe($Equipe)
-    {
-        $EntityManager = $this->getDoctrine()->getManager();
-        $Membres = $EntityManager->getRepository('PicoLeagueBundle:UserToEquipe')->findBy(array('equipe'=>$Equipe));
-        return $Membres;
-    }
-    
-    private function getEquipeFromClub($Club)
-    {
-        $EntityManager = $this->getDoctrine()->getManager();
-        $Equipes =  $EntityManager->getRepository('PicoLeagueBundle:Equipe')->findBy(array('club' => $Club));
-        return $Equipes;
+        $this->__init();
+        // On vérifie les droits
+        if (! $this->CurrentUser) {
+            $this->throwAccessDenied();
+        }
+        // Verification de la requete
+        $request = $this->get('request');
+        if ($request->getMethod() == 'POST') {
+            //On récupere les parametres qui nous interesses :
+            $Params = array();
+            foreach ($request->request->all() as $Key => $Post) {
+                if(preg_match('#^etat_([0-9]+)$#i',$Key,$IdUserToEquipeMatch)) {
+                    $Params[(int) $IdUserToEquipeMatch[1]] = $Post;
+                }
+            }
+            
+            if(empty($Params)) {
+                //Si aucun parametre
+                $Status = 'KO';
+                $Error = 'Aucune séléction';
+            } else {
+                $Status = 'OK';
+                $Error = false;
+                //Sinon, pour chaque user
+                foreach ($Params as $IdUserToEquipe => $Action) {
+                    $UserToEquipe = $this->em->getRepository('PicoLeagueBundle:UserToEquipe')->find($IdUserToEquipe);
+                    switch ($Action) {
+                        case 'verify':
+                            $UserToEquipe->setBoolAccepted(1);
+                            $this->em->persist($UserToEquipe);
+                        break;
+                        case 'delete':
+                            $this->em->remove($UserToEquipe);
+                        break;
+                        
+                        default:
+                           $Status = 'KO';
+                           $Error = 'Une erreur à été rencontrée. Celle ci à été historisée';
+                        break;
+                    }
+                    $this->em->flush();
+                }
+            }
+            
+            
+            $Url = $this->generateUrl('pico_league_affichage', array(
+                'Type' => 'Equipes',
+                'Id' => $Id,
+                'InfoSupp' => "Les modifications ont bien été prisent en compte",));
+            $ArrayRetour = array(
+                'status' => $Status,
+                'error' => $Error,
+                'url' => $Url,
+            );
+        } else {
+            $ArrayRetour = array(
+                'status' => 'KO',
+                'Error' => 'Une erreur est survenue',
+            );
+        }
+        
+        
+        
+        return new JsonResponse($ArrayRetour);
     }
 }

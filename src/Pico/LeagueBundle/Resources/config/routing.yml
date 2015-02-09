@@ -1,6 +1,6 @@
 pico_league_affichage:
-    path:     /affichage/{Type}/{Id}
-    defaults: { _controller: PicoLeagueBundle:League:index,Type: false, Id: false}
+    path:     /affichage/{Type}/{Id}/{InfoSupp}
+    defaults: { _controller: PicoLeagueBundle:League:index,Type: false, Id: false, InfoSupp: false}
     requirements:
         Id:  \d+
         Type: Ligues|Clubs|Equipes
@@ -8,3 +8,13 @@ pico_league_affichage:
 pico_league_affichage_ajax:
     path:     /ajax/affichage/{Type}
     defaults: { _controller: PicoLeagueBundle:League:getAffichage }
+
+subscribe_to_equipe:
+    path:    /ajax/subscribeEquipe/{Id}
+    defaults: { _controller: PicoLeagueBundle:League:subscribeToEquipe}
+    requirements:
+        Id:  \d+
+
+gestion_equipe:
+    path:    /ajax/gestion-equipe/{Id}
+    defaults: { _controller: PicoLeagueBundle:League:gestionEquipe}
