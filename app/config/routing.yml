@@ -1,3 +1,7 @@
+pico_rest:
+    resource: "@PicoRestBundle/Resources/config/routing.yml"
+    prefix:   /
+
 pico_messagerie:
     resource: "@PicoMessageBundle/Resources/config/routing.yml"
     prefix:   /mp/
@@ -28,7 +32,7 @@ fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 adesigns_calendar:
-    resource: "@ADesignsCalendarBundle/Resources/config/routing.xml" 
+    resource: "@ADesignsCalendarBundle/Resources/config/routing.xml"
 
 # FIREWALL
 
@@ -54,3 +58,9 @@ fos_user_change_password:
 
 
 # /FIREWALL
+
+#REST 
+rest : 
+  type : rest 
+  resource : "routing_rest.yml"
+  prefix : /api
