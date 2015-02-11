@@ -1,0 +1,3 @@
+pico_rest_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: PicoRestBundle:Default:index }

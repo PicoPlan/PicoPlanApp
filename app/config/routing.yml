@@ -1,3 +1,7 @@
+pico_rest:
+    resource: "@PicoRestBundle/Resources/config/routing.yml"
+    prefix:   /
+
 pico_messagerie:
     resource: "@PicoMessageBundle/Resources/config/routing.yml"
     prefix:   /mp/

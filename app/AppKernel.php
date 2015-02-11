@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Pico\AssetsBundle\PicoAssetsBundle(),
             new Pico\MessageBundle\PicoMessageBundle(),
             new Pico\CalendarManagerBundle\CalendarManagerBundle(),
+            new Pico\Bundle\RestBundle\PicoRestBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
