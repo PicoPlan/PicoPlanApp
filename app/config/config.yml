@@ -82,3 +82,16 @@ fos_user:
     registration: # Custom registration
         form:
             type: pico_user_registration
+
+
+#RestBundle config
+sensio_framework_extra:
+    view:
+        annotations: false
+    
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    view:
+        view_response_listener: 'force'

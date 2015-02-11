@@ -1,6 +1,6 @@
 <?php
 
-namespace Pico\Bundle\RestBundle;
+namespace Pico\RestBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

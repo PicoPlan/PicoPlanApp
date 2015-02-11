@@ -1,6 +1,6 @@
 <?php
 
-namespace Pico\Bundle\RestBundle\Controller;
+namespace Pico\RestBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
