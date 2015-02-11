@@ -26,7 +26,7 @@ class AppKernel extends Kernel
             new Pico\AssetsBundle\PicoAssetsBundle(),
             new Pico\MessageBundle\PicoMessageBundle(),
             new Pico\CalendarManagerBundle\CalendarManagerBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Pico\RestBundle\PicoRestBundle(),
         );
