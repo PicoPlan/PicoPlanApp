@@ -27,6 +27,8 @@ class AppKernel extends Kernel
             new Pico\MessageBundle\PicoMessageBundle(),
             new Pico\CalendarManagerBundle\CalendarManagerBundle(),
             new Pico\Bundle\RestBundle\PicoRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle($this),
+            new FOS\RestBundle\FOSRestBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
