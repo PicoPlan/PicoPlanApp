@@ -17,8 +17,8 @@ class EventType extends AbstractType
         $builder
             ->add('title', 'text')
             ->add('description', 'text')
-            ->add('datetimeStart', 'datetime')
-            ->add('datetimeEnd', 'datetime')
+            ->add('datetimeStart', 'datetime',array('data' => new \DateTime()))
+            ->add('datetimeEnd', 'datetime',array('data' => new \DateTime()))
             ->add('repeating', new RepeatingeventType(), array('mapped' => false))
             ->add('save', 'submit')
         ;

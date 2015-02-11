@@ -40,6 +40,18 @@ class Event
      */
     private $datetimeEnd;
 
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return Event
+     */
+    public function setId($id)
+    {
+        $this->id= $id;
+
+        return $this;
+    }
 
     /**
      * Get id
