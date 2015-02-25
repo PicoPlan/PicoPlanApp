@@ -1,0 +1,4 @@
+users : 
+  type: rest
+  resource: "PicoUserBundle:UserRest"
+  name_prefix: api_
