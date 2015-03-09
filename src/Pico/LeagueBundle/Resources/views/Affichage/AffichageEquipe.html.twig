@@ -5,7 +5,7 @@
 	<h3>{{Equipe.nom}} </h3>
 	<h5>Club : <a href='{{url('pico_league_affichage', {'Type': 'Clubs','Id': Equipe.club.id}) }}'>{{Equipe.club.nom}}</a></h5>
 	{% if League[0] is defined %}
-		<h5>Ligue : <a href='{{url('pico_league_affichage', {'Type': 'Clubs','Id': League[0].id}) }}'>{{League[0].nom}}</a></h5>
+		<h5>Ligue : <a href='{{url('pico_league_affichage', {'Type': 'Ligues','Id': League[0].id}) }}'>{{League[0].nom}}</a></h5>
 	{% endif %} 
 	<br />
 	<h4>Description :</h4>
@@ -27,8 +27,41 @@
 					{%if isAllowed%} <th>Action</th> {%endif%}
 			</thead>
 			<tbody>
+				{% set CurrentUser = false %}
 				{% for Membre in Membres %}
-					{%if Membre.id == app.user.id %}
+					{%if (app.user.id is defined) and (Membre.user.id == app.user.id) %}
+						{% set CurrentUser %}
+							<tr>
+								<td>{{Membre.User | capitalize }}</td>
+								<td>
+										{%if Membre.boolAccepted == 1 %}
+											Accepté
+										{% else %}
+											En Attente
+										{% endif %}
+								</td>
+								{%if isAllowed%}
+									<td>
+										<form class="gestion-equipe form-inline">
+										{% if Membre.boolAccepted != 1 %}
+											<div class="form-group">
+												<input class="form-control" type="radio" id="accepter_{{Membre.Id}}" name="etat_{{Membre.Id}}" value="verify" />
+												<label for="accepter_{{Membre.Id}}"><div class='glyphicon glyphicon-ok'></div></label>
+											</div>
+										{% else %}
+											<div class="form-group">
+												<button type="reset" class="glyphicon glyphicon-trash"></button>
+											</div>
+										{% endif%}
+											<div class="form-group">
+												<input class="form-control" type="radio" id="exclure_{{Membre.Id}}" name="etat_{{Membre.Id}}" value="delete" />
+												<label for="exclure_{{Membre.Id}}"><div class='glyphicon glyphicon glyphicon-remove'></div></label>
+											</div>
+										</form>
+									</td>
+								{%endif%}
+							</tr>
+						{% endset %}
 					{% else %}
 						<tr>
 							<td>{{Membre.User | capitalize }}</td>
@@ -64,20 +97,36 @@
 				{% endfor %}
 			</tbody>
 			<tfoot>
-				<tr>
-					<td>
-						{{ app.user.username | capitalize }} 
-					</td>
-					<td>
-						<a href ="{{url('subscribe_to_equipe', {'Id': Equipe.id}) }}">Postuler dans l'equipe</a>
-					</td>
+				{% if CurrentUser != false %}
+					{{CurrentUser}}
 					{%if isAllowed%}
-						<td >
-						<a href ="javascript:gestionEquipe('{{Equipe.Id}}')">Gerer les invitations</a>
+						<tr>
+							<td colspan='3'>
+								<button type='button' onclick="javascript:gestionEquipe('{{Equipe.Id}}')">Gerer les invitations</button>
+							</td>
+						</tr>
+					{%endif%}
+				{% else %}
+					<tr>
+						<td>
+						{%if (app.user.id is defined)%}
+							{{ app.user.username | capitalize }}
+						{%else%}
+							Invité
+						{%endif%}
 						</td>
-					{% endif %}
+						<td>
+							<button type='button' onclick="location.href='{{url('subscribe_to_equipe', {'Id': Equipe.id}) }}'">Postuler dans l'equipe</button>
+						</td>
+						{%if isAllowed%}
+							<td >
+								<button type='button' onclick="javascript:gestionEquipe('{{Equipe.Id}}')">Gerer les invitations</button>
+							</td>
+						{%endif%}
+					</tr>
+				{%endif%}
 			</tfoot>
-			</table>
+		</table>
 	</span>
 </div>
 {% endblock %}

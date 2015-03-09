@@ -1,17 +1,117 @@
 /**
+ * Appelle ajax a la methode de suppression
+ * @param type
+ * @param id
+ */
+function remove(type,id)
+{
+	var urlDelete = Routing.generate('delete', { "Type":type,"Id": id})
+	$.get(urlDelete,function(data){
+		if(data['status'] == 'OK') {
+			$('#row_'+id).remove();
+		} else {
+			alert('une erreur est survenue');
+		}
+	});
+}
+
+/**
+ * Fonction interne : Retourne l'element submit depuis l'id du form
+ * @param IdElement
+ * @returns Element
+ */
+function getFormSubmit(IdForm){
+	return $('#'+IdForm+' [type="submit"]');
+}
+/**
+ * Fonction Affichant le form selon le type, et l'id
+ * @param id
+ */
+function displayForm(type,id,id_cible){
+	var urlForm = Routing.generate('pico_league_get_form', { "Type":type,"Id": id})
+	if(id_cible != undefined){
+		urlForm = urlForm+'/'+id_cible;
+	}
+	$.get(urlForm,function(data,status){
+		if(status == 'success') {
+			//On affiche la zone
+			$("#modalDynamicForm").toggle();
+			//On remplis par le form, et on cache le bouton de validation de base
+			$(".DynamicForm").html(data);
+			//On cache le bouton de validation
+			getFormSubmit("modalDynamicForm").css('display','none');
+			//Gestion particuliere, pour le form equipe on applique le multiSelect
+			if(type=='Equipes'){
+				$("#pico_leaguebundle_equipe_listeModo_id_client").multiselect({
+					header: "Choisissez les moderateurs",
+					click: function(e){
+						//Recup liste membre
+						var list_id_membre = [];
+						$(this).multiselect("widget").find("input:checked").each(function( element ) {
+							list_id_membre.push($(this).val());
+						});
+						//On modifie la valeur de listeModo :
+						$('#pico_leaguebundle_equipe_listeModo').val(list_id_membre.join(','));
+					},
+				});
+
+				var list_id_membre_recup = $('#pico_leaguebundle_equipe_listeModo').val();
+				var array_list_id_membre = [];
+				array_list_id_membre = list_id_membre_recup.split(',');
+
+				var checkpoint_first = true;
+				$("select").multiselect("widget").find(":checkbox").each(function(){
+					if(jQuery.inArray($(this).val(), array_list_id_membre)!==-1) {
+						if(!$(this).attr('aria-selected')){							
+							this.click();
+						}
+					} else {
+						if($(this).attr('aria-selected')){							
+							this.click();
+						}
+					}
+				});
+			}
+
+		}
+	});
+}
+
+function validateForm(urlValidateForm){
+	$.ajax({
+		type: "POST",
+		url: urlValidateForm,
+		data: $('.DynamicForm form').serialize(), // serializes the form's elements.
+		success: function(data)
+		{
+			if(data['status'] == 'Ok') {
+				$(location).attr('href',data['url']);
+			} else {
+				//On affiche la zone
+				$("#modalDynamicForm").show();
+				//On remplis par le form, et on cache le bouton de validation de base
+				$(".DynamicForm").html(data);
+				//On cache le bouton de validation
+				getFormSubmit("modalDynamicForm").css('display','none');
+			}
+		}
+	});
+}
+
+/**
  * Affiche le formulaire d'ajout d'evenement
  * @param type
  * @param id
  */
 function displayFormEvent(type,id){
-	var urlEvent = '/app_dev.php/oki/form/'+type+'/'+id;
+	var urlEvent = Routing.generate('calendar_manager_homepage', { "type":type,"id": id})
 	$.get(urlEvent,function(data,status){
 		if(status == 'success') {
 			//On affiche la zone
-			$("#modalDynamicAddEvent").toggle();
+			$("#modalDynamicForm").toggle();
 			//On remplis par le form, et on cache le bouton de validation de base
-			$(".DynamicAddEvent").html(data);
-			$("#pico_calendarmanagerbundle_event_save").css('display','none');
+			$(".DynamicForm").html(data);
+			getFormSubmit("modalDynamicForm").css('display','none');
 		}
 	});
 }
@@ -21,7 +121,7 @@ function displayFormEvent(type,id){
  */
 function gestionEquipe(id)
 {
-	var urlGestionEquipe = '/app_dev.php/league/ajax/gestion-equipe/'+id;
+	var urlGestionEquipe = Routing.generate('gestion_equipe', {"Id": id})
 	$.ajax({
 		type: "POST",
 		url: urlGestionEquipe,
@@ -38,6 +138,19 @@ function gestionEquipe(id)
 					alert('Une erreur est survenue');
 				}
 			}
+		}
+	});
+}
+
+/**
+* Gestion des evenements sur le calendrier
+***/
+function eventClickOverride(type,id)
+{
+	urlEdit = Routing.generate('calendar_manager_see', { "id": id});
+	$.get(urlEdit,function(data,status){
+		if(status == 'success') {
+			alert(data);
 		}
 	});
 }

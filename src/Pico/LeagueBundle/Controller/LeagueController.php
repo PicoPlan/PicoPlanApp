@@ -4,6 +4,7 @@ namespace Pico\LeagueBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Pico\LeagueBundle\Form\EquipeType;
 use Pico\LeagueBundle\Entity\Equipe;
 use Pico\LeagueBundle\Entity\Sport;
 use Pico\LeagueBundle\Entity\League;
@@ -65,11 +66,11 @@ class LeagueController extends Controller
         $League->setNom('Rugby');
         $League->setDescription('La ligue des rugbyman');
         $League->setSport($Sport);
-        $League->setUserCreator($User);
+        $League->setUserCreator($this->CurrentUser);
         $this->em->persist($League);
         
         $Club = new Club();
-        $Club->setUserCreator($User);
+        $Club->setUserCreator($this->CurrentUser);
         $Club->setNom('Le club de Ynov');
         $Club->setAdresse('42 rue de Ynov - 75020 - Paris');
         $Club->setDescription('Club de geek !');
@@ -86,7 +87,7 @@ class LeagueController extends Controller
         $this->em->persist($Equipe);
         
         $UserToEquipe = new UserToEquipe();
-        $UserToEquipe->setUser($User);
+        $UserToEquipe->setUser($this->CurrentUser);
         $UserToEquipe->setEquipe($Equipe);
         $UserToEquipe->setBoolAccepted(0);
         $this->em->persist($UserToEquipe);
@@ -112,8 +113,8 @@ class LeagueController extends Controller
      */
     public function indexAction($Type = false, $Id = false, $InfoSupp = false)
     {
-        var_dump($InfoSupp);
         $this->__init();
+//         $this->test();
         // Si les parametres sont remplis, on va chercher les infos
         if ($Type !== false and $Id !== false) {
             switch ($Type) {
@@ -168,9 +169,12 @@ class LeagueController extends Controller
                     $League = $this->em->getRepository('PicoLeagueBundle:League')->getLeagueFromEquipe($Equipe);
                     // Les membres
                     $Membres = $this->em->getRepository('PicoLeagueBundle:UserToEquipe')->getUserFromEquipe($Equipe);
-                    var_dump(empty($Membres));
                     // Verfication des droit du user
-                    $IsAllowedUser = ($this->CurrentUser != false && in_array($this->CurrentUser->getId(), $Equipe->getListeModo()));
+                    $ListeModo = explode(',', $Equipe->getListeModo());
+                    $ListeModo[] = $Equipe->getClub()
+                        ->getUserCreator()
+                        ->getId();
+                    $IsAllowedUser = ($this->CurrentUser != false && in_array($this->CurrentUser->getId(), $ListeModo));
                     // Vue Equipe
                     return $this->render('PicoLeagueBundle:Affichage:AffichageEquipe.html.twig', array(
                         'League' => $League,
@@ -250,6 +254,88 @@ class LeagueController extends Controller
     }
 
     /**
+     * Valide le formulaire et impact en database
+     * Default : Renvois le formulaire de créeation de Type
+     * Renvois le formulaire de modification de IdCible
+     *
+     * @param string $Type            
+     * @param int $Id            
+     * @param int $IdCible            
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function manageFormAction($Type, $Id, $IdCible = false)
+    {
+        // Initialisation du formulaire
+        $this->__init();
+        switch ($Type) {
+            case 'Equipes':
+                // On récupere les entitées
+                if ($IdCible != false) {
+                    $Entity = $this->em->getRepository('PicoLeagueBundle:Equipe')->find($IdCible);
+                    $Entity->setEm($this->em);
+                } else {
+                    // Ou l'on en crée une nouvelle
+                    $Entity = new Equipe($this->em);
+                    $Club = $this->em->getRepository('PicoLeagueBundle:Club')->find($Id);
+                    $Entity->setClub($Club);
+                }
+                // On crée le form
+                $Form = $this->get('form.factory')->create(new EquipeType(), $Entity, array(
+                    'action' => 'javascript:validateForm("' . $this->generateUrl('pico_league_get_form', array(
+                        'Type' => 'Equipes',
+                        'Id' => $Id,
+                        'IdCible' => $IdCible
+                    )) . '");'
+                ));
+                // On recupere le vue de retour
+                $RedirectUrl = $this->generateUrl('pico_league_affichage', array(
+                    'Type' => 'Clubs',
+                    'Id' => $Id,
+                    'InfoSupp' => 'L\'equipe à bien été crée'
+                ));
+        }
+        
+        // Verification si validation :
+        $Request = $this->getRequest();
+        if ($Form->handleRequest($Request)->isValid()) {
+            $this->em->merge($Entity);
+            $this->em->flush();
+            // On renvois la reponse en json
+            return new JsonResponse(array(
+                'status' => 'Ok',
+                'url' => $RedirectUrl
+            ));
+        } else {
+            // On affiche le form
+            return $this->render('PicoLeagueBundle:Affichage:subView/Formulaire.html.twig', array(
+                'Form' => $Form->createView()
+            ));
+        }
+    }
+
+    public function deleteAction($Type, $Id)
+    {
+        $this->__init();
+        switch ($Type) {
+            case 'Equipes':
+                $Entity = $this->em->getRepository('PicoLeagueBundle:Equipe')->find($Id);
+                $AllowedTo = ($Entity->getClub()->getUserCreator() == $this->CurrentUser);
+                break;
+            
+            default:
+                ;
+            break;
+        }
+        if (isset($AllowedTo) && $AllowedTo == true) {
+            $this->em->remove($Entity);
+            $this->em->flush();
+            return new JsonResponse(array('status'=>'OK'));
+        } else {
+            return new JsonResponse(array('status'=>'KO'));
+        }
+    }
+
+    /**
      * Action de soubscription a l'equipe du membre courant
      *
      * @param Equipe.Id $Id            
@@ -294,60 +380,58 @@ class LeagueController extends Controller
         // Verification de la requete
         $request = $this->get('request');
         if ($request->getMethod() == 'POST') {
-            //On récupere les parametres qui nous interesses :
+            // On récupere les parametres qui nous interesses :
             $Params = array();
             foreach ($request->request->all() as $Key => $Post) {
-                if(preg_match('#^etat_([0-9]+)$#i',$Key,$IdUserToEquipeMatch)) {
+                if (preg_match('#^etat_([0-9]+)$#i', $Key, $IdUserToEquipeMatch)) {
                     $Params[(int) $IdUserToEquipeMatch[1]] = $Post;
                 }
             }
             
-            if(empty($Params)) {
-                //Si aucun parametre
+            if (empty($Params)) {
+                // Si aucun parametre
                 $Status = 'KO';
                 $Error = 'Aucune séléction';
             } else {
                 $Status = 'OK';
                 $Error = false;
-                //Sinon, pour chaque user
+                // Sinon, pour chaque user
                 foreach ($Params as $IdUserToEquipe => $Action) {
                     $UserToEquipe = $this->em->getRepository('PicoLeagueBundle:UserToEquipe')->find($IdUserToEquipe);
                     switch ($Action) {
                         case 'verify':
                             $UserToEquipe->setBoolAccepted(1);
                             $this->em->persist($UserToEquipe);
-                        break;
+                            break;
                         case 'delete':
                             $this->em->remove($UserToEquipe);
-                        break;
+                            break;
                         
                         default:
-                           $Status = 'KO';
-                           $Error = 'Une erreur à été rencontrée. Celle ci à été historisée';
-                        break;
+                            $Status = 'KO';
+                            $Error = 'Une erreur à été rencontrée. Celle ci à été historisée';
+                            break;
                     }
                     $this->em->flush();
                 }
             }
             
-            
             $Url = $this->generateUrl('pico_league_affichage', array(
                 'Type' => 'Equipes',
                 'Id' => $Id,
-                'InfoSupp' => "Les modifications ont bien été prisent en compte",));
+                'InfoSupp' => "Les modifications ont bien été prisent en compte"
+            ));
             $ArrayRetour = array(
                 'status' => $Status,
                 'error' => $Error,
-                'url' => $Url,
+                'url' => $Url
             );
         } else {
             $ArrayRetour = array(
                 'status' => 'KO',
-                'Error' => 'Une erreur est survenue',
+                'Error' => 'Une erreur est survenue'
             );
         }
-        
-        
         
         return new JsonResponse($ArrayRetour);
     }
