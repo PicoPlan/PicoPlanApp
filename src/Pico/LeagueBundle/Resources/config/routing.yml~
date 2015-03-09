@@ -1,7 +1,34 @@
 pico_league_affichage:
-    path:     /affichage/
-    defaults: { _controller: PicoLeagueBundle:League:index }
+    path:     /affichage/{Type}/{Id}/{InfoSupp}
+    defaults: { _controller: PicoLeagueBundle:League:index,Type: false, Id: false, InfoSupp: false}
+    requirements:
+        Id:  \d+
+        Type: Ligues|Clubs|Equipes
 
 pico_league_affichage_ajax:
     path:     /ajax/affichage/{Type}
     defaults: { _controller: PicoLeagueBundle:League:getAffichage }
+
+pico_league_subscribe_to_equipe:
+    path:    /ajax/subscribeEquipe/{Id}
+    defaults: { _controller: PicoLeagueBundle:League:subscribeToEquipe}
+    requirements:
+        Id:  \d+
+
+pico_league_gestion_equipe:
+    path:    /ajax/gestion-equipe/{Id}
+    defaults: { _controller: PicoLeagueBundle:League:gestionEquipe}
+
+pico_league_get_form:
+    path:    /ajax/form/{Type}/{Id}/{IdCible}
+    defaults: { _controller: PicoLeagueBundle:League:manageForm,IdCible: false}
+    requirements:
+        Id:  \d+
+        Type: Ligues|Clubs|Equipes
+
+pico_league_delete:
+    path:    /ajax/delete/{Type}/{Id}
+    defaults: { _controller: PicoLeagueBundle:League:delete}
+    requirements:
+        Id:  \d+
+        Type: Ligues|Clubs|Equipes

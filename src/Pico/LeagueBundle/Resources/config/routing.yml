@@ -8,7 +8,9 @@ pico_league_affichage:
 pico_league_affichage_ajax:
     path:     /ajax/affichage/{Type}
     defaults: { _controller: PicoLeagueBundle:League:getAffichage }
-
+    options:
+        expose: true
+        
 subscribe_to_equipe:
     path:    /ajax/subscribeEquipe/{Id}
     defaults: { _controller: PicoLeagueBundle:League:subscribeToEquipe}
@@ -18,3 +20,23 @@ subscribe_to_equipe:
 gestion_equipe:
     path:    /ajax/gestion-equipe/{Id}
     defaults: { _controller: PicoLeagueBundle:League:gestionEquipe}
+    options:
+        expose: true
+        
+pico_league_get_form:
+    path:    /ajax/form/{Type}/{Id}/{IdCible}
+    defaults: { _controller: PicoLeagueBundle:League:manageForm,IdCible: false}
+    requirements:
+        Id:  \d+
+        Type: Ligues|Clubs|Equipes
+    options:
+        expose: true
+
+delete:
+    path:    /ajax/delete/{Type}/{Id}
+    defaults: { _controller: PicoLeagueBundle:League:delete}
+    requirements:
+        Id:  \d+
+        Type: Ligues|Clubs|Equipes
+    options:
+        expose: true

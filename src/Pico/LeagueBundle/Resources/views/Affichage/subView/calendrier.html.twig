@@ -1,32 +1,33 @@
 <h4>Calendrier</h4>
-<span class="col-md-12">
-		Calendrier à venir ici
+<span id='test_lpicot' class="col-md-12">
+		{{render(controller('CalendarManagerBundle:Default:getevents',{'type' : type, 'id' : id }))}}
 </span>
 {% if AllowedUser %}
 	<span class="col-md-12">
-		<button onclick='javascript:displayFormEvent("{{type}}","{{id}}")' type="button" data-toggle="modal" data-target="#DynamicAddEventModal">Ajouter un evenement</button>
+		<button onclick='javascript:displayFormEvent("{{type}}","{{id}}")' type="button" data-toggle="modal" data-target="#modalDynamicForm">Ajouter un evenement</button>
 	</span>
-	<div id="DynamicAddEventModal" class="modal fade">
+	<div id="modalDynamicForm" class="modal fade">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        <h4 class="modal-title">Ajouter un evenement</h4>
 	      </div>
-	      <div class="DynamicAddEvent modal-body">
+	      <div class="DynamicForm modal-body">
 	        <p>One fine body&hellip;</p>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-	        <button type="button" onclick="document.getElementById('pico_calendarmanagerbundle_event_save').click();" class="btn btn-primary">Sauvegarder</button>
+	        <button type="button" onclick="javascript:getFormSubmit('modalDynamicForm').click();" class="btn btn-primary">Sauvegarder</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 {% endif %}
-
 {% block extrascript %}
-	{% javascripts '@PicoLeagueBundle/Resources/public/league.js' output='league.js' %}
+	{% javascripts 
+		'@PicoLeagueBundle/Resources/public/league.js' 
+		output='league.js' %}
     	<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
 {% endblock %}

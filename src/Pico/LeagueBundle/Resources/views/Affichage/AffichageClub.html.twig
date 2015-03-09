@@ -1,3 +1,18 @@
+{% block extrascript %}
+{% stylesheets 
+	'@PicoLeagueBundle/Resources/public/jquery-ui-1.11.2.custom/jquery-ui.css'
+	'@PicoLeagueBundle/Resources/public/Jquery-ui-multiselect-widget/jquery.multiselect.css' 
+%}
+      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+{% endstylesheets %}
+	{% javascripts
+		'@PicoLeagueBundle/Resources/public/jquery-ui-1.11.2.custom/jquery-ui.js'
+		'@PicoLeagueBundle/Resources/public/Jquery-ui-multiselect-widget/src/jquery.multiselect.js' 
+	%}
+    	<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
+
 {% set title = 'Club' %}
 {% extends "::base.html.twig" %}
 {% block content %}
@@ -25,13 +40,34 @@
 			</thead>
 			<tbody>
 				{% for Equipe in Equipes %}
-					<tr>
+					<tr id='row_{{Equipe.Id}}'>
 						<td>{{ Equipe.nom | capitalize }}</td>
 						<td>{{ Equipe.sport.nom | capitalize }}</td>
-						<td><a href='{{url('pico_league_affichage', {'Type': 'Equipes','Id': Equipe.id}) }}'><div class='glyphicon glyphicon-arrow-right text-center'></div></a></td>
+						<td>
+							<a href='{{url('pico_league_affichage', {'Type': 'Equipes','Id': Equipe.id}) }}'>
+								<div class='glyphicon glyphicon-arrow-right text-center'></div>
+							</a>
+							{% if isAllowed == true %}
+								<a href='#' onclick='javascript:displayForm("Equipes","{{Club.id}}","{{Equipe.id}}")' type="button" data-toggle="modal" data-target="#modalDynamicForm">
+									<div class='glyphicon glyphicon-edit text-center'></div>
+								</a>
+								<a href='javascript:remove("Equipes","{{Equipe.id}}")'>
+									<div class='glyphicon glyphicon-remove text-center'></div>
+								</a>
+							{%endif%}
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
+			<thead>
+				{% if isAllowed == true%}
+					<tr>
+						<td colspan='3'>
+							<button onclick='javascript:displayForm("Equipes","{{Club.id}}")' type="button" data-toggle="modal" data-target="#modalDynamicForm">Ajouter une equipe</button>
+						</td>
+					</tr>
+				{% endif%}
+			</thead>
 		</table>	
 	</span>
 </div>
