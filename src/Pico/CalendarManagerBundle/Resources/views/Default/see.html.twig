@@ -12,10 +12,10 @@
  <div>{{ repeatingexist.frequency }}</div>
  {% endif %}
 
- <a href="{{ path('calendar_manager_edit', { 'id': event.id }) }}">
+ <a id="edit " href="{{ path('calendar_manager_edit', { 'id': event.id }) }}">
  	Modifier
  </a>
- <a href="{{ path('calendar_manager_delete', { 'id': event.id }) }}">
+ <a id="delete" href="{{ path('calendar_manager_delete', { 'id': event.id }) }}">
  	Supprimer
  </a>
 

@@ -102,7 +102,7 @@ class DefaultController extends Controller
             'event' => $event,
             'repeatingevent' => $repeatingexist
         );
-        $form = $this->get('form.factory')->create(new EventType(), $event);
+        $form = $this->get('form.factory')->create(new EventType(), $event, array('action'=>'javascript:validateform('.$id.')','attr'=>array('id' => 'eventform')));
         
         // Requete envoyé
         if ($form->handleRequest($request)->isValid()) {
@@ -127,13 +127,12 @@ class DefaultController extends Controller
                 $repeating->setEvent($event->getId());
                 $em->persist($repeating);
                 $em->flush();
+
             }
-            return $this->render('CalendarManagerBundle:Default:index.html.twig', array(
-                'form' => $form->createView()
-            ));
+            return new JsonResponse(array('status' => 'ok'));
         }
         
-        return $this->render('CalendarManagerBundle:Default:index.html.twig', array(
+        return $this->render('CalendarManagerBundle:Default:edit.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -216,7 +215,9 @@ class DefaultController extends Controller
         
         // Do it
         $em->flush();
-        return $this->redirect('');
+        $request = $this->container->get('request');
+        $routeName = $request->get('_route');
+        return $this->render($routeName);
     }
 
     public function geteventsAction($type, $id)
@@ -302,15 +303,15 @@ class DefaultController extends Controller
         if ($type == $this->type['league']) {
             $eventlist[] = byLeague($id, $DoctrineManager, $eventlist);
         }
+
         
         // Search Repeating
         $RepeatingRepository = $DoctrineManager->getRepository('CalendarManagerBundle:Repeatingevent');
         $arrayreturned = array();
         foreach ($eventlist[0] as $event) {
-            
             $Repeatingfind = $RepeatingRepository->findOneByEvent($event->getId());
             // +1 jour +1semaine +2semaine +1mois
-            if (! is_null($Repeatingfind)) {
+            if (!is_null($Repeatingfind)) {
                 $frequency = $Repeatingfind->getFrequency();
                 while ($Repeatingfind->getDateEndrepeat() > $event->getDatetimeEnd()) {
                     $arrayreturned[] = clone $event;
@@ -322,6 +323,9 @@ class DefaultController extends Controller
                     $dateend2 = $dateend->modify($frequency);
                     $event->setDatetimeEnd($dateend2);
                 }
+            }
+            else{
+                $arrayreturned[] = clone $event;
             }
         }
         
