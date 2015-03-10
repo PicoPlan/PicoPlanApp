@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
@@ -27,8 +28,6 @@ class DefaultController extends Controller
 
     public function getEntityFromType($type)
     {
-        var_dump($type);
-        die();
         switch ($type) {
             case $this->type['user']:
                 return new Userevent();
@@ -51,7 +50,7 @@ class DefaultController extends Controller
     public function addAction($type, $id, Request $request)
     {
         $event = new Event();
-        $form = $this->get('form.factory')->create(new EventType(), $event);
+        $form = $this->get('form.factory')->create(new EventType(), $event, array('action'=>'javascript:validateform("'.$type.'",'.$id.')','attr'=>array('id' => 'eventform')));
         
         // If form is returned
         if ($form->handleRequest($request)->isValid()) {
@@ -74,10 +73,8 @@ class DefaultController extends Controller
             $ownership->setParam($id, $event->getId());
             $em->persist($ownership);
             $em->flush();
-            
-            return $this->render('CalendarManagerBundle:Default:index.html.twig', array(
-                'form' => $form->createView()
-            ));
+
+            return new JsonResponse(array('status' => 'ok'));
         }
         
         return $this->render('CalendarManagerBundle:Default:index.html.twig', array(
