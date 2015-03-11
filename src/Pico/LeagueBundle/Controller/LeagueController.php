@@ -33,7 +33,7 @@ class LeagueController extends Controller
             $this->CurrentUser = false;
         }
         
-        $this->em = $this->em = $this->getDoctrine()->getManager();
+        $this->em = $this->getDoctrine()->getManager();
     }
 
     /**
@@ -45,66 +45,6 @@ class LeagueController extends Controller
         throw new AccessDeniedException('Vous devez etre connecté');
     }
 
-    /**
-     * Tmporaire :
-     * Fonction d'aide au devloppement
-     * Permet l'ajout de league, club et equipe
-     */
-    public function test()
-    {
-        $Sport = new Sport();
-        $Sport->setNom('Rugby');
-        $Sport->setDescription('Un sport de gentlemen joué par des hooligans');
-        $this->em->persist($Sport);
-        
-        $Sport2 = new Sport();
-        $Sport2->setNom('BabyFoot');
-        $Sport2->setDescription('Un sport de gentlemen joué par des hooligans');
-        $this->em->persist($Sport2);
-        
-        $League = new League();
-        $League->setNom('Rugby');
-        $League->setDescription('La ligue des rugbyman');
-        $League->setSport($Sport);
-        $League->setUserCreator($this->CurrentUser);
-        $this->em->persist($League);
-        
-        $Club = new Club();
-        $Club->setUserCreator($this->CurrentUser);
-        $Club->setNom('Le club de Ynov');
-        $Club->setAdresse('42 rue de Ynov - 75020 - Paris');
-        $Club->setDescription('Club de geek !');
-        $this->em->persist($Club);
-        
-        $Equipe = new Equipe();
-        $Equipe->setSport($Sport);
-        $Equipe->setClub($Club);
-        $Equipe->setNom('Les vrais rugbyman !');
-        $Equipe->setDescription('Pour les bonhommes');
-        $Equipe->setListeModo(array(
-            $this->CurrentUser
-        ));
-        $this->em->persist($Equipe);
-        
-        $UserToEquipe = new UserToEquipe();
-        $UserToEquipe->setUser($this->CurrentUser);
-        $UserToEquipe->setEquipe($Equipe);
-        $UserToEquipe->setBoolAccepted(0);
-        $this->em->persist($UserToEquipe);
-        
-        $Equipe = new Equipe();
-        $Equipe->setSport($Sport2);
-        $Equipe->setClub($Club);
-        $Equipe->setNom('Les vrais Babyfooteux !');
-        $Equipe->setDescription('Pour les gardiens');
-        $Equipe->setListeModo(array(
-            $this->CurrentUser
-        ));
-        $this->em->persist($Equipe);
-        
-        // On balance en base
-        $this->em->flush();
-    }
 
     /**
      * Affiche la page specifique d'une league, d'un club ou d'une equipe
@@ -318,8 +258,10 @@ class LeagueController extends Controller
         $this->__init();
         switch ($Type) {
             case 'Equipes':
-                $Entity = $this->em->getRepository('PicoLeagueBundle:Equipe')->find($Id);
-                $AllowedTo = ($Entity->getClub()->getUserCreator() == $this->CurrentUser);
+                $Equipe = $this->em->getRepository('PicoLeagueBundle:Equipe')->find($Id);
+                $Entitys = $this->em->getRepository('PicoLeagueBundle:UserToEquipe')->findBy(array('equipe'=>$Equipe));
+                $Entitys[] = $Equipe;
+                $AllowedTo = ($Equipe->getClub()->getUserCreator() == $this->CurrentUser);
                 break;
             
             default:
@@ -327,7 +269,9 @@ class LeagueController extends Controller
             break;
         }
         if (isset($AllowedTo) && $AllowedTo == true) {
-            $this->em->remove($Entity);
+            foreach ($Entitys as $Entity){
+                $this->em->remove($Entity);
+            }
             $this->em->flush();
             return new JsonResponse(array('status'=>'OK'));
         } else {
