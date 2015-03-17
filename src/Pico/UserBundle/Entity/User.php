@@ -5,12 +5,18 @@ namespace Pico\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
  * User
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Pico\UserBundle\Entity\UserRepository")
+ *
+ * @ExclusionPolicy("all")
  */
 class User extends BaseUser
 {
@@ -25,6 +31,7 @@ class User extends BaseUser
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
      */
     protected $id;
 
@@ -32,6 +39,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255, nullable=false)
+     * @Expose
      */
     protected $last_name;
 
@@ -39,6 +47,7 @@ class User extends BaseUser
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255, nullable=false)
+     * @Expose
      */
     protected $first_name;
 
@@ -126,5 +135,21 @@ class User extends BaseUser
     public function getPhone()
     {
         return $this->phone;
+    }
+
+     /**
+     * Get the formatted name to display (NAME Firstname or username)
+     * 
+     * @param $separator: the separator between name and firstname (default: ' ')
+     * @return String
+     * @VirtualProperty 
+     */
+    public function getUsedName($separator = ' '){
+        if($this->getName()!=null && $this->getFirstName()!=null){
+            return ucfirst(strtolower($this->getFirstName())).$separator.strtoupper($this->getName());
+        }
+        else{
+            return $this->getUsername();
+        }
     }
 }
