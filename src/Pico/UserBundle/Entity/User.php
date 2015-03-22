@@ -137,6 +137,7 @@ class User extends BaseUser
         return $this->phone;
     }
 
+
      /**
      * Get the formatted name to display (NAME Firstname or username)
      * 
@@ -145,8 +146,8 @@ class User extends BaseUser
      * @VirtualProperty 
      */
     public function getUsedName($separator = ' '){
-        if($this->getName()!=null && $this->getFirstName()!=null){
-            return ucfirst(strtolower($this->getFirstName())).$separator.strtoupper($this->getName());
+        if($this->getUsername()!=null && $this->getFirstName()!=null){
+            return ucfirst(strtolower($this->getFirstName())).$separator.strtoupper($this->getUsername());
         }
         else{
             return $this->getUsername();
