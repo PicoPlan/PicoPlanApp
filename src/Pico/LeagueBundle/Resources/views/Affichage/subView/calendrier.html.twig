@@ -14,7 +14,7 @@
 	        <h4 class="modal-title">Ajouter un evenement</h4>
 	      </div>
 	      <div class="DynamicForm modal-body">
-	        <p>One fine body&hellip;</p>
+	        <p>Une erreur est survenue &hellip;</p>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
@@ -25,9 +25,15 @@
 	</div><!-- /.modal -->
 {% endif %}
 {% block extrascript %}
+	{% stylesheets 
+		'@PicoLeagueBundle/Resources/public/jquery-ui-1.11.2.custom/jquery-ui.css'
+	%}
+	      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+	{% endstylesheets %}
 	{% javascripts 
-		'@PicoLeagueBundle/Resources/public/league.js' 
-		output='league.js' %}
+		'@PicoLeagueBundle/Resources/public/jquery-ui-1.11.2.custom/jquery-ui.js'
+		'@PicoLeagueBundle/Resources/public/league.js'
+	%}
     	<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
 {% endblock %}
