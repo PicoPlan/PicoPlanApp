@@ -143,14 +143,15 @@ function gestionEquipe(id)
 }
 
 /**
-* Gestion des evenements sur le calendrier
-***/
+ * Gestion des evenements (edition/suppresion)sur le calendrier
+ ***/
 function eventClickOverride(type,id)
 {
 	urlEdit = Routing.generate('calendar_manager_see', { "id": id});
 	$.get(urlEdit,function(data,status){
 		if(status == 'success') {
-			alert(data);
+			$("#modalDynamicForm").modal().toggle();
+			$(".DynamicForm").html(data);
 		}
 	});
 }

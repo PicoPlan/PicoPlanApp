@@ -25,9 +25,15 @@
 	</div><!-- /.modal -->
 {% endif %}
 {% block extrascript %}
+	{% stylesheets 
+		'@PicoLeagueBundle/Resources/public/jquery-ui-1.11.2.custom/jquery-ui.css'
+	%}
+	      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+	{% endstylesheets %}
 	{% javascripts 
-		'@PicoLeagueBundle/Resources/public/league.js' 
-		output='league.js' %}
+		'@PicoLeagueBundle/Resources/public/jquery-ui-1.11.2.custom/jquery-ui.js'
+		'@PicoLeagueBundle/Resources/public/league.js'
+	%}
     	<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
 {% endblock %}

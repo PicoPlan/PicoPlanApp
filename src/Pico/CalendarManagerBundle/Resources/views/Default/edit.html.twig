@@ -18,7 +18,7 @@
 		success: function(data)
 		{
 			if(data['status']=='ok'){
-				$('#eventform').html('<span style="color:blue;">Enregistré !</span>');
+				location.reload();
 			}
 			else{
 				$('#eventform').html('<span style="color:red;">Une erreur est survenue !</span>'+data);
