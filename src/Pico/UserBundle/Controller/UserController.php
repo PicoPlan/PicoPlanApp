@@ -32,6 +32,9 @@ class UserController extends Controller
     }
 
     public function homeAction() {
+        /*
+        * Say hello if user is logged
+        */
         if ($this->get("security.context")->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $user = $this->get('security.context')
                 ->getToken()
@@ -40,6 +43,13 @@ class UserController extends Controller
             $data = array(
                 'user' => $user,
                 );
+
+        /*
+        * Initiate form for user search
+        */
+        #$formFactory = $this->get("fos_user.form.")
+
+
 
             return $this->render('PicoUserBundle:User:home.html.twig', $data);
         }
@@ -51,11 +61,8 @@ class UserController extends Controller
 
     }
 
-    public function showAction($username = null) {
-
-        echo $username;
-
-        if($username != null) {
+    public function showAction($username) {
+        if($username) {
             $usermanager = $this->get("fos_user.user_manager");
             $user = $usermanager->findUserByUsername($username);
         }
@@ -148,6 +155,13 @@ class UserController extends Controller
             "form" => $form->createView(),
             'user' => $user,
             ));
+    }
+
+    public function findAction(Request $request) {
+        $username = $request->query->get("username");
+        
+        $url = $this->generateUrl("user_show", array("username" => $username));
+        return $this->redirect($url);
     }
 
 }

@@ -9,8 +9,10 @@ user_homepage:
 user_show:
     path: /show-profile/{username}
     defaults: { _controller : PicoUserBundle:User:show, username: null }
-    requirements:
-        page:  \d+
+
+user_find:
+    path: /user-find/
+    defaults: { _controller: PicoUserBundle:User:find }
 
 user_edit:
     path: /user-edit/
