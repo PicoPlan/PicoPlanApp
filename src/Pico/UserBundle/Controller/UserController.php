@@ -51,38 +51,64 @@ class UserController extends Controller
 
     }
 
-    public function showAction() {
-        $user = $this->get('security.context')
-            ->getToken()
-            ->getUser();
+    public function showAction($username = null) {
 
-        $data = array(
-            'username' => array(
-                'content' => $user->getUsername(),
-                'title' => 'Pseudo',
-                'icon' => 'glyphicon-star'),
-            'last_name' => array(
-                'content' => $user->getLastName(),
-                'title' => 'Nom',
-                'icon' => 'glyphicon-user'),
-            'first_name' => array(
-                'content' => $user->getFirstName(),
-                'title' => 'Prénom',
-                'icon' => 'glyphicon-user'),
-            'email' => array(
-                'content' => $user->getEmail(),
-                'title' => 'Email',
-                'icon' => 'glyphicon-envelope'),
-            'phone' => array(
-                'content' => $user->getPhone(),
-                'title' => 'Téléphone',
-                'icon' => 'glyphicon-phone'),
-        );
+        echo $username;
+
+        if($username != null) {
+            $usermanager = $this->get("fos_user.user_manager");
+            $user = $usermanager->findUserByUsername($username);
+        }
+        else {
+            $user = $this->get('security.context')
+                ->getToken()
+                ->getUser();
+        }
+
+        if(!$user) {
+            $alert_info = "L'utilisateur recherché n'existe pas.";
+            $alert_class ="warning";
+        }
+        else {
+            $data = array(
+                'username' => array(
+                    'content' => $user->getUsername(),
+                    'title' => 'Pseudo',
+                    'icon' => 'glyphicon-star'),
+                'last_name' => array(
+                    'content' => $user->getLastName(),
+                    'title' => 'Nom',
+                    'icon' => 'glyphicon-user'),
+                'first_name' => array(
+                    'content' => $user->getFirstName(),
+                    'title' => 'Prénom',
+                    'icon' => 'glyphicon-user'),
+                'email' => array(
+                    'content' => $user->getEmail(),
+                    'title' => 'Email',
+                    'icon' => 'glyphicon-envelope'),
+                'phone' => array(
+                    'content' => $user->getPhone(),
+                    'title' => 'Téléphone',
+                    'icon' => 'glyphicon-phone'),
+            );
+        }
 
 
-        return $this->render('PicoUserBundle:User:show.html.twig', array(
-            'data' => $data,
-        ));
+        /*
+        * Adds wanted values in response array
+        */
+        $response = array();
+        if($user) {
+            $response["data"] = $data;
+        }
+        elseif(!$user) {
+            $response["alert_info"] = $alert_info;
+            $response["alert_class"] = $alert_class; 
+        }
+
+
+        return $this->render('PicoUserBundle:User:show.html.twig', $response);
     }
 
     public function editAction() {
