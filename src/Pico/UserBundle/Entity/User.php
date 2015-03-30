@@ -59,6 +59,12 @@ class User extends BaseUser
     protected $phone;
 
     /**
+    * @var int
+    * @ORM\Column(name="permission", type="integer", nullable=true)
+    */
+    protected $permission;
+
+    /**
      * Get id
      *
      * @return integer 
