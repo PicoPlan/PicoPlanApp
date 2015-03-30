@@ -44,11 +44,6 @@ class UserController extends Controller
                 'user' => $user,
                 );
 
-        /*
-        * Initiate form for user search
-        */
-        #$formFactory = $this->get("fos_user.form.")
-
 
 
             return $this->render('PicoUserBundle:User:home.html.twig', $data);
@@ -137,14 +132,6 @@ class UserController extends Controller
         if(isset($request)){
 
         }
-
-        // foreach($data as $key => $value) {
-        //     if($key == "email") {
-        //         $user->setEmail($value);
-        //     }
-        // }
-
-        // $this->get('fos_user.user_manager')->updateUser($user);
 
         $alert_info = serialize($request);
         $alert_class = "success";
