@@ -159,27 +159,4 @@ class User extends BaseUser
             return $this->getUsername();
         }
     }
-
-    /**
-     * Set permission
-     *
-     * @param integer $permission
-     * @return User
-     */
-    public function setPermission($permission)
-    {
-        $this->permission = $permission;
-
-        return $this;
-    }
-
-    /**
-     * Get permission
-     *
-     * @return integer 
-     */
-    public function getPermission()
-    {
-        return $this->permission;
-    }
 }
