@@ -28,4 +28,23 @@ class RegistrationController extends FOSRegistrationController
 
         return $response;
     }
+
+    /**
+     * Tell the user his account is now confirmed
+     */
+    public function confirmedAction()
+    {
+		$user = $this->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException("Cet utilisateur n'a pas accès à cete section.");
+        }
+
+		$alert_info = "Votre compte a bien été enregistré.";
+
+        return $this->render('::base.html.twig', array(
+            "user" => $user,
+            "alert_info" => $alert_info,
+            "alert_class" => "success",
+        ));
+    }
 }
