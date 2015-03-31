@@ -4,12 +4,15 @@ namespace Pico\LeagueBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Pico\LeagueBundle\Form\EquipeType;
 use Pico\LeagueBundle\Entity\Equipe;
 use Pico\LeagueBundle\Entity\Sport;
 use Pico\LeagueBundle\Entity\League;
 use Pico\LeagueBundle\Entity\Club;
 use Pico\LeagueBundle\Entity\UserToEquipe;
+
+use Pico\LeagueBundle\Form\Type\LeagueType;
 
 class LeagueController extends Controller
 {
@@ -378,5 +381,33 @@ class LeagueController extends Controller
         }
         
         return new JsonResponse($ArrayRetour);
+    }
+
+    /*
+    * League creation
+    */
+    public function createAction(Request $request){
+        # Instanciate user and user manager
+        $this->__init();
+
+        $league = new League();
+
+        if($this->CurrentUser->getPermission() > 2){
+            throw new AccessDeniedException("Cet utilisateur n'a pas accès à cette section.");
+        }
+
+        $form = $this->createForm(new LeagueType, $league);
+        $form->handleRequest($request);
+        $response["form"] = $form->createView();
+
+        if($form->isValid()){
+            $this->em->persist($league);
+            $league->setUserCreator($this->CurrentUser);
+            $this->em->flush();
+            $response["alert_info"] = "Votre ligue a bien été enregistrée.";
+            $response["alert_class"] = "success";
+        }
+
+        return $this->render("PicoLeagueBundle:League:create.html.twig", $response);
     }
 }
