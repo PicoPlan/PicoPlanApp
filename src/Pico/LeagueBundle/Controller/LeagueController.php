@@ -48,7 +48,6 @@ class LeagueController extends Controller
         throw new AccessDeniedException('Vous devez etre connecté');
     }
 
-
     /**
      * Affiche la page specifique d'une league, d'un club ou d'une equipe
      * Default :
@@ -57,7 +56,7 @@ class LeagueController extends Controller
     public function indexAction($Type = false, $Id = false, $InfoSupp = false)
     {
         $this->__init();
-//         $this->test();
+        // $this->test();
         // Si les parametres sont remplis, on va chercher les infos
         if ($Type !== false and $Id !== false) {
             switch ($Type) {
@@ -71,7 +70,7 @@ class LeagueController extends Controller
                     // Les equipes
                     $Equipes = $this->em->getRepository('PicoLeagueBundle:Equipe')->getEquipesFromLeague($League);
                     // Verfication des droit du user
-                    $IsAllowedUser = true;
+                    $IsAllowedUser = $this->get('security.context')->isGranted('ROLE_LIGUE_CREATEUR');
                     // Vue League
                     return $this->render('PicoLeagueBundle:Affichage:AffichageLeague.html.twig', array(
                         'League' => $League,
@@ -182,7 +181,7 @@ class LeagueController extends Controller
         
         // Verification des data
         if (empty($Liste)) {
-            $Error = 'Pas disponnible :/';
+            $Error = 'Aucune information disponnible';
         } else {
             $Error = false;
         }
@@ -212,6 +211,7 @@ class LeagueController extends Controller
         $this->__init();
         switch ($Type) {
             case 'Equipes':
+                
                 // On récupere les entitées
                 if ($IdCible != false) {
                     $Entity = $this->em->getRepository('PicoLeagueBundle:Equipe')->find($IdCible);
@@ -262,23 +262,29 @@ class LeagueController extends Controller
         switch ($Type) {
             case 'Equipes':
                 $Equipe = $this->em->getRepository('PicoLeagueBundle:Equipe')->find($Id);
-                $Entitys = $this->em->getRepository('PicoLeagueBundle:UserToEquipe')->findBy(array('equipe'=>$Equipe));
+                $Entitys = $this->em->getRepository('PicoLeagueBundle:UserToEquipe')->findBy(array(
+                    'equipe' => $Equipe
+                ));
                 $Entitys[] = $Equipe;
                 $AllowedTo = ($Equipe->getClub()->getUserCreator() == $this->CurrentUser);
                 break;
             
             default:
                 ;
-            break;
+                break;
         }
         if (isset($AllowedTo) && $AllowedTo == true) {
-            foreach ($Entitys as $Entity){
+            foreach ($Entitys as $Entity) {
                 $this->em->remove($Entity);
             }
             $this->em->flush();
-            return new JsonResponse(array('status'=>'OK'));
+            return new JsonResponse(array(
+                'status' => 'OK'
+            ));
         } else {
-            return new JsonResponse(array('status'=>'KO'));
+            return new JsonResponse(array(
+                'status' => 'KO'
+            ));
         }
     }
 

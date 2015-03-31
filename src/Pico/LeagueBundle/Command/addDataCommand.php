@@ -19,7 +19,7 @@ class addDataCommand extends ContainerAwareCommand
 
     protected function configure()
     {
-        $this->setName('test:addData')->setDescription('Ajouter des valeurs de test');
+        $this->setName('data:add')->setDescription('Ajouter des valeurs de test');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -28,10 +28,9 @@ class addDataCommand extends ContainerAwareCommand
         $entityManager = $this->getContainer()
             ->get('doctrine')
             ->getManager();
-        $output->writeln('Ajout d\'un utilisateur de test ... ');
         
         $userManager = $this->getContainer()->get('fos_user.user_manager');
-        
+        $output->writeln('Ajout de picoplan : simple user');
         // Ajout du user de test
         if (! $userTest = $userManager->findUserByUsername('picoplan')) {
             $userTest = $userManager->createUser();
@@ -50,7 +49,28 @@ class addDataCommand extends ContainerAwareCommand
         $userTest->addRole('ROLE_USER');
         $userManager->updateUser($userTest);
         $output->writeln('Done');
-        $output->writeln('Ajout des sports ... ');
+
+        
+        $output->writeln('Ajout de picoplan_admin : administrateur (M2L employé)');
+        // Ajout du user de test
+        if (! $userTestAdmin = $userManager->findUserByUsername('picoplan_admin')) {
+            $userTestAdmin = $userManager->createUser();
+        }
+        $encoder = $factory->getEncoder($userTestAdmin);
+        $password = $encoder->encodePassword('test', $userTestAdmin->getSalt());
+        $userTestAdmin->setPassword($password);
+        $userTestAdmin->setUsername('picoplan_admin');
+        $userTestAdmin->setEmail('usertest2@picoplan.fr');
+        $userTestAdmin->setFirstName('PicoPlan');
+        $userTestAdmin->setLastName('Admin');
+        $userTestAdmin->setPhone('01 23 45 67 89');
+        $userTestAdmin->setLocked(false);
+        $userTestAdmin->setEnabled(true);
+        $userTestAdmin->addRole('ROLE_LIGUE_CREATEUR');
+        $userTestAdmin->addRole('ROLE_ADMIN');
+        $userManager->updateUser($userTestAdmin);
+        $output->writeln('Done');
+        
         // Ajout de sports
         if(!$Sport = $entityManager->getRepository('PicoLeagueBundle:Sport')->findOneBy(array('nom'=>'Rugby'))){
             $Sport = new Sport();
