@@ -5,6 +5,10 @@ pico_league_affichage:
         Id:  \d+
         Type: Ligues|Clubs|Equipes
 
+pico_league_create_league:
+    path: /create
+    defaults: { _controller: PicoLeagueBundle:League:create }
+
 pico_league_affichage_ajax:
     path:     /ajax/affichage/{Type}
     defaults: { _controller: PicoLeagueBundle:League:getAffichage }
@@ -40,3 +44,10 @@ delete:
         Type: Ligues|Clubs|Equipes
     options:
         expose: true
+
+
+# SPORT
+
+pico_league_create_sport:
+    path: /sport/create
+    defaults: { _controller: PicoLeagueBundle:Sport:create }

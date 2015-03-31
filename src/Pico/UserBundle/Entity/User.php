@@ -59,6 +59,12 @@ class User extends BaseUser
     protected $phone;
 
     /**
+    * @var int
+    * @ORM\Column(name="permission", type="integer", nullable=true)
+    */
+    protected $permission;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -152,5 +158,28 @@ class User extends BaseUser
         else{
             return $this->getUsername();
         }
+    }
+
+    /**
+     * Set permission
+     *
+     * @param integer $permission
+     * @return User
+     */
+    public function setPermission($permission)
+    {
+        $this->permission = $permission;
+
+        return $this;
+    }
+
+    /**
+     * Get permission
+     *
+     * @return integer 
+     */
+    public function getPermission()
+    {
+        return $this->permission;
     }
 }

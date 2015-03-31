@@ -22,7 +22,8 @@
         "adesigns/calendar-bundle": "~1.1",
         "friendsofsymfony/user-bundle": "dev-master",
         "friendsofsymfony/rest-bundle": "~1.5",
-        "jms/serializer-bundle": "0.13.*"
+        "jms/serializer-bundle": "0.13.*",
+	"twitter/bootstrap": "2.3.*"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"
