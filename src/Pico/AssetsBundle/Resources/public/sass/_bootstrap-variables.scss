@@ -1,9 +1,4 @@
-// Override Bootstrap variables here (defaults from bootstrap-sass v<%= Bootstrap::VERSION %>):
-
-// When true, asset path helpers are used, otherwise the regular CSS `url()` is used.
-// When there no function is defined, `fn('')` is parsed as string that equals the right hand side
-// NB: in Sass 3.3 there is a native function: function-exists(twbs-font-path)
-// $bootstrap-sass-asset-helper: (twbs-font-path("") != unquote('twbs-font-path("")'))
+// Override Bootstrap variables here (defaults from bootstrap-sass v3.3.4):
 
 //
 // Variables
@@ -20,7 +15,7 @@
 // $gray-light:             lighten($gray-base, 46.7%) // #777
 // $gray-lighter:           lighten($gray-base, 93.5%) // #eee
 
-// $brand-primary:         #428bca
+// $brand-primary:         darken(#428bca, 6.5%) // #337ab7
 // $brand-success:         #5cb85c
 // $brand-info:            #5bc0de
 // $brand-warning:         #f0ad4e
@@ -80,8 +75,9 @@
 
 //** Load fonts from this directory.
 
-// [converter] Asset helpers such as Sprockets and Node.js Mincer do not resolve relative paths
-// $icon-font-path: ("bootstrap/", "../fonts/bootstrap/")
+// [converter] If $bootstrap-sass-asset-helper if used, provide path relative to the assets load path.
+// [converter] This is because some asset helpers, such as Sprockets, do not work with file-relative paths.
+// $icon-font-path: if($bootstrap-sass-asset-helper, "bootstrap/", "../fonts/bootstrap/")
 
 //** File name for all font files.
 // $icon-font-name:          "glyphicons-halflings-regular"
@@ -104,7 +100,7 @@
 // $padding-xs-vertical:       1px
 // $padding-xs-horizontal:     5px
 
-// $line-height-large:         1.33
+// $line-height-large:         1.3333333 // extra decimals for Win 8.1 Chrome
 // $line-height-small:         1.5
 
 // $border-radius-base:        4px
@@ -189,6 +185,7 @@
 
 // TODO: Rename `$input-border-radius` to `$input-border-radius-base` in v4
 //** Default `.form-control` border radius
+// This has no effect on `<select>`s in some browsers, due to the limited stylability of `<select>`s in CSS.
 // $input-border-radius:            $border-radius-base
 //** Large `.form-control` border radius
 // $input-border-radius-large:      $border-radius-large
@@ -207,6 +204,9 @@
 // $input-height-large:             (ceil($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2)
 //** Small `.form-control` height
 // $input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2)
+
+//** `.form-group` margin
+// $form-group-margin-bottom:       15px
 
 // $legend-color:                   $gray-dark
 // $legend-border-color:            #e5e5e5
@@ -265,7 +265,8 @@
 // $zindex-popover:           1060
 // $zindex-tooltip:           1070
 // $zindex-navbar-fixed:      1030
-// $zindex-modal:             1040
+// $zindex-modal-background:  1040
+// $zindex-modal:             1050
 
 //== Media queries breakpoints
 //

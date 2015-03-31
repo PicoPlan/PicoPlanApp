@@ -1,12 +1,12 @@
-@import "bootstrap-variables";
-@import "bootstrap";
+@import "compass/css3";
 
-@import "compass";
-
+@import "_bootstrap.scss";
+@import "_bootstrap-sprockets.scss";
+@import "_bootstrap-variables.scss";
 @import "_icons.scss";
 @import "_colors.scss";
 
-//prout
+
 
 * {
     @include border-radius(0);
