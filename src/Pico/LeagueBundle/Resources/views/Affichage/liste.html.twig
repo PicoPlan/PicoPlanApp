@@ -31,6 +31,63 @@
 				</tr>
 			{% endfor %}
 			</tbody>
+			<tfoot>
+				<tr>
+					<th></th>
+					<th></th>
+					{% for info in InfoComplementaire %}
+						<th></th>
+					{% endfor %}
+					<td></td>
+				</tr>
+			</tfoot>
 		</table>
 	{%endif%}
+{% endblock %}
+
+{% block extrascript %}
+    {% stylesheets 
+	    '@PicoLeagueBundle/Resources/public/jquery-ui-1.11.2.custom/jquery-ui.css'
+	    '@PicoLeagueBundle/Resources/public/Jquery-ui-multiselect-widget/jquery.multiselect.css'
+	    '@PicoLeagueBundle/Resources/public/css/jquery.dataTables.css' 
+    %}
+          <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+    {% javascripts 
+    	'http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js'
+    %}
+    	<script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    	<script type="text/javascript ">
+   		$(document).ready( function () {
+   			//Ajout des input th
+   			$('.table tfoot th').each( function () {
+        		var title = $('.table thead th').eq( $(this).index() ).text();
+        		$(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+   			} );
+   			//Création du datatable :
+   			var last_element = $('.table thead th').length - 1;
+    		var table = $('.table').DataTable({
+    						"bPaginate": false,
+    						"bLengthChange": false,
+    						"bFilter": true,
+    						"bInfo": false,
+    						"bSort": true,
+    						"bAutoWidth": false,
+    						"columnDefs": [ { "targets": last_element, "orderable": false } ]
+    						 });
+    			
+    		// Apply the search
+    		table.columns().eq( 0 ).each( function ( colIdx ) {
+        		$( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {
+            		table
+            	    .column( colIdx )
+            	    .search( this.value )
+            	    .draw();
+        		} );
+    		} );
+    
+		} );
+		</script>
+
 {% endblock %}

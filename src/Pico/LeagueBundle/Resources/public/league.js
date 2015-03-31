@@ -128,8 +128,7 @@ function gestionEquipe(id)
 		data: $(".gestion-equipe").serialize(), // serializes the form's elements.
 		success: function(data)
 		{
-			if(data['status']=='OK')
-			{
+			if(data['status']=='OK'){
 				$(location).attr('href',data['url']);
 			} else {
 				if(data['error'] != undefined && data['error'] != false) {
