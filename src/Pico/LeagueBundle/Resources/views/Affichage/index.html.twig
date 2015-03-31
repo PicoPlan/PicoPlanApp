@@ -12,7 +12,16 @@
 {% endblock %}
 
 
+
 {% block extrascript %}
+{% stylesheets 
+	'@PicoLeagueBundle/Resources/public/jquery-ui-1.11.2.custom/jquery-ui.css'
+	'@PicoLeagueBundle/Resources/public/Jquery-ui-multiselect-widget/jquery.multiselect.css'
+	'http://cdn.datatables.net/1.10.5/css/jquery.dataTables.css' 
+%}
+      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+{% endstylesheets %}
+
 	{% javascripts '@PicoLeagueBundle/Resources/public/league.js' output='league.js' %}
     	<script type="text/javascript">
 			$("button").click(function(){

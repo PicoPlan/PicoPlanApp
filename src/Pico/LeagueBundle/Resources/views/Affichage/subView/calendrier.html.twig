@@ -6,24 +6,25 @@
 	<span class="col-md-12">
 		<button onclick='javascript:displayFormEvent("{{type}}","{{id}}")' type="button" data-toggle="modal" data-target="#modalDynamicForm">Ajouter un evenement</button>
 	</span>
+{% endif %}
 	<div id="modalDynamicForm" class="modal fade">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Ajouter un evenement</h4>
+	        <h4 class="modal-title">Modal</h4>
 	      </div>
 	      <div class="DynamicForm modal-body">
 	        <p>Une erreur est survenue &hellip;</p>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-	        <button type="button" onclick="javascript:getFormSubmit('modalDynamicForm').click();" class="btn btn-primary">Sauvegarder</button>
+	        <button type="button" onclick="javascript:getFormSubmit('modalDynamicForm').click();" id="modal_submit" class="btn btn-primary">Sauvegarder</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-{% endif %}
+
 {% block extrascript %}
 	{% stylesheets 
 		'@PicoLeagueBundle/Resources/public/jquery-ui-1.11.2.custom/jquery-ui.css'

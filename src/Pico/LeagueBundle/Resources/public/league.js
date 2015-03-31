@@ -128,8 +128,7 @@ function gestionEquipe(id)
 		data: $(".gestion-equipe").serialize(), // serializes the form's elements.
 		success: function(data)
 		{
-			if(data['status']=='OK')
-			{
+			if(data['status']=='OK'){
 				$(location).attr('href',data['url']);
 			} else {
 				if(data['error'] != undefined && data['error'] != false) {
@@ -137,6 +136,21 @@ function gestionEquipe(id)
 				} else {
 					alert('Une erreur est survenue');
 				}
+			}
+		}
+	});
+}
+
+function loadUrlInModal(url){
+	$.get(url,function(data,status){
+		if(status == 'success') {
+			$(".DynamicForm").html(data);
+			//Get form if exist
+			var idForm = $("#modalDynamicForm form").attr('id');
+			if(idForm != 'undifined'){
+				var submitElement = getFormSubmit(idForm);
+				submitElement.css('display','none');
+				$("#modal_submit").attr('onclick','javascript:getFormSubmit("'+idForm+'").click();');
 			}
 		}
 	});
@@ -150,8 +164,13 @@ function eventClickOverride(type,id)
 	urlEdit = Routing.generate('calendar_manager_see', { "id": id});
 	$.get(urlEdit,function(data,status){
 		if(status == 'success') {
-			$("#modalDynamicForm").modal().toggle();
+			//Link modification
 			$(".DynamicForm").html(data);
+			$("#modalDynamicForm").find( "a" ).each(function( index ) {
+				 var _href = $(this).attr("href");
+                 $(this).attr("href",'javascript:loadUrlInModal("'+_href +'")');
+			});
+			$("#modalDynamicForm").modal().toggle();
 		}
 	});
 }
