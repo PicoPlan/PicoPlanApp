@@ -2,11 +2,13 @@ user_homepage:
     path:    /
     defaults: { _controller: PicoUserBundle:User:home }
 
-
 user_show:
-    path:    /show-profile
-    defaults: { _controller: PicoUserBundle:User:show }
+    path: /show-profile/{username}
+    defaults: { _controller : PicoUserBundle:User:show, username: null }
 
+user_find:
+    path: /user-find/
+    defaults: { _controller: PicoUserBundle:User:find }
 
 user_edit:
     path: /user-edit/

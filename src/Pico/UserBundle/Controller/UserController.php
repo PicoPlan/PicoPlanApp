@@ -32,6 +32,9 @@ class UserController extends Controller
     }
 
     public function homeAction() {
+        /*
+        * Say hello if user is logged
+        */
         if ($this->get("security.context")->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $user = $this->get('security.context')
                 ->getToken()
@@ -40,6 +43,8 @@ class UserController extends Controller
             $data = array(
                 'user' => $user,
                 );
+
+
 
             return $this->render('PicoUserBundle:User:home.html.twig', $data);
         }
@@ -51,38 +56,61 @@ class UserController extends Controller
 
     }
 
-    public function showAction() {
-        $user = $this->get('security.context')
-            ->getToken()
-            ->getUser();
+    public function showAction($username) {
+        if($username) {
+            $usermanager = $this->get("fos_user.user_manager");
+            $user = $usermanager->findUserByUsername($username);
+        }
+        else {
+            $user = $this->get('security.context')
+                ->getToken()
+                ->getUser();
+        }
 
-        $data = array(
-            'username' => array(
-                'content' => $user->getUsername(),
-                'title' => 'Pseudo',
-                'icon' => 'glyphicon-star'),
-            'last_name' => array(
-                'content' => $user->getLastName(),
-                'title' => 'Nom',
-                'icon' => 'glyphicon-user'),
-            'first_name' => array(
-                'content' => $user->getFirstName(),
-                'title' => 'Prénom',
-                'icon' => 'glyphicon-user'),
-            'email' => array(
-                'content' => $user->getEmail(),
-                'title' => 'Email',
-                'icon' => 'glyphicon-envelope'),
-            'phone' => array(
-                'content' => $user->getPhone(),
-                'title' => 'Téléphone',
-                'icon' => 'glyphicon-phone'),
-        );
+        if(!$user) {
+            $alert_info = "L'utilisateur recherché n'existe pas.";
+            $alert_class ="warning";
+        }
+        else {
+            $data = array(
+                'username' => array(
+                    'content' => $user->getUsername(),
+                    'title' => 'Pseudo',
+                    'icon' => 'glyphicon-star'),
+                'last_name' => array(
+                    'content' => $user->getLastName(),
+                    'title' => 'Nom',
+                    'icon' => 'glyphicon-user'),
+                'first_name' => array(
+                    'content' => $user->getFirstName(),
+                    'title' => 'Prénom',
+                    'icon' => 'glyphicon-user'),
+                'email' => array(
+                    'content' => $user->getEmail(),
+                    'title' => 'Email',
+                    'icon' => 'glyphicon-envelope'),
+                'phone' => array(
+                    'content' => $user->getPhone(),
+                    'title' => 'Téléphone',
+                    'icon' => 'glyphicon-phone'),
+            );
+        }
 
 
-        return $this->render('PicoUserBundle:User:show.html.twig', array(
-            'data' => $data,
-        ));
+        /*
+        * Adds wanted values in response array
+        */
+        $response = array();
+        if($user) {
+            $response["data"] = $data;
+        }
+        elseif(!$user) {
+            $response["alert_info"] = $alert_info;
+            $response["alert_class"] = $alert_class; 
+        }
+
+
+        return $this->render('PicoUserBundle:User:show.html.twig', $response);
     }
 
     public function editAction() {
@@ -105,14 +133,6 @@ class UserController extends Controller
 
         }
 
-        // foreach($data as $key => $value) {
-        //     if($key == "email") {
-        //         $user->setEmail($value);
-        //     }
-        // }
-
-        // $this->get('fos_user.user_manager')->updateUser($user);
-
         $alert_info = serialize($request);
         $alert_class = "success";
         $url = $this->generateUrl('user_show');
@@ -122,6 +142,13 @@ class UserController extends Controller
             "form" => $form->createView(),
             'user' => $user,
             ));
+    }
+
+    public function findAction(Request $request) {
+        $username = $request->query->get("username");
+        
+        $url = $this->generateUrl("user_show", array("username" => $username));
+        return $this->redirect($url);
     }
 
 }
