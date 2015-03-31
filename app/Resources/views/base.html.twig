@@ -87,6 +87,16 @@
                   Infos
                 </a>
               </li>
+              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% if app.user.permission < 2 %}
+                <li role="presentation">
+                  <a href="{{ url('pico_league_create_sport') }}">
+                    <span class="glyphicon glyphicon-cog"></span>
+                    Création de sport
+                  </a>
+                </li>
+                {% endif %}
+              {% endif %}
             </ul>
           </div> <!-- End sidebar -->
           <div class="col-sm-10" id="content"> <!-- Block content -->

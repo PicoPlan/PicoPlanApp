@@ -40,3 +40,10 @@ delete:
         Type: Ligues|Clubs|Equipes
     options:
         expose: true
+
+
+# SPORT
+
+pico_league_create_sport:
+    path: /sport/create
+    defaults: { _controller: PicoLeagueBundle:Sport:create }
