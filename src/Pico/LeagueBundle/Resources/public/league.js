@@ -141,6 +141,21 @@ function gestionEquipe(id)
 	});
 }
 
+function loadUrlInModal(url){
+	$.get(url,function(data,status){
+		if(status == 'success') {
+			$(".DynamicForm").html(data);
+			//Get form if exist
+			var idForm = $("#modalDynamicForm form").attr('id');
+			if(idForm != 'undifined'){
+				var submitElement = getFormSubmit(idForm);
+				submitElement.css('display','none');
+				$("#modal_submit").attr('onclick','javascript:getFormSubmit("'+idForm+'").click();');
+			}
+		}
+	});
+}
+
 /**
  * Gestion des evenements (edition/suppresion)sur le calendrier
  ***/
@@ -149,8 +164,13 @@ function eventClickOverride(type,id)
 	urlEdit = Routing.generate('calendar_manager_see', { "id": id});
 	$.get(urlEdit,function(data,status){
 		if(status == 'success') {
-			$("#modalDynamicForm").modal().toggle();
+			//Link modification
 			$(".DynamicForm").html(data);
+			$("#modalDynamicForm").find( "a" ).each(function( index ) {
+				 var _href = $(this).attr("href");
+                 $(this).attr("href",'javascript:loadUrlInModal("'+_href +'")');
+			});
+			$("#modalDynamicForm").modal().toggle();
 		}
 	});
 }

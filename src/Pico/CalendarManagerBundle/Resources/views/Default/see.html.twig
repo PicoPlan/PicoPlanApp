@@ -1,22 +1,18 @@
 {% block body %}
-
- <div>{{ event.title }}</div>
- <div>{{ event.description }}</div>
- <div>{{ event.datetimeStart|date('Y-m-d : h-i-s') }}</div>
- <div>{{ event.datetimeEnd|date('Y-m-d : h-i-s') }}</div>
-
- {% if repeatingexist is defined %}
- <div>{{ repeatingexist.weekday }}</div>
- <div>{{ repeatingexist.dateStartrepeat|date('Y-m-d') }}</div>
- <div>{{ repeatingexist.dateEndrepeat|date('Y-m-d') }}</div>
- <div>{{ repeatingexist.frequency }}</div>
- {% endif %}
-
- <a id="edit " href="{{ path('calendar_manager_edit', { 'id': event.id }) }}">
- 	Modifier
- </a>
- <a id="delete" href="{{ path('calendar_manager_delete', { 'id': event.id }) }}">
- 	Supprimer
- </a>
-
+<div>
+	<p><h3> Titre : </h3> {{ event.title }}</p>
+	<p><h3> Description : </h3> {{ event.description }}</p>
+	<p><h3> Dates : </h3>{{ event.datetimeStart|date('Y-m-d : h-i-s') }} - {{ event.datetimeEnd|date('Y-m-d : h-i-s') }}</p>
+{% if repeatingexist is defined %}
+    <p><h3> Date de répétition : </h3> {{ repeatingexist.dateStartrepeat|date('Y-m-d') }} - {{ repeatingexist.dateEndrepeat|date('Y-m-d') }}</p>
+    <p><h3> Frequence : </h3> {{ repeatingexist.frequency }}</p>
+{% endif %}
+    <p> 
+    	<h3> Actions : </h3>
+		<ul>
+			<li><a id="edit " href="{{ path('calendar_manager_edit', { 'id': event.id }) }}">Modifier</a></li>
+			<li><a id="delete" href="{{ path('calendar_manager_delete', { 'id': event.id }) }}">Supprimer</a></li>
+		</ul>
+	</p>
+</div>
 {% endblock %}
