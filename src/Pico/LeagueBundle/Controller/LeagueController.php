@@ -67,7 +67,7 @@ class LeagueController extends Controller
                     // Les equipes
                     $Equipes = $this->em->getRepository('PicoLeagueBundle:Equipe')->getEquipesFromLeague($League);
                     // Verfication des droit du user
-                    $IsAllowedUser = true;
+                    $IsAllowedUser = $this->get('security.context')->isGranted('ROLE_LIGUE_CREATEUR');
                     // Vue League
                     return $this->render('PicoLeagueBundle:Affichage:AffichageLeague.html.twig', array(
                         'League' => $League,
