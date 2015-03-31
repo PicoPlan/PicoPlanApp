@@ -1,27 +1,22 @@
 <?php
-namespace Pico\LeagueBundle\Controller;
+
+namespace Pico\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-use Pico\LeagueBundle\Entity\Club;
-use Pico\LeagueBundle\Entity\Equipe;
-use Pico\LeagueBundle\Entity\League;
-use Pico\LeagueBundle\Entity\Sport;
-use Pico\LeagueBundle\Entity\UserToEquipe;
-
-use Pico\LeagueBundle\Form\Type\SportType;
+use Pico\UserBundle\Entity\ProfilePicture;
+use Pico\UserBundle\Form\Type\ProfilePictureFormType;
 
 
 
-class SportController extends Controller {
+class ProfilePictureController extends Controller {
 
 	# Usefull attributes
 	private $user;
-	private $em;
+	private $em; # Entity Manager
 
 	public function __init(){
 		# Current user
@@ -36,30 +31,27 @@ class SportController extends Controller {
         $this->em = $this->getDoctrine()->getManager();
 	}
 
-
-	public function createAction(Request $request) {
+	public function updateAction(Request $request){
 		# Instanciate user and user manager
 		$this->__init();
 
-		$sport = new Sport();
+		$picture = new ProfilePicture();
 
 		if($this->user->getPermission() > 2){
 			throw new AccessDeniedException("Cet utilisateur n'a pas accès à cette section");
 		}
 
-		$form = $this->createForm(new SportType(), $sport); 
+		$form = $this->createForm(new ProfilePictureFormType(), $picture);
 		$form->handleRequest($request);
 		$response["form"] = $form->createView();
 
 		if($form->isValid()){
-			$this->em->persist($sport);
-			$this->em->flush();
-			$response["alert_info"] = "Votre sport a bien été enregistré.";
+			$picture->setUser($this->user);
+			$this->em->persist($picture);
+			$response["alert_info"] = "Votre image a été uploadée.";
 			$response["alert_class"] = "success";
 		}
 
-		return $this->render('PicoLeagueBundle:Sport:create.html.twig', $response);
+		return $this->render("PicoUserBundle:ProfilePicture:update.html.twig", $response);
 	}
-
-
 }

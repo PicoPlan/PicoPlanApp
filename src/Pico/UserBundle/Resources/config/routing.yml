@@ -17,3 +17,7 @@ user_edit:
 user_register:
     path: /user-register/
     defaults: { _controller: PicoUserBundle:Registration:register }
+
+user_update_profile_picture:
+    path: /user/profile-picture/
+    defaults: { _controller: PicoUserBundle:ProfilePicture:update }
