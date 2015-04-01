@@ -4,6 +4,7 @@ namespace Pico\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -37,8 +38,27 @@ class ProfilePictureController extends Controller {
 
 		$picture = new ProfilePicture();
 
-		if($this->user->getPermission() > 2){
-			throw new AccessDeniedException("Cet utilisateur n'a pas accès à cette section");
+		// Updates active ProfilePicture
+		$toActive = $request->get("set_active");
+		if($toActive){
+			$pic = $this->em
+				->getRepository("PicoUserBundle:ProfilePicture")
+				->findBy(array("path" => $toActive));
+			$pic[0]->setIsActive(true);
+			$this->em->persist($pic[0]);
+			$this->em->flush();
+		}
+
+		// Erase picture if needed
+		$toErase = $request->get("delete_picture");
+		if($toErase){
+			$pic = $this->em
+				->getRepository("PicoUserBundle:ProfilePicture")
+				->findBy(array("path" => $toErase));
+			foreach($pic as $item){
+				$this->em->remove($item);
+			}
+			$this->em->flush();
 		}
 
 		$form = $this->createForm(new ProfilePictureFormType(), $picture);
@@ -46,10 +66,37 @@ class ProfilePictureController extends Controller {
 		$response["form"] = $form->createView();
 
 		if($form->isValid()){
-			$picture->setUser($this->user);
-			$this->em->persist($picture);
-			$response["alert_info"] = "Votre image a été uploadée.";
-			$response["alert_class"] = "success";
+			# Get the extension of the file if exists
+			if($form["picture"]->getData() != null){
+				$extension = $form["picture"]->getData()->guessExtension();
+				if(!$extension){
+				 	$extension = "bin";
+				}
+				# Randomly name the file to prevent injection
+				$fileName = $this->user->getId()."_".rand(1, 99999).".".$extension;
+				$picture->upload($fileName);
+				$picture->setUser($this->user);
+				$this->em->persist($picture);
+				$this->em->flush();
+				$response["alert_info"] = "Votre image a été uploadée.";
+				$response["alert_class"] = "success";
+			}
+		}
+
+		// Getting all current user's pictures 
+		$pictureList = $this->em
+			->getRepository("PicoUserBundle:ProfilePicture")
+			->findBy(array("user" => $this->user));
+		$list = [];
+		foreach ($pictureList as $pic) {
+			$list[$pic->getId()] = array(
+				"name" => $pic->getPath(),
+				"absolute_path" => $pic->getAbsolutePath(),
+				"is_active" => $pic->getIsActive()
+			);
+		}
+		if($pictureList){
+			$response["pictures"] = $list;
 		}
 
 		return $this->render("PicoUserBundle:ProfilePicture:update.html.twig", $response);

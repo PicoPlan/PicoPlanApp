@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     private $user;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $path;
 
@@ -32,6 +32,11 @@ use Symfony\Component\Validator\Constraints as Assert;
      * @Assert\File(maxSize="6000000")
      */
     public $picture;
+
+    /**
+    * @ORM\Column(type="boolean", nullable=false)
+    */
+    private $isActive = false;
 
     public function getAbsolutePath()
     {
@@ -108,5 +113,39 @@ use Symfony\Component\Validator\Constraints as Assert;
     public function getUser()
     {
         return $this->user;
+    }
+
+    public function upload($fileName){
+        if(null === $this->picture){
+            return;
+        }
+
+        $this->picture->move($this->getUploadRootDir(), $fileName);
+        $this->path = $this->picture->getClientOriginalName();
+        $this->picture = null;
+
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return ProfilePicture
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
     }
 }
