@@ -67,8 +67,8 @@ class UserController extends Controller
                 ->getUser();
         }
 
-        if(!$user) {
-            $alert_info = "L'utilisateur recherché n'existe pas.";
+        if($user == "anon.") {
+            $alert_info = "Vous ne pouvez pas accéder à cette section sans identification.";
             $alert_class ="warning";
         }
         else {
@@ -100,15 +100,13 @@ class UserController extends Controller
         /*
         * Adds wanted values in response array
         */
-        $response = array();
-        if($user) {
+        if($user != "anon.") {
             $response["data"] = $data;
         }
-        elseif(!$user) {
+        else {
             $response["alert_info"] = $alert_info;
             $response["alert_class"] = $alert_class; 
         }
-
 
         return $this->render('PicoUserBundle:User:show.html.twig', $response);
     }
