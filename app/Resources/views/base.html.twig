@@ -105,6 +105,16 @@
                 </li>
                 {% endif %}
               {% endif %}
+              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% if app.user.permission < 2 %}
+                  <li role="presentation">
+                    <a href="{{ url('pico_news_show') }}">
+                      <span class="glyphicon glyphicon-cog"></span>
+                      News
+                    </a>
+                  </li>
+                {% endif %}
+              {% endif %}
             </ul>
           </div> <!-- End sidebar -->
           <div class="col-sm-10" id="content"> <!-- Block content -->
@@ -125,8 +135,6 @@
       </div> <!-- End CONTAINER -->
       <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script> <!-- FOSRoutingJsBundle -->
       <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-      <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-      <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
       {% javascripts
         '@PicoAssetsBundle/Resources/public/javascripts/*'
         '@PicoAssetsBundle/Resources/public/javascripts/library/*'

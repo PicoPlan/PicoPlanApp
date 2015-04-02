@@ -1,0 +1,4 @@
+services:
+#    pico_news.example:
+#        class: Pico\NewsBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
