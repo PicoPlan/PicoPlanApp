@@ -63,12 +63,14 @@
                   Accueil
                 </a>
               </li>
+              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
               <li role="presentation">
                 <a href="{{ path('user_show') }}">
                   <span class="glyphicon glyphicon-user"></span>
                   Ma page
                 </a>
               </li>
+              {% endif %}
               <li role="presentation">
                 <a href="{{url('pico_league_affichage')}}">
                   <span class="glyphicon glyphicon-list"></span>
