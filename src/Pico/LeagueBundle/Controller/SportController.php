@@ -1,11 +1,11 @@
 <?php
 namespace Pico\LeagueBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Pico\LeagueBundle\Entity\Club;
 use Pico\LeagueBundle\Entity\Equipe;
