@@ -43,8 +43,19 @@ class UserController extends Controller
             $data = array(
                 'user' => $user,
                 );
+            // Get user profile picture
+            $em = $this->getDoctrine()->getManager();
+            $pictureList = $em
+                ->getRepository("PicoUserBundle:ProfilePicture")
+                ->findBy(array(
+                    "user" => $user,
+                    "isActive" => true));
+            foreach ($pictureList as $pic) {
+                $path = $pic->getPath();
+            }
 
-
+            $session = $this->getRequest()->getSession();
+            $session->set("profile_pic", $path);
 
             return $this->render('PicoUserBundle:User:home.html.twig', $data);
         }

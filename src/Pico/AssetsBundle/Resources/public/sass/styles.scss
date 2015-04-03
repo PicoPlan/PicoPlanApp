@@ -9,44 +9,64 @@
 
 
 * {
-    @include border-radius(0);
+    @include border-radius(0px);
+}
+
+// No radius on panels !!
+.panel, .panel-heading, .panel-body {
+    border-radius: 0px!important;
 }
 
 body {
     background-color: $app-background;
 }
 
-#sidebar {
-    padding: 70px 0px 0px 0px;
-    background: $whitesmoke;
-    height: 100vh;
-    border-right: 1px solid $grey;
-    ul {
+/********************
+    -- NAVBAR --
+*******************/
+
+.navbar-default{
+    background-color: #4B4D50;
+    .navbar-nav {
         li {
-            input {
-                @include border-radius(0);
-            }
-            .btn {
-                @include border-radius(0);
-            }
-            margin-top: 0px;
-            &.active {
-                a {
-                    background-color: $grey;
-                    @include border-radius(0);
+            a {
+                color: $white;
+                &:hover{
+                    color: $white;
+                    border-bottom: 5px solid $white;
+                    padding-bottom: 10px;
                 }
             }
-            a {
-                font-weight: bold;
-                color: $darkgrey;
-                @include border-radius(0);
-                span {
-                    margin-right: 10px;
+        }
+        .dropdown-menu {
+            li {
+                a {
+                   color: $darkestgrey;
+                   padding: 8px;
                 }
             }
         }
     }
+    .navbar-brand{
+        color: $white;
+        border-right: 1px solid $white;
+    }
+    .pull-right {
+        .navbar-profile-pic {
+            height: 50px;
+            @include border-radius(50%);
+            img {
+                position: relative;
+                top: 0px;
+                height: 70px;
+                @include border-radius(50%);
+                border: 3px solid $aquamarine;
+            }
+        }
+    }
 }
+
+
 
 #content {
     margin-top: 70px;

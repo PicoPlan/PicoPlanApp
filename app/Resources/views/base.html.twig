@@ -13,7 +13,7 @@
           <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container-fluid">
               <div class="navbar-header">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                   {% if title is defined %}
                     {{ title }}
                 {% else %}
@@ -21,10 +21,73 @@
                   {% endif %}</a>
               </div>
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">headerlink</a></li>
+                {# <li>
+                  <form role="form" action="{{ url('user_find') }}" method="GET">
+                    <div class="input-group">
+                      <input type="text" name="username" id="username" class="form-control" placeholder="Va chercher !">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">Go !</button>
+                      </span>
+                    </div>
+                  </form>
+                </li> #}
+                <li role="presentation">
+                  <a href="{{url('pico_league_affichage')}}">
+                    <span class="glyphicon glyphicon-list"></span>
+                    Ligues
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a href="#">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    Calendriers
+                  </a>
+                </li>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                  {% if app.user.permission < 2 %}
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >
+                        <span class="glyphicon glyphicon-cog"></span>
+                        Gestion avancée
+                        <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li>
+                          <a href="{{ url('pico_league_create_sport') }}">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            Création de sport
+                          </a>
+                        </li>
+                        <li>
+                          <a href="{{ url('pico_league_create_league') }}">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            Création de ligue
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  {% endif %}
+                {% endif %}
+                <li role="presentation">
+                  <a href="#">
+                    <span class="glyphicon glyphicon-info-sign"></span>
+                    Infos
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a href="{{ url('pico_news_show') }}">
+                    <span class="glyphicon glyphicon-cog"></span>
+                    News
+                  </a>
+                </li>
               </ul>
               <ul class="nav navbar-nav pull-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                  <li>
+                    <div class="navbar-profile-pic">
+                      <img src="{{ asset('uploads/user/img') }}/{{ app.session.get("profile_pic") }}" alt="{{ app.user.username }}">
+                  </div>
+                  </li>
                   <li>
                     <a href="{{ path('user_show') }}">{{ app.user.username }}</a>
                   </li>
@@ -44,93 +107,19 @@
         </header>
       </div>
       <div class="container-fluid"> <!-- CONTAINER -->
-        <div class="row"> <!-- Main row -->
-          <div class="col-sm-2" id="sidebar"> <!-- Sidebar -->
-            <ul class="nav nav-pills nav-stacked">
-              <li>
-                <form role="form" action="{{ url('user_find') }}" method="GET">
-                  <div class="input-group">
-                    <input type="text" name="username" id="username" class="form-control" placeholder="Va chercher !">
-                    <span class="input-group-btn">
-                      <button type="submit" class="btn btn-default">Go !</button>
-                    </span>
-                  </div>
-                </form>
-              </li>
-              <li role="presentation" class="active">
-                <a href="/">
-                  <span class="glyphicon glyphicon-home"></span>
-                  Accueil
-                </a>
-              </li>
-              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-              <li role="presentation">
-                <a href="{{ path('user_show') }}">
-                  <span class="glyphicon glyphicon-user"></span>
-                  Ma page
-                </a>
-              </li>
-              {% endif %}
-              <li role="presentation">
-                <a href="{{url('pico_league_affichage')}}">
-                  <span class="glyphicon glyphicon-list"></span>
-                  Ligues
-                </a>
-              </li>
-              <li role="presentation">
-                <a href="#">
-                  <span class="glyphicon glyphicon-calendar"></span>
-                  Calendriers
-                </a>
-              </li>
-              <li role="presentation">
-                <a href="#">
-                  <span class="glyphicon glyphicon-info-sign"></span>
-                  Infos
-                </a>
-              </li>
-              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {% if app.user.permission < 2 %}
-                <li role="presentation">
-                  <a href="{{ url('pico_league_create_sport') }}">
-                    <span class="glyphicon glyphicon-cog"></span>
-                    Création de sport
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a href="{{ url('pico_league_create_league') }}">
-                    <span class="glyphicon glyphicon-cog"></span>
-                    Création de ligue
-                  </a>
-                </li>
-                {% endif %}
-              {% endif %}
-              {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {% if app.user.permission < 2 %}
-                  <li role="presentation">
-                    <a href="{{ url('pico_news_show') }}">
-                      <span class="glyphicon glyphicon-cog"></span>
-                      News
-                    </a>
-                  </li>
-                {% endif %}
-              {% endif %}
-            </ul>
-          </div> <!-- End sidebar -->
-          <div class="col-sm-10" id="content"> <!-- Block content -->
-            <div id='body'>
-              {% if (alert_info is defined) and (alert_info != false) %}
-                <div id="alert-info" class="alert alert-{{ alert_class }}">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <p>
-                      {{ alert_info}}
-                    </p>
-                </div>
-              {% endif %}
-              {% block content %}{% endblock %}
-            </div>
-          </div> <!-- End block content -->
-        </div> <!-- End main row -->
+        <div id="content"> <!-- Block content -->
+          <div id='body'>
+            {% if (alert_info is defined) and (alert_info != false) %}
+              <div id="alert-info" class="alert alert-{{ alert_class }}">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <p>
+                    {{ alert_info}}
+                  </p>
+              </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+          </div>
+        </div> <!-- End block content -->
         
       </div> <!-- End CONTAINER -->
       <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script> <!-- FOSRoutingJsBundle -->
