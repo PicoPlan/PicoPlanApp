@@ -7,7 +7,11 @@
         <div class="profile-box">
           <div class="profile-heading row">
             <div class="profile-picture col-sm-2">
-              <img src="{{ asset('bundles/picoassets/images/tux.gif') }}" alt="profile_picture">
+              {% if path is defined %}
+                <img src="{{ asset('uploads/user/img') }}/{{ path }}" alt="profile_picture">
+              {% else %}
+                <img src="{{ asset('bundles/picoassets/images/anonuser.png') }}" alt="Profile picture">
+              {% endif %}
             </div>
             <div class="profile-title col-sm-10">
               <p>{{ data.username.content }}</p>
