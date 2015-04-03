@@ -68,11 +68,11 @@ class UserController extends Controller
         }
 
         if($user == "anon.") {
-            $alert_info = "Vous ne pouvez pas accéder à cette section sans identification.";
-            $alert_class ="warning";
+            $response["alert_info"] = "Vous ne pouvez pas accéder à cette section sans identification.";
+            $response["alert_class"] ="warning";
         }
         else {
-            $data = array(
+            $response["data"] = array(
                 'username' => array(
                     'content' => $user->getUsername(),
                     'title' => 'Pseudo',
@@ -96,16 +96,16 @@ class UserController extends Controller
             );
         }
 
-
-        /*
-        * Adds wanted values in response array
-        */
-        if($user != "anon.") {
-            $response["data"] = $data;
-        }
-        else {
-            $response["alert_info"] = $alert_info;
-            $response["alert_class"] = $alert_class; 
+        // Getting user profile picture
+        $em = $this->getDoctrine()->getManager();
+        $pictureList = $em
+            ->getRepository("PicoUserBundle:ProfilePicture")
+            ->findBy(array(
+                "user" => $user,
+                "isActive" => true));
+        foreach($pictureList as $pic){
+            $response["path"] = $pic->getPath();
+            $response["alt"] = $user->getUsername()."'s profile picture";
         }
 
         return $this->render('PicoUserBundle:User:show.html.twig', $response);
