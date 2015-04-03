@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Pico\RestBundle\PicoRestBundle(),
+            new Pico\NewsBundle\PicoNewsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

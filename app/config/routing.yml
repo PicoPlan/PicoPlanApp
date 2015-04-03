@@ -1,3 +1,7 @@
+pico_news:
+    resource: "@PicoNewsBundle/Resources/config/routing.yml"
+    prefix:   /news/
+
 pico_rest:
     resource: "@PicoRestBundle/Resources/config/routing.yml"
     prefix:   /

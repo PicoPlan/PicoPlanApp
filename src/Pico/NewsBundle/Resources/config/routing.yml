@@ -1,0 +1,11 @@
+pico_news_show:
+    path:     /show
+    defaults: { _controller: PicoNewsBundle:Article:show }
+
+pico_news_create:
+    path:     /create
+    defaults: { _controller: PicoNewsBundle:Article:create }
+
+pico_news_delete:
+    path: /delete
+    defaults: { _controller: PicoNewsBundle:Article:delete }
