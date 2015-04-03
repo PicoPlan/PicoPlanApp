@@ -43,6 +43,7 @@ class UserController extends Controller
             $data = array(
                 'user' => $user,
                 );
+
             // Get user profile picture
             $em = $this->getDoctrine()->getManager();
             $pictureList = $em
@@ -56,6 +57,24 @@ class UserController extends Controller
 
             $session = $this->getRequest()->getSession();
             $session->set("profile_pic", $path);
+
+            // Get 10 latests articles
+            $articleList = $em
+                ->getRepository("PicoNewsBundle:Article")
+                ->findBy(
+                    array(),
+                    array("date" => "desc"),
+                    10);
+            foreach ($articleList as $article) {
+                $list[$article->getId()] = array(
+                    "author" => $article->getAuthor(),
+                    "title" => $article->getTitle(),
+                    "content" => $article->getContent(),
+                    "date" => $article->getDate()->format("d-m-Y"),
+                    "id" => $article->getId()
+                );
+            }
+            $data["articles"] = $list;
 
             return $this->render('PicoUserBundle:User:home.html.twig', $data);
         }

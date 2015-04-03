@@ -8745,3 +8745,12 @@ body {
   height: 50px;
   z-index: 2000;
 }
+
+/**************************
+    -- HOME-NEWS-PANEL --
+*************************/
+/* line 188, ../sass/styles.scss */
+#hom-news-panel .body {
+  height: 500px !important;
+  overflow: scroll;
+}
