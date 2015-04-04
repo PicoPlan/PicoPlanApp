@@ -14,23 +14,10 @@
             <div class="container-fluid">
               <div class="navbar-header">
                 <a class="navbar-brand" href="/">
-                  {% if title is defined %}
-                    {{ title }}
-                {% else %}
                   PicoPlan
-                  {% endif %}</a>
+                </a>
               </div>
               <ul class="nav navbar-nav">
-                {# <li>
-                  <form role="form" action="{{ url('user_find') }}" method="GET">
-                    <div class="input-group">
-                      <input type="text" name="username" id="username" class="form-control" placeholder="Va chercher !">
-                      <span class="input-group-btn">
-                        <button type="submit" class="btn btn-default">Go !</button>
-                      </span>
-                    </div>
-                  </form>
-                </li> #}
                 <li role="presentation">
                   <a href="{{url('pico_league_affichage')}}">
                     <span class="glyphicon glyphicon-list"></span>
@@ -41,6 +28,12 @@
                   <a href="#">
                     <span class="glyphicon glyphicon-calendar"></span>
                     Calendriers
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a href="{{ url('pico_news_show') }}">
+                    <span class="glyphicon glyphicon-cog"></span>
+                    News
                   </a>
                 </li>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -68,19 +61,15 @@
                     </li>
                   {% endif %}
                 {% endif %}
-                <li role="presentation">
-                  <a href="#">
-                    <span class="glyphicon glyphicon-info-sign"></span>
-                    Infos
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a href="{{ url('pico_news_show') }}">
-                    <span class="glyphicon glyphicon-cog"></span>
-                    News
-                  </a>
-                </li>
               </ul>
+              <form role="search" class="navbar-form navbar-left" action="{{ url('user_find') }}" method="GET">
+                <div class="input-group">
+                  <input type="text" name="username" id="username" class="form-control" placeholder="Chercher quelqu'un">
+                  <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default">Go !</button>
+                  </span>
+                </div>
+              </form>
               <ul class="nav navbar-nav pull-right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                   <li>
