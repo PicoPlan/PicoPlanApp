@@ -8880,3 +8880,35 @@ body {
   border-radius: 50%;
   border: 6px solid #9CC5D7;
 }
+
+/****************************
+    -- SEARCH BY --
+*******************/
+/* line 303, ../sass/styles.scss */
+#league-action {
+  background-color: #FFFFFF;
+  margin-top: -20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/* line 308, ../sass/styles.scss */
+#league-action h2 {
+  margin-bottom: 20px;
+}
+/* line 310, ../sass/styles.scss */
+#league-action h2 span {
+  border-bottom: 1px solid #F3F3F3;
+}
+/* line 314, ../sass/styles.scss */
+#league-action .search-by {
+  text-align: center;
+}
+
+/***************************
+    -- TABLE-LEAGUES
+*************************/
+/* line 325, ../sass/styles.scss */
+.table-leagues tr .name {
+  font-size: 20px;
+  font-family: opensans-bold;
+}

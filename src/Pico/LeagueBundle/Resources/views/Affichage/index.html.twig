@@ -1,12 +1,39 @@
 {% set title = 'Ligues' %}
 {% extends "::base.html.twig" %}
 {% block content %}
-	<ul class='nav-tabs list-unstyled' class='selection'>
-		<li><button type="button" class='btn' >Ligues</button></li>
-		<li><button type="button" class='btn' >Clubs</button></li>
-		<li><button type="button" class='btn' >Equipes</button></li>
-	</ul>
-	<br />
+    <div class="row" id="league-action">
+        <h2 class="text-align"><span>Vous cherchez :</span></h2>
+        <div class="col-md-2 col-md-offset-3">
+            <div class="search-by">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <button type="button" class="btn btn-success btn-lg" value="Ligues">
+                    Une ligue
+                </button>
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="search-by">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <button type="button" class="btn btn-success btn-lg" value="Clubs">
+                    Un club
+                </button>
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="search-by">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <button type="button" class="btn btn-success btn-lg" value="Equipes">
+                    Une équipe
+                </button>
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </div>
+        </div>
+    </div>
+
 	<div class='' id='dynamique'>
 	</div>
 {% endblock %}
@@ -24,9 +51,20 @@
 
 	{% javascripts '@PicoLeagueBundle/Resources/public/league.js' output='league.js' %}
     	<script type="text/javascript">
+            $(function(){
+                var url = "{{url('pico_league_affichage_ajax',{'Type' : 'to_replace'})}}";
+                url = url.replace("to_replace", "Ligues");
+                $.get(url,function(data,status){
+                    if(status == 'success') {
+                        $('#dynamique').html(data);
+                    } else {
+                        alert('erreur');
+                    }
+                });
+            })
 			$("button").click(function(){
 				var url = "{{url('pico_league_affichage_ajax',{'Type' : 'to_replace'})}}";
-				url = url.replace("to_replace", $(this).html());
+				url = url.replace("to_replace", $(this).attr("value"));
   				$.get(url,function(data,status){
   					if(status == 'success') {
     					$('#dynamique').html(data);

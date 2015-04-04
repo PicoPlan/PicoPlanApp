@@ -4,7 +4,7 @@
 	{% if Error != false %}
 		{{Error}}
 	{% else %}
-		<table class='table'>
+		<table class='table table-leagues'>
 			<thead>
 				<tr>
 					<th>Nom </th>
@@ -18,7 +18,7 @@
 			<tbody>
 			{% for Information in Liste %}
 				<tr>
-					<td>{{Information.nom}}</td>
+					<td class="name">{{Information.nom}}</td>
 					{% if Information.description is defined %} 
 						<td>{{Information.description}}</td>
 					{% else %}
@@ -27,7 +27,11 @@
 					{% for info in InfoComplementaire %}
 						<td>{{attribute(Information, info).nom}}</td>
 					{% endfor %}
-					<td><a href='{{url('pico_league_affichage', {'Type': Type,'Id': Information.id}) }}'><div class='glyphicon glyphicon-arrow-right text-center'></div></a></td>
+					<td>
+                        <a href='{{url('pico_league_affichage', {'Type': Type,'Id': Information.id}) }}' class="btn btn-primary">
+                            Consulter
+                        </a>
+                    </td>
 				</tr>
 			{% endfor %}
 			</tbody>

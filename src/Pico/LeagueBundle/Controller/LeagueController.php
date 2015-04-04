@@ -128,7 +128,7 @@ class LeagueController extends Controller
                     ));
                     break;
                 default:
-                    throw new \Exception('Quelque chose a mal tourné !');
+                    throw new \Exception('Quelque chose a mal tourné !'); // gg wp
                     break;
             }
         }
