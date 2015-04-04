@@ -74,7 +74,7 @@
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                   <li>
                     <div class="navbar-profile-pic">
-                      <img src="{{ asset('uploads/user/img') }}/{{ app.session.get("profile_pic") }}" alt="{{ app.user.username }}">
+                      <img src="{% if  app.session.get("profile_pic") %}{{ asset('uploads/user/img') }}/{{ app.session.get("profile_pic") }}{% else %} {{ asset('bundles/picoassets/images/') }}/anonuser.png{% endif %}" alt="{{ app.user.username }}">
                   </div>
                   </li>
                   <li>

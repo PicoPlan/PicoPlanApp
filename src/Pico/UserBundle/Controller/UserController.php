@@ -54,9 +54,10 @@ class UserController extends Controller
             foreach ($pictureList as $pic) {
                 $path = $pic->getPath();
             }
-
-            $session = $this->getRequest()->getSession();
-            $session->set("profile_pic", $path);
+            if($pictureList){
+                $session = $this->getRequest()->getSession();
+                $session->set("profile_pic", $path);
+            }
 
             // Get 10 latests articles
             $articleList = $em

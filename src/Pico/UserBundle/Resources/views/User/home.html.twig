@@ -12,24 +12,24 @@
         <div class="item active">
           <img src="{{ asset('bundles/picoassets/images/home/soccer.jpg') }}" alt="image foot">
           <div class="carousel-caption">
-            <h3>Viendez, c'est trop cool</h3>
-            <p>Et encore mieux</p>
+            <h3>Rejoignez une communauté</h3>
+            <p>avec le réseau social des sportif Lorrains.</p>
           </div>
         </div>
 
         <div class="item">
           <img src="{{ asset('bundles/picoassets/images/home/bike.jpg') }}" alt="image foot">
           <div class="carousel-caption">
-            <h3>Viendez, c'est trop badass</h3>
-            <p>Et encore mieux</p>
+            <h3>Prenez le temps de bouger</h3>
+            <p>en optimisant votre emploi du temps.</p>
           </div>
         </div>
 
         <div class="item">
           <img src="{{ asset('bundles/picoassets/images/home/climbing.jpg') }}" alt="image foot">
           <div class="carousel-caption">
-            <h3>Viendez, c'est trop grand</h3>
-            <p>Et encore mieux</p>
+            <h3>Concentrez vous sur l'essentiel</h3>
+            <p>votre passion.</p>
           </div>
         </div>
       </div>
@@ -155,14 +155,14 @@
     <!-- NEWS FEED -->
     <div class="row presentation lvl-2">
       <div class="col-md-6 presentation lvl-2">
-        <div class="panel panel-danger" id="hom-news-panel">
+        <div class="panel panel-primary" id="hom-news-panel">
             <div class="panel-heading">
               <p class="panel-title"><strong>Votre fil d'information</strong></p>
             </div>
             <div class="panel-body body">
               {% if articles is defined %}
                 {% for item in articles %}
-                  <div class="panel panel-default">
+                  <div class="panel panel-success">
                     <div class="panel-heading">
                       <p class="panel-title">
                         <strong>{{ item.title }}</strong> -- par <a href="{{ url('user_show')}}/{{ item.author }}">{{ item.author }}</a>
