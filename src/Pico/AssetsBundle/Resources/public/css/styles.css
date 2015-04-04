@@ -8813,49 +8813,63 @@ body {
   margin-bottom: 30px;
 }
 /* line 235, ../sass/styles.scss */
+.presentation .presentation-btn {
+  padding-top: 20px;
+  text-align: center;
+}
+/* line 239, ../sass/styles.scss */
 .presentation .sub-presentation {
-  height: 250px;
+  height: 300px;
   text-align: center;
 }
 /* line 242, ../sass/styles.scss */
+.presentation .sub-presentation .img-heading {
+  height: 150px;
+}
+/* line 244, ../sass/styles.scss */
+.presentation .sub-presentation .img-heading img {
+  height: 150px;
+}
+/* line 249, ../sass/styles.scss */
 .presentation .sub-presentation .sub-heading p {
   font-size: 20px;
 }
-/* line 247, ../sass/styles.scss */
+/* line 254, ../sass/styles.scss */
 .presentation .sub-presentation .sub-content p {
-  width: 80%;
-  margin-left: 10%;
+  width: 60%;
+  margin-left: 20%;
   font-family: opensans-light;
 }
 
 /**********************
     -- WHO ARE WE --
 **********************/
-/* line 261, ../sass/styles.scss */
+/* line 268, ../sass/styles.scss */
 #who-are-we {
   list-style: outside none none;
   text-align: center;
   padding: 0px;
 }
-/* line 265, ../sass/styles.scss */
+/* line 272, ../sass/styles.scss */
 #who-are-we li {
   display: inline-block;
 }
-/* line 269, ../sass/styles.scss */
+/* line 276, ../sass/styles.scss */
 #who-are-we li.active a img {
   margin-bottom: 30px;
   border: 6px solid #4B4D50;
 }
-/* line 275, ../sass/styles.scss */
+/* line 282, ../sass/styles.scss */
 #who-are-we li a {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
   line-height: 120px;
 }
-/* line 278, ../sass/styles.scss */
+/* line 285, ../sass/styles.scss */
 #who-are-we li a img {
   height: 120px;
+  width: 120px;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;

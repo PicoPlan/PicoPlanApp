@@ -48,7 +48,21 @@
   <!-- WHAT'S THIS ? -->
     <div class="presentation">
       <h2><span>Qu'est-ce que c'est ?<span></h2>
-      <p class="presentation-text">PicoPlan est un boosteur social pour la Maison des Ligues de Lorraine. Mis au point par une équipe de jeunes talents, PicoPlan est pratique, utile, intelligent et bien élevé !</p>
+      <p class="presentation-text">PicoPlan est un boosteur social pour la Maison des Ligues de Lorraine.</p>
+      <p class="presentation-text">Mis au point par une équipe de jeunes talents, PicoPlan est pratique, utile, intelligent et bien élevé !</p>
+      <div class="row presentation-btn">
+        <div class="col-md-6 col-md-offset-3">
+          <p>
+            <a href="{{ url("user_register")}}" class="btn btn-lg btn-primary">
+              Créer un compte
+            </a>
+            |
+            <a href="{{ url("fos_user_security_login")}}" class="btn btn-lg btn-success">
+              Se connecter
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
   <!-- END WHAT'S THIS ? -->
 
@@ -57,77 +71,53 @@
 
       <h2><span>Comment ça marche ?</span></h2>
 
-      <div class="col-md-4 sub-presentation">
+      <div class="col-md-5 col-md-offset-1 sub-presentation">
         <div class="img-heading">
-          <img src="{{ asset('bundles/picoassets/images')}}/tux.gif">
+          <img src="{{ asset('bundles/picoassets/images/home')}}/monitor_256px.png">
         </div>
         <div class="sub-heading">
-          <p>Inscrivez-vous en ligne !</p>
+          <p>Inscrivez-vous en ligne.</p>
         </div>
         <div class="sub-content">
-          <p>Il suffit de vous connecter et de faire la demande en d'inscription en ligne auprès de votre capitaine d'équipe pour commencer à utiliser PicoPlan</p>
+          <p>Il suffit de vous connecter et de faire la demande en d'inscription en ligne auprès de votre capitaine d'équipe pour commencer à utiliser PicoPlan.</p>
         </div>
       </div>
 
-      <div class="col-md-4 sub-presentation">
+      <div class="col-md-5 sub-presentation">
+        <div class="img-heading">
+          <img src="{{ asset('bundles/picoassets/images/home')}}/guestbook_256px.png">
+        </div>
+        <div class="sub-heading">
+          <p>Consultez votre calendrier personnel.</p>
+        </div>
+        <div class="sub-content">
+          <p>PicoPlan met à votre disposition un calendrier personnel actualisé par vos capitaines d'équipes et par les responsables des Ligues.</p>
+        </div>
+      </div>
+
+      <div class="col-md-5 col-md-offset-1 sub-presentation">
         <div class="img-heading">
           <a href="#">
-            <img src="{{ asset('bundles/picoassets/images')}}/tux.gif">
+            <img src="{{ asset('bundles/picoassets/images/home')}}/chat_256px.png">
           </a>
         </div>
         <div class="sub-heading">
-          <p>Inscrivez-vous en ligne !</p>
+          <p>Discutez avec vos coéquipiers.</p>
         </div>
         <div class="sub-content">
-          <p>Il suffit de vous connecter et de faire la demande en d'inscription en ligne auprès de votre capitaine d'équipe pour commencer à utiliser PicoPlan</p>
+          <p>Un système de messagerie vous permet de rester en contact avec vos coéquipiers sans avoir besoin d'un numéro de téléphone.</p>
         </div>
       </div>
 
-      <div class="col-md-4 sub-presentation">
+      <div class="col-md-5 sub-presentation">
         <div class="img-heading">
-          <img src="{{ asset('bundles/picoassets/images')}}/tux.gif">
+          <img src="{{ asset('bundles/picoassets/images/home')}}/slidge_256px.png">
         </div>
         <div class="sub-heading">
-          <p>Inscrivez-vous en ligne !</p>
+          <p>Profitez de votre passion !</p>
         </div>
         <div class="sub-content">
-          <p>Il suffit de vous connecter et de faire la demande en d'inscription en ligne auprès de votre capitaine d'équipe pour commencer à utiliser PicoPlan</p>
-        </div>
-      </div>
-
-      <div class="col-md-4 sub-presentation">
-        <div class="img-heading">
-          <img src="{{ asset('bundles/picoassets/images')}}/tux.gif">
-        </div>
-        <div class="sub-heading">
-          <p>Inscrivez-vous en ligne !</p>
-        </div>
-        <div class="sub-content">
-          <p>Il suffit de vous connecter et de faire la demande en d'inscription en ligne auprès de votre capitaine d'équipe pour commencer à utiliser PicoPlan</p>
-        </div>
-      </div>
-
-      <div class="col-md-4 sub-presentation">
-        <div class="img-heading">
-          <img src="{{ asset('bundles/picoassets/images')}}/tux.gif">
-        </div>
-        <div class="sub-heading">
-          <p>Inscrivez-vous en ligne !</p>
-        </div>
-        <div class="sub-content">
-          <p>Il suffit de vous connecter et de faire la demande en d'inscription en ligne auprès de votre capitaine d'équipe pour commencer à utiliser PicoPlan</p>
-        </div>
-      </div>
-
-      <div class="col-md-4 sub-presentation">
-        <div class="img-heading">
-          <img src="{{ asset('bundles/picoassets/images')}}/tux.gif">
-        </div>
-        <div class="sub-heading">
-          <p>Inscrivez-vous en ligne !</p>
-        </div>
-        <div class="sub-content">
-          <p>Il suffit de vous connecter et de faire la demande en d'inscription en ligne auprès de votre capitaine d'équipe pour commencer à utiliser PicoPlan</p>
+          <p>En vous connectant à PicoPlan, vous gagnez du temps et de l'énergie. Les deux vous seront pleinenment utiles dans l'exercice de votre passion !</p>
         </div>
       </div>
 
@@ -209,21 +199,26 @@
         <!-- Nav tabs -->
         <ul class="pic-nav" id="who-are-we" role="tablist">
           <li role="presentation" class="active">
-              <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
-                <img src="{{ asset('bundles/picoassets/images')}}/tux.gif" alt="Creator picture">
-              </a>
-          </li>
-          <li role="presentation">
-            <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
-              <img src="{{ asset('bundles/picoassets/images')}}/tux.gif" alt="Creator picture">
-          </li>
-          <li role="presentation">
-            <a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+            <a href="#leo" aria-controls="leo" role="tab" data-toggle="tab">
               <img src="{{ asset('bundles/picoassets/images')}}/tux.gif" alt="Creator picture">
             </a>
           </li>
           <li role="presentation">
-            <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">
+            <a href="#roland" aria-controls="roland" role="tab" data-toggle="tab">
+              <img src="{{ asset('bundles/picoassets/images/home')}}/roland.jpg" alt="Creator picture">
+          </li>
+          <li role="presentation">
+              <a href="#abde" aria-controls="abde" role="tab" data-toggle="tab">
+                <img src="{{ asset('bundles/picoassets/images/home')}}/abde.jpg" alt="Creator picture">
+              </a>
+          </li>
+          <li role="presentation">
+            <a href="#robin" aria-controls="robin" role="tab" data-toggle="tab">
+              <img src="{{ asset('bundles/picoassets/images')}}/tux.gif" alt="Creator picture">
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#jordan" aria-controls="jordan" role="tab" data-toggle="tab">
               <img src="{{ asset('bundles/picoassets/images')}}/tux.gif" alt="Creator picture">
             </a>
           </li>
@@ -231,24 +226,38 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
-          <div role="tabpanel" class="tab-pane fade in active" id="home">
+          <div role="tabpanel" class="tab-pane fade in active" id="leo">
             <p class="presentation-text">
-              Barrez-vous, cons de mimes !
+              <strong>Léonard Picot</strong>
+            </p>
+            <p class="presentation-text">
+              "..."
             </p>
           </div>
-          <div role="tabpanel" class="tab-pane fade" id="profile">
+          <div role="tabpanel" class="tab-pane fade" id="roland">
             <p class="presentation-text">
-              Barrez-vous, cons de mimes !
+              <strong>Renaud Bellec</strong>
+            </p>
+            <p class="presentation-text">
+              "Barrez-vous, cons de mimes !"
             </p>
           </div>
-          <div role="tabpanel" class="tab-pane fade" id="messages">
+          <div role="tabpanel" class="tab-pane fade" id="abde">
+            <p class="presentation-text"><strong>Abdessamad Gérard</strong></p>
             <p class="presentation-text">
-              Barrez-vous, cons de mimes !
+              "Si tu pars en couille, suis-moi c’est sur mon chemin. "
             </p>
           </div>
-          <div role="tabpanel" class="tab-pane fade" id="settings">
+          <div role="tabpanel" class="tab-pane fade" id="robin">
+            <p class="presentation-text"><strong>Robin Le Dru</strong></p>
             <p class="presentation-text">
-              Barrez-vous, cons de mimes !
+              "..."
+            </p>
+          </div>
+          <div role="tabpanel" class="tab-pane fade" id="jordan">
+            <p class="presentation-text"><strong>Jordan Rosemond</strong></p>
+            <p class="presentation-text">
+              "..."
             </p>
           </div>
         </div>
