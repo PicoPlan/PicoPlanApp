@@ -8593,6 +8593,11 @@ button.close {
 }
 
 /* line 22, ../sass/styles.scss */
+.text-align {
+  text-align: center;
+}
+
+/* line 26, ../sass/styles.scss */
 body {
   background-color: #F3F3F3;
   color: #37353A;
@@ -8601,38 +8606,38 @@ body {
 /********************
     -- NAVBAR --
 *******************/
-/* line 31, ../sass/styles.scss */
+/* line 35, ../sass/styles.scss */
 .navbar-default {
   background-color: #4B4D50;
 }
-/* line 35, ../sass/styles.scss */
+/* line 39, ../sass/styles.scss */
 .navbar-default .navbar-nav li a {
   color: #FFFFFF;
 }
-/* line 37, ../sass/styles.scss */
+/* line 41, ../sass/styles.scss */
 .navbar-default .navbar-nav li a:hover {
   color: #FFFFFF;
   border-bottom: 5px solid #FFFFFF;
   padding-bottom: 10px;
 }
-/* line 46, ../sass/styles.scss */
+/* line 50, ../sass/styles.scss */
 .navbar-default .navbar-nav .dropdown-menu li a {
   color: #4B4D50;
   padding: 8px;
 }
-/* line 53, ../sass/styles.scss */
+/* line 57, ../sass/styles.scss */
 .navbar-default .navbar-brand {
   color: #FFFFFF;
   border-right: 1px solid #FFFFFF;
 }
-/* line 58, ../sass/styles.scss */
+/* line 62, ../sass/styles.scss */
 .navbar-default .pull-right .navbar-profile-pic {
   height: 50px;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 61, ../sass/styles.scss */
+/* line 65, ../sass/styles.scss */
 .navbar-default .pull-right .navbar-profile-pic img {
   position: relative;
   top: 0px;
@@ -8646,7 +8651,7 @@ body {
 /********************** 
     -- CAROUSEL --
 **********************/
-/* line 77, ../sass/styles.scss */
+/* line 81, ../sass/styles.scss */
 .carousel {
   height: 500px !important;
   overflow: hidden;
@@ -8655,22 +8660,22 @@ body {
   margin-left: -15px;
   margin-right: -15px;
 }
-/* line 86, ../sass/styles.scss */
+/* line 90, ../sass/styles.scss */
 .carousel .carousel-inner .item .carousel-caption {
   position: absolute;
   top: 120px;
 }
-/* line 89, ../sass/styles.scss */
+/* line 93, ../sass/styles.scss */
 .carousel .carousel-inner .item .carousel-caption h3 {
   font-weight: bolder;
   font-size: 50px;
   vertical-align: middle;
 }
-/* line 94, ../sass/styles.scss */
+/* line 98, ../sass/styles.scss */
 .carousel .carousel-inner .item .carousel-caption p {
   font-size: 20px;
 }
-/* line 98, ../sass/styles.scss */
+/* line 102, ../sass/styles.scss */
 .carousel .carousel-inner .item img {
   filter: brightness(80%);
   -webkit-filter: brightness(80%);
@@ -8679,7 +8684,7 @@ body {
   -ms-filter: brightness(80%);
 }
 
-/* line 111, ../sass/styles.scss */
+/* line 115, ../sass/styles.scss */
 #content {
   margin-top: 70px;
 }
@@ -8687,22 +8692,22 @@ body {
 /**********************
     --- PROFILE-BOX --
 **********************/
-/* line 119, ../sass/styles.scss */
+/* line 123, ../sass/styles.scss */
 .profile-box {
   background-color: #FFF;
 }
-/* line 121, ../sass/styles.scss */
+/* line 125, ../sass/styles.scss */
 .profile-box .profile-heading {
   background-color: #1C7EBB;
   min-height: 150px;
   color: #FFF;
   margin: 0px;
 }
-/* line 126, ../sass/styles.scss */
+/* line 130, ../sass/styles.scss */
 .profile-box .profile-heading .profile-picture {
   margin-top: 25px;
 }
-/* line 128, ../sass/styles.scss */
+/* line 132, ../sass/styles.scss */
 .profile-box .profile-heading .profile-picture img {
   height: 100px;
   border: 5px solid #2B9ADF;
@@ -8710,36 +8715,36 @@ body {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
-/* line 134, ../sass/styles.scss */
+/* line 138, ../sass/styles.scss */
 .profile-box .profile-heading .profile-title {
   line-height: 150px;
   vertical-align: middle;
 }
-/* line 137, ../sass/styles.scss */
+/* line 141, ../sass/styles.scss */
 .profile-box .profile-heading .profile-title p {
   font-size: 50px;
   font-weight: bolder;
   text-align: center;
 }
-/* line 146, ../sass/styles.scss */
+/* line 150, ../sass/styles.scss */
 .profile-box .profile-content .profile-info .profile-row {
   margin: 0px;
   padding: 15px;
   border-bottom: 1px solid lightgrey;
 }
-/* line 150, ../sass/styles.scss */
+/* line 154, ../sass/styles.scss */
 .profile-box .profile-content .profile-info .profile-row div {
   vertical-align: middle;
 }
-/* line 152, ../sass/styles.scss */
+/* line 156, ../sass/styles.scss */
 .profile-box .profile-content .profile-info .profile-row div p {
   margin: 0px;
 }
-/* line 156, ../sass/styles.scss */
+/* line 160, ../sass/styles.scss */
 .profile-box .profile-content .profile-info .profile-row .profile-info-icon {
   color: #5E5E5E;
 }
-/* line 162, ../sass/styles.scss */
+/* line 166, ../sass/styles.scss */
 .profile-box .profile-edit {
   padding: 15px;
 }
@@ -8747,7 +8752,7 @@ body {
 /***********************
     --- CALENDAR -----
 **********************/
-/* line 171, ../sass/styles.scss */
+/* line 175, ../sass/styles.scss */
 #calendar {
   padding: 15px;
   background-color: white;
@@ -8756,7 +8761,7 @@ body {
 /************************************
     ---- ALERT-INFO -------------
 ************************************/
-/* line 181, ../sass/styles.scss */
+/* line 185, ../sass/styles.scss */
 #alert-info {
   position: fixed;
   top: 70px;
@@ -8768,7 +8773,7 @@ body {
 /**************************
     -- HOME-NEWS-PANEL --
 *************************/
-/* line 195, ../sass/styles.scss */
+/* line 199, ../sass/styles.scss */
 #hom-news-panel .body {
   height: 500px !important;
   overflow: scroll;
@@ -8777,17 +8782,17 @@ body {
 /*****************************
     -- PRESENTATION --
 ***************************/
-/* line 206, ../sass/styles.scss */
+/* line 210, ../sass/styles.scss */
 .presentation {
   color: #4B4D50;
   margin-bottom: 40px;
 }
-/* line 209, ../sass/styles.scss */
+/* line 213, ../sass/styles.scss */
 .presentation.lvl-2 {
   background-color: #FFFFFF;
   padding-top: 20px;
 }
-/* line 213, ../sass/styles.scss */
+/* line 217, ../sass/styles.scss */
 .presentation h2 {
   text-align: center;
   margin-top: 30px;
@@ -8797,13 +8802,13 @@ body {
   line-height: 50px;
   padding: 15px;
 }
-/* line 221, ../sass/styles.scss */
+/* line 225, ../sass/styles.scss */
 .presentation h2 span {
   font-family: opensans;
   position: relative;
   border-bottom: 1px solid #C6CBCC;
 }
-/* line 227, ../sass/styles.scss */
+/* line 231, ../sass/styles.scss */
 .presentation .presentation-text {
   width: 60%;
   margin-left: 20%;
@@ -8812,29 +8817,29 @@ body {
   margin-top: 20px;
   margin-bottom: 30px;
 }
-/* line 235, ../sass/styles.scss */
+/* line 239, ../sass/styles.scss */
 .presentation .presentation-btn {
   padding-top: 20px;
   text-align: center;
 }
-/* line 239, ../sass/styles.scss */
+/* line 243, ../sass/styles.scss */
 .presentation .sub-presentation {
   height: 300px;
   text-align: center;
 }
-/* line 242, ../sass/styles.scss */
+/* line 246, ../sass/styles.scss */
 .presentation .sub-presentation .img-heading {
   height: 150px;
 }
-/* line 244, ../sass/styles.scss */
+/* line 248, ../sass/styles.scss */
 .presentation .sub-presentation .img-heading img {
   height: 150px;
 }
-/* line 249, ../sass/styles.scss */
+/* line 253, ../sass/styles.scss */
 .presentation .sub-presentation .sub-heading p {
   font-size: 20px;
 }
-/* line 254, ../sass/styles.scss */
+/* line 258, ../sass/styles.scss */
 .presentation .sub-presentation .sub-content p {
   width: 60%;
   margin-left: 20%;
@@ -8844,29 +8849,29 @@ body {
 /**********************
     -- WHO ARE WE --
 **********************/
-/* line 268, ../sass/styles.scss */
+/* line 272, ../sass/styles.scss */
 #who-are-we {
   list-style: outside none none;
   text-align: center;
   padding: 0px;
 }
-/* line 272, ../sass/styles.scss */
+/* line 276, ../sass/styles.scss */
 #who-are-we li {
   display: inline-block;
 }
-/* line 276, ../sass/styles.scss */
+/* line 280, ../sass/styles.scss */
 #who-are-we li.active a img {
   margin-bottom: 30px;
   border: 6px solid #4B4D50;
 }
-/* line 282, ../sass/styles.scss */
+/* line 286, ../sass/styles.scss */
 #who-are-we li a {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
   line-height: 120px;
 }
-/* line 285, ../sass/styles.scss */
+/* line 289, ../sass/styles.scss */
 #who-are-we li a img {
   height: 120px;
   width: 120px;
@@ -8874,4 +8879,36 @@ body {
   -webkit-border-radius: 50%;
   border-radius: 50%;
   border: 6px solid #9CC5D7;
+}
+
+/****************************
+    -- SEARCH BY --
+*******************/
+/* line 303, ../sass/styles.scss */
+#league-action {
+  background-color: #FFFFFF;
+  margin-top: -20px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/* line 308, ../sass/styles.scss */
+#league-action h2 {
+  margin-bottom: 20px;
+}
+/* line 310, ../sass/styles.scss */
+#league-action h2 span {
+  border-bottom: 1px solid #F3F3F3;
+}
+/* line 314, ../sass/styles.scss */
+#league-action .search-by {
+  text-align: center;
+}
+
+/***************************
+    -- TABLE-LEAGUES
+*************************/
+/* line 325, ../sass/styles.scss */
+.table-leagues tr .name {
+  font-size: 20px;
+  font-family: opensans-bold;
 }

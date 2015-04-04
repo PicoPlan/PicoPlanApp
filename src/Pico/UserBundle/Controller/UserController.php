@@ -35,56 +35,48 @@ class UserController extends Controller
         /*
         * Say hello if user is logged
         */
-        if ($this->get("security.context")->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $user = $this->get('security.context')
-                ->getToken()
-                ->getUser();
+        $user = $this->get('security.context')
+            ->getToken()
+            ->getUser();
 
-            $data = array(
-                'user' => $user,
-                );
+        $data = array(
+            'user' => $user,
+            );
 
-            // Get user profile picture
-            $em = $this->getDoctrine()->getManager();
-            $pictureList = $em
-                ->getRepository("PicoUserBundle:ProfilePicture")
-                ->findBy(array(
-                    "user" => $user,
-                    "isActive" => true));
-            foreach ($pictureList as $pic) {
-                $path = $pic->getPath();
-            }
-            if($pictureList){
-                $session = $this->getRequest()->getSession();
-                $session->set("profile_pic", $path);
-            }
-
-            // Get 10 latests articles
-            $articleList = $em
-                ->getRepository("PicoNewsBundle:Article")
-                ->findBy(
-                    array(),
-                    array("date" => "desc"),
-                    10);
-            foreach ($articleList as $article) {
-                $list[$article->getId()] = array(
-                    "author" => $article->getAuthor(),
-                    "title" => $article->getTitle(),
-                    "content" => $article->getContent(),
-                    "date" => $article->getDate()->format("d-m-Y"),
-                    "id" => $article->getId()
-                );
-            }
-            $data["articles"] = $list;
-
-            return $this->render('PicoUserBundle:User:home.html.twig', $data);
+        // Get user profile picture
+        $em = $this->getDoctrine()->getManager();
+        $pictureList = $em
+            ->getRepository("PicoUserBundle:ProfilePicture")
+            ->findBy(array(
+                "user" => $user,
+                "isActive" => true));
+        foreach ($pictureList as $pic) {
+            $path = $pic->getPath();
         }
-        else {
-            $url = $this->generateUrl('fos_user_security_login');
-
-            return $this->redirect($url, 301);
+        if($pictureList){
+            $session = $this->getRequest()->getSession();
+            $session->set("profile_pic", $path);
         }
 
+        // Get 10 latests articles
+        $articleList = $em
+            ->getRepository("PicoNewsBundle:Article")
+            ->findBy(
+                array(),
+                array("date" => "desc"),
+                10);
+        foreach ($articleList as $article) {
+            $list[$article->getId()] = array(
+                "author" => $article->getAuthor(),
+                "title" => $article->getTitle(),
+                "content" => $article->getContent(),
+                "date" => $article->getDate()->format("d-m-Y"),
+                "id" => $article->getId()
+            );
+        }
+        $data["articles"] = $list;
+
+        return $this->render('PicoUserBundle:User:home.html.twig', $data);
     }
 
     public function showAction($username) {

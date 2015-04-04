@@ -19,6 +19,10 @@
     border-radius: 0px!important;
 }
 
+.text-align {
+    text-align: center;
+}
+
 body {
     background-color: $app-background;
     color: $almostblack;
@@ -288,6 +292,39 @@ body {
                 @include border-radius(50%);
                 border: 6px solid $aquamarine;
             }
+        }
+    }
+}
+
+/****************************
+    -- SEARCH BY --
+*******************/
+
+#league-action{
+    background-color: $white;
+    margin-top: -20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    h2 {
+        margin-bottom: 20px;
+        span {
+            border-bottom: 1px solid $app-background;
+        }
+    }
+    .search-by {
+        text-align: center;   
+    }
+}
+
+/***************************
+    -- TABLE-LEAGUES
+*************************/
+
+.table-leagues {
+    tr {
+        .name {
+            font-size: 20px;
+            font-family: opensans-bold;
         }
     }
 }
