@@ -2,20 +2,24 @@
 
 {% block content %}
   <div class="col-md-6">
-    <a href="{{ url('pico_news_create') }}" class="btn btn-primary">
-      Publier un nouvel article
-    </a>
+  	{% if showEditButton %}
+    	<a href="{{ url('pico_news_create') }}" class="btn btn-primary">
+    		Publier un nouvel article
+    	</a>
+  	{% endif %}
   </div>
   {% if articles is defined %}
     {% for item in articles %}
       <div class="col-md-6">
-        <h2><a href="">{{ item.title }}</a></h2>
+        <h2><a href="{{ url('pico_news_show_detail',{'idNews': item.id}) }}">{{ item.title }}</a></h2>
         <h3>Par {{ item.author }}</h3>
         <h4>Publié le {{ item.date }}</h4>
-        <p>{{ item.content }}</p>
-        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete_{{ item.id }}">
-          Supprimer cet article
-        </button>
+        <p>{{ item.content[:20] }}...</p>
+        {% if showEditButton %}
+        	<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete_{{ item.id }}">
+          		Supprimer cet article
+        	</button>
+        {% endif %}
         <div class="modal fade" id="delete_{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="delete_{{item.id }}Label" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">

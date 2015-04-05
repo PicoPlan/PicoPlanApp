@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ClubRepository extends EntityRepository
 {
+    /**
+     * Is the user owned at least one club
+     * @param User $User
+     * @return boolean
+     */
+    public function isClubLeader($User)
+    {
+        $Clubs =  $this->_em->getRepository('PicoLeagueBundle:Club')->findBy(array('userCreator' => $User));
+        return !empty($Clubs);
+    }
 }
