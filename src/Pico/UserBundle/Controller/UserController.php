@@ -73,8 +73,10 @@ class UserController extends Controller
                 "date" => $article->getDate()->format("d-m-Y"),
                 "id" => $article->getId()
             );
+            if($list){
+                $data["articles"] = $list;
+            }
         }
-        $data["articles"] = $list;
 
         return $this->render('PicoUserBundle:User:home.html.twig', $data);
     }

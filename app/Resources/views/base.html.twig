@@ -25,15 +25,15 @@
                   </a>
                 </li>
                 <li role="presentation">
-                  <a href="#">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                    Calendriers
+                  <a href="{{ url('pico_news_show') }}">
+                    <span class="glyphicon glyphicon-globe"></span>
+                    News
                   </a>
                 </li>
                 <li role="presentation">
-                  <a href="{{ url('pico_news_show') }}">
-                    <span class="glyphicon glyphicon-cog"></span>
-                    News
+                  <a href="#">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    Calendriers
                   </a>
                 </li>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

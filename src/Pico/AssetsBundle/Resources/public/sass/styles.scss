@@ -66,6 +66,7 @@ body {
                 position: relative;
                 top: 0px;
                 height: 70px;
+                width: 70px;
                 @include border-radius(50%);
                 border: 3px solid $aquamarine;
             }
