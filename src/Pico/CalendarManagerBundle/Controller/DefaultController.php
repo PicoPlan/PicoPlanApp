@@ -161,15 +161,20 @@ class DefaultController extends Controller
 
     public function deleteAction($id)
     {
-        // search the specified event
+        
+        // parmeters
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
+        
+        //event
         $EventRepository = $em->getRepository("CalendarManagerBundle:Event");
         $eventfind = $EventRepository->find($id);
-        $returnedarray = array(
-            'event' => $eventfind
-        );
-        $em->remove($eventfind);
+        if(empty($eventfind)){
+            //If no event, it's a bug
+            return new response('ko');
+        } else {
+            $em->remove($eventfind);
+        }
         
         // search repeatingevent related
         $repeatingexist = $this->getDoctrine()
@@ -188,6 +193,7 @@ class DefaultController extends Controller
         if (! is_null($UserEventexist)) {
             $em->remove($UserEventexist);
         }
+
         
         $ClubEventexist = $this->getDoctrine()
             ->getManager()
@@ -215,10 +221,11 @@ class DefaultController extends Controller
         
         // Do it
         $em->flush();
-        $request = $this->container->get('request');
-        $routeName = $request->get('_route');
-        return $this->render($routeName);
+
+        //Return ok
+        return new response('ok');
     }
+    
 
     public function geteventsAction($type, $id)
     {

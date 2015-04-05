@@ -144,6 +144,11 @@ function gestionEquipe(id)
 function loadUrlInModal(url){
 	$.get(url,function(data,status){
 		if(status == 'success') {
+			//special data
+			if(data == 'ok' || data == 'ko'){
+				location.reload();
+				return false;
+			}
 			$(".DynamicForm").html(data);
 			//Get form if exist
 			var idForm = $("#modalDynamicForm form").attr('id');

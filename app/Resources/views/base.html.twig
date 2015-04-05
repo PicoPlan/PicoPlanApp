@@ -30,13 +30,13 @@
                     News
                   </a>
                 </li>
-                <li role="presentation">
-                  <a href="#">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <li role="calendar">
+                  <a href="{{url('user_calendar',{type:'user' ,id:app.user.id}) }}">
                     <span class="glyphicon glyphicon-calendar"></span>
                     Calendriers
                   </a>
-                </li>
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                </li>                
                 	{{render(controller('PicoUserBundle:Admin:showToolboxIfAllowed'))}}
                 {% endif %}
               </ul>
