@@ -1,0 +1,12 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+      <div class="col-md-6">
+        <h2>{{ title }}</h2>
+        <h3>Par {{ author }}</h3>
+        <h4>Publié le {{ date }}</h4>
+        <p>{{ content }}</p>
+{% endblock content %}
+
+{% block extrascript %}
+{% endblock extrascript %}

@@ -119,7 +119,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         if(null === $this->picture){
             return;
         }
-
         $this->picture->move($this->getUploadRootDir(), $fileName);
         $this->path = $fileName;
         $this->picture = null;

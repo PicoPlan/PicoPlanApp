@@ -1,7 +1,13 @@
 pico_news_show:
     path:     /show
     defaults: { _controller: PicoNewsBundle:Article:show }
-
+    
+pico_news_show_detail:
+    path: /show/{idNews}
+    defaults: { _controller: PicoNewsBundle:Article:showDetail }
+    requirements:
+        Id:  \d+
+    
 pico_news_create:
     path:     /create
     defaults: { _controller: PicoNewsBundle:Article:create }
