@@ -9,7 +9,7 @@
   {% if articles is defined %}
     {% for item in articles %}
       <div class="col-md-6">
-        <h2>{{ item.title }}</h2>
+        <h2><a href="">{{ item.title }}</a></h2>
         <h3>Par {{ item.author }}</h3>
         <h4>Publié le {{ item.date }}</h4>
         <p>{{ item.content }}</p>
