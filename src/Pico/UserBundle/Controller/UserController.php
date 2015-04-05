@@ -97,6 +97,7 @@ class UserController extends Controller
             $response["alert_class"] ="warning";
         }
         else {
+            $response["user"] = $user;
             $response["data"] = array(
                 'username' => array(
                     'content' => $user->getUsername(),
@@ -136,6 +137,12 @@ class UserController extends Controller
         return $this->render('PicoUserBundle:User:show.html.twig', $response);
     }
 
+    public function showCalendarAction($type, $id) {
+        return $this->render('PicoUserBundle:User:calendar.html.twig', array(
+            'id' => $id,
+        ));
+    }
+    
     public function editAction() {
         $user = $this->get('security.context')
             ->getToken()

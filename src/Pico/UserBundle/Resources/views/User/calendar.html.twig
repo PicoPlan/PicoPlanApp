@@ -1,0 +1,12 @@
+{% set title = 'Calendrier' %}
+{% extends "::base.html.twig" %}
+{% block content %}
+	<div id='affichageClub'>
+		<h3> Votre calendrier personnel </h3>
+		<h5><i>Ajouter votre propre evenement (en bas de page) !</i></h5>
+		<br />
+		{% include 'PicoLeagueBundle:Affichage:subView/calendrier.html.twig' with {'type': 'user','id':id, 'AllowedUser':true} %}
+		<br />
+		<br />
+	</div>
+{% endblock %}
