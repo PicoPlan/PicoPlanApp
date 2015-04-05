@@ -12,4 +12,31 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    public function calculateUserRight($User = false, $VerifOnly = array('M2LAdmin' => false,'ClubLeader'=>false,'TeamLeader'=>false))
+    {
+        // User auth ?
+        if ($User == false) {
+            return false;
+        }
+    
+        // M2L admin ?
+        $isM2LAdmin = in_array('ROLE_LIGUE_CREATEUR',$User->getRoles());
+        if(isset($VerifOnly['M2LAdmin']) && $VerifOnly['M2LAdmin']) {
+            return $isM2LAdmin;
+        }
+
+        // Club Leader ?
+        $isClubLeader = $this->_em->getRepository("PicoLeagueBundle:Club")->isClubLeader($User);
+        if(isset($VerifOnly['ClubLeader']) && $VerifOnly['ClubLeader']) {
+            return $isClubLeader;
+        }
+    
+        // Team Leader ?
+        $isTeamLeader = $this->_em->getRepository("PicoLeagueBundle:Equipe")->isTeamLeader($User);
+        if(isset($VerifOnly['TeamLeader']) && $VerifOnly['TeamLeader']) {
+            return $isTeamLeader;
+        }
+        return ($isM2LAdmin || $isClubLeader || $isTeamLeader);
+    }
+    
 }

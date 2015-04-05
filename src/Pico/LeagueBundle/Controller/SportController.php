@@ -42,11 +42,10 @@ class SportController extends Controller {
 		$this->__init();
 
 		$sport = new Sport();
-
-		if($this->user->getPermission() > 2){
+        if(! $this->em->getRepository("PicoUserBundle:User")->calculateUserRight($this->user)){
 			throw new AccessDeniedException("Cet utilisateur n'a pas accès à cette section");
-		}
-
+        }
+        
 		$form = $this->createForm(new SportType(), $sport); 
 		$form->handleRequest($request);
 		$response["form"] = $form->createView();
