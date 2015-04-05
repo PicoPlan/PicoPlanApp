@@ -21,3 +21,7 @@ user_register:
 user_update_profile_picture:
     path: /user/profile-picture/
     defaults: { _controller: PicoUserBundle:ProfilePicture:update }
+
+admin_show_toolbox_if_allowed:
+    path: /admin/toolbox
+    defaults: { _controller: PicoUserBundle:Admin:showToolboxIfAllowed }

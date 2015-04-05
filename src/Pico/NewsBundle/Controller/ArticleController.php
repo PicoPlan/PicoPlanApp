@@ -50,7 +50,7 @@ class ArticleController extends Controller
         if ($articleList) {
             $response["articles"] = $list;
         }
-        $response["showEditButton"] = $this->calculateUserRight();
+        $response["showEditButton"] = $this->em->getRepository("PicoUserBundle:User")->calculateUserRight($this->user);
         return $this->render("PicoNewsBundle:Article:show.html.twig", $response);
     }
 
@@ -77,7 +77,7 @@ class ArticleController extends Controller
         
         $article = new Article();
         
-        if (! $this->calculateUserRight()) {
+        if (! $this->em->getRepository("PicoUserBundle:User")->calculateUserRight($this->user)) {
             throw new AccessDeniedException("Cet utilisateur n'a pas accès à cette section.");
         }
         
@@ -104,7 +104,7 @@ class ArticleController extends Controller
     {
         $this->__init();
         
-        if (! $this->calculateUserRight()) {
+        if (! $this->em->getRepository("PicoUserBundle:User")->calculateUserRight($this->user)) {
             throw new AccessDeniedException("Cet utilisateur n'a pas accès à cette section.");
         }
         
@@ -120,32 +120,5 @@ class ArticleController extends Controller
         }
         return $this->redirect($this->generateUrl("pico_news_show"));
     }
-
-    public function calculateUserRight($VerifOnly = array('M2LAdmin' => false,'ClubLeader'=>false,'TeamLeader'=>false))
-    {
-        // User auth ?
-        if ($this->user == false) {
-            return false;
-        }
-        
-        // M2L admin ?
-        $isM2LAdmin = $this->get('security.context')->isGranted('ROLE_LIGUE_CREATEUR');
-        if(isset($VerifOnly['M2LAdmin']) && $VerifOnly['M2LAdmin']) {
-            return $isM2LAdmin;
-        }
-        
-        // Club Leader ?
-        $isClubLeader = $this->em->getRepository("PicoLeagueBundle:Club")->isClubLeader($this->user);
-        if(isset($VerifOnly['ClubLeader']) && $VerifOnly['ClubLeader']) {
-            return $isClubLeader;
-        }
-        
-        // Team Leader ?
-        $isTeamLeader = $this->em->getRepository("PicoLeagueBundle:Equipe")->isTeamLeader($this->user);
-        if(isset($VerifOnly['TeamLeader']) && $VerifOnly['TeamLeader']) {
-            return $isTeamLeader;
-        }
-        
-        return ($isM2LAdmin || $isClubLeader || $isTeamLeader);
-    }
+    
 }
