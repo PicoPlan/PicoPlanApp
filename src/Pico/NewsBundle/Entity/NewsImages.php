@@ -3,6 +3,7 @@
 namespace Pico\NewsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NewsImages
@@ -22,9 +23,8 @@ class NewsImages
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="news", type="integer")
+     * @ORM\OneToOne(targetEntity="Pico\NewsBundle\Entity\Article")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $news;
 
@@ -36,9 +36,7 @@ class NewsImages
     private $path;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="picture", type="string", length=255)
+     * @Assert\File(maxSize="6000000")
      */
     private $picture;
 
@@ -49,7 +47,25 @@ class NewsImages
      */
     private $isActive;
 
+    public function getAbsolutePath()
+    {
+        return null === $this->path ? null : $this->getUploadRootDir().'/'.$this->path;
+    }
 
+    public function getWebPath()
+    {
+        return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        return 'uploads/news/img';
+    }
     /**
      * Get id
      *
@@ -63,7 +79,7 @@ class NewsImages
     /**
      * Set news
      *
-     * @param integer $news
+     * @param Object Article $news
      * @return NewsImages
      */
     public function setNews($news)
