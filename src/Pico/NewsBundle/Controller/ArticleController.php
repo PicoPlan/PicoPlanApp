@@ -50,6 +50,9 @@ class ArticleController extends Controller
             // Unset the Article Object created to avoid memory issues
             $image->setNews(null);
 
+            // Setting the web Path to the image
+            $image->setPath($image->getUploadDir().$image->getPath());
+
             // Pushes the image object in the Article object list
             $list[$article->getId()]["image"] = $image;
 
@@ -78,6 +81,11 @@ class ArticleController extends Controller
             "date" => $article->getDate()->format("d-m-Y"),
             "id" => $article->getId()
         );
+        $image = $this->em->getRepository('PicoNewsBundle:NewsImages')->findOneById($article->getImageId());
+        $image->setPath($image->getUploadDir().$image->getPath());
+
+        $response['image'] = $image;
+
         return $this->render("PicoNewsBundle:Article:detail.html.twig", $response);
     }
 

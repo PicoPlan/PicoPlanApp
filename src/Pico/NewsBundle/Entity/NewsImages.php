@@ -57,14 +57,14 @@ class NewsImages
         return null === $this->path ? null : $this->getUploadDir().'/'.$this->path;
     }
 
-    protected function getUploadRootDir()
+    public function getUploadRootDir()
     {
         return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
 
-    protected function getUploadDir()
+    public function getUploadDir()
     {
-        return 'uploads/news/img';
+        return '/uploads/news/';
     }
     /**
      * Get id
