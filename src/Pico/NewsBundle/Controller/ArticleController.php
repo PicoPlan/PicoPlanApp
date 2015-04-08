@@ -4,7 +4,7 @@ namespace Pico\NewsBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Pico\UserBundle\Entity\User;
+use Pico\NewsBundle\Entity\NewsImages;
 use Pico\NewsBundle\Entity\Article;
 use Pico\NewsBundle\Form\Type\ArticleFormType;
 
@@ -43,6 +43,19 @@ class ArticleController extends Controller
                 "date" => $article->getDate()->format("d-m-Y"),
                 "id" => $article->getId()
             );
+
+            // Load the main Article picture
+            $image = $this->em->getRepository('PicoNewsBundle:NewsImages')->findOneById($article->getImageId());
+
+            // Unset the Article Object created to avoid memory issues
+            $image->setNews(null);
+
+            // Setting the web Path to the image
+            $image->setPath($image->getUploadDir().$image->getPath());
+
+            // Pushes the image object in the Article object list
+            $list[$article->getId()]["image"] = $image;
+
         }
         
         $response = [];
@@ -68,6 +81,11 @@ class ArticleController extends Controller
             "date" => $article->getDate()->format("d-m-Y"),
             "id" => $article->getId()
         );
+        $image = $this->em->getRepository('PicoNewsBundle:NewsImages')->findOneById($article->getImageId());
+        $image->setPath($image->getUploadDir().$image->getPath());
+
+        $response['image'] = $image;
+
         return $this->render("PicoNewsBundle:Article:detail.html.twig", $response);
     }
 

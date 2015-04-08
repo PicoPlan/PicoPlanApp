@@ -15,3 +15,11 @@ pico_news_create:
 pico_news_delete:
     path: /delete
     defaults: { _controller: PicoNewsBundle:Article:delete }
+
+pico_news_show_image:
+    path:    /showimage/{ArticleId}
+    defaults: { _controller: PicoNewsBundle:NewsImages:showImage}
+
+pico_news_uodate_image:
+    path:    /updateImage/{ArticleId}
+    defaults: { _controller: PicoNewsBundle:NewsImages:XXXXXXX}
