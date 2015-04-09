@@ -26,6 +26,13 @@ class Article {
     private $title;
 
     /**
+     * @var int
+     * @ORM\Column(name="imageId", type="integer")
+     * @ORM\OneToOne(targetEntity="Pico\NewsBundle\Entity\NewsImage")
+     */
+    private $imageId;
+
+    /**
     * @var string @ORM\Column(name="content", type="text")
     */
     private $content;
@@ -149,5 +156,28 @@ class Article {
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set imageId
+     *
+     * @param integer $imageId
+     * @return Article
+     */
+    public function setImageId($imageId)
+    {
+        $this->imageId = $imageId;
+
+        return $this;
+    }
+
+    /**
+     * Get imageId
+     *
+     * @return integer 
+     */
+    public function getImageId()
+    {
+        return $this->imageId;
     }
 }

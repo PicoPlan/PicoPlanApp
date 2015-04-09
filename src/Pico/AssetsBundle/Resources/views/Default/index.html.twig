@@ -1,100 +1,100 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
+<head>
+    <meta charset="utf-8">
     {% stylesheets 'bundles/picoassets/css/*' filter="cssrewrite" %}
-      <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
-      <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
-    </head>
-    <body>
-      <div class="container-fluid">
-        <header>
-          <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <link rel="stylesheet" href="{{ asset('bundles/adesignscalendar/css/fullcalendar/fullcalendar.css') }}" />
+</head>
+<body>
+<div class="container-fluid">
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                  {% if title is defined %}
-                    {{ title }}
-                {% else %}
-                  PicoPlan
-                  {% endif %}</a>
-              </div>
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">headerlink</a></li>
-                <li><a href="#">Lien 2</a></li>
-                <li><a href="">Lien 3 : Le retour</a></li>
-              </ul>
-              <ul class="nav navbar-nav pull-right">
-                <li><a href="#">{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                 Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-                {% else %}
-                    <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-                {% endif %}
-                    </a>
-                </li>
-              </ul>
-            </nav>
-        </header>
-      </div>
-      <div class="container-fluid"> <!-- CONTAINER -->
-        <div class="row"> <!-- Main row -->
-          <div class="col-sm-2" id="sidebar"> <!-- Sidebar -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        {% if title is defined %}
+                            {{ title }}
+                        {% else %}
+                            PicoPlan
+                        {% endif %}</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">headerlink</a></li>
+                    <li><a href="#">Lien 2</a></li>
+                    <li><a href="">Lien 3 : Le retour</a></li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="#">{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                            {% else %}
+                                <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                            {% endif %}
+                        </a>
+                    </li>
+                </ul>
+        </nav>
+    </header>
+</div>
+<div class="container-fluid"> <!-- CONTAINER -->
+    <div class="row"> <!-- Main row -->
+        <div class="col-sm-2" id="sidebar"> <!-- Sidebar -->
             <ul class="nav nav-pills nav-stacked">
-              <li>
-                <form role="form">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Va chercher !">
+                <li>
+                    <form role="form">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Va chercher !">
                     <span class="input-group-btn">
                       <button type="submit" class="btn btn-default">Go !</button>
                     </span>
-                  </div>
-                </form>
-              </li>
-              <li role="presentation" class="active">
-                <a href="#">
-                  <span class="glyphicon glyphicon-home"></span>
-                  Accueil
-                </a>
-              </li>
-              <li role="presentation">
-                <a href="#">
-                  <span class="glyphicon glyphicon-user"></span>
-                  Ma page
-                </a>
-              </li>
-              <li role="presentation">
-                <a href="{{url('pico_league_affichage')}}">
-                  <span class="glyphicon glyphicon-list"></span>
-                  Ligues
-                </a>
-              </li>
-              <li role="presentation">
-                <a href="#">
-                  <span class="glyphicon glyphicon-calendar"></span>
-                  Calendriers
-                </a>
-              </li>
-              <li role="presentation">
-                <a href="#">
-                  <span class="glyphicon glyphicon-info-sign"></span>
-                  Infos
-                </a>
-              </li>
+                        </div>
+                    </form>
+                </li>
+                <li role="presentation" class="active">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-home"></span>
+                        Accueil
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-user"></span>
+                        Ma page
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="{{url('pico_league_affichage')}}">
+                        <span class="glyphicon glyphicon-list"></span>
+                        Ligues
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                        Calendriers
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        Infos
+                    </a>
+                </li>
             </ul>
-          </div> <!-- End sidebar -->
-          <div class="col-sm-10" id="content"> <!-- Block content -->
+        </div> <!-- End sidebar -->
+        <div class="col-sm-10" id="content"> <!-- Block content -->
             <div class="row">
             </div>
-          </div> <!-- End block content -->
-            <!-- Body Dynamique -->
-      		<div id='body'>
-      			{% block body %}{% endblock %}
-      		</div>
-        </div> <!-- End main row -->
-        
-      </div> <!-- End CONTAINER -->
-      <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script> <!-- FOSRoutingJsBundle -->
-      <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-    </body>
+        </div> <!-- End block content -->
+        <!-- Body Dynamique -->
+        <div id='body'>
+            {% block body %}{% endblock %}
+        </div>
+    </div> <!-- End main row -->
+
+</div> <!-- End CONTAINER -->
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script> <!-- FOSRoutingJsBundle -->
+<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+</body>
 </html>
