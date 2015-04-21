@@ -117,6 +117,16 @@ class LeagueController extends Controller
                         ->getUserCreator()
                         ->getId();
                     $IsAllowedUser = ($this->CurrentUser != false && in_array($this->CurrentUser->getId(), $ListeModo));
+                    
+                    /*
+                    *Team score form
+                    */
+                    $formBuilder = $this->get("form.factory")->createBuilder("form", $Equipe);
+                    $formBuilder
+                        ->add("score", "integer")
+                        ->add("OK", "submit");
+                    $form = $formBuilder->getForm();
+
                     // Vue Equipe
                     return $this->render('PicoLeagueBundle:Affichage:AffichageEquipe.html.twig', array(
                         'League' => $League,
@@ -124,7 +134,8 @@ class LeagueController extends Controller
                         'Membres' => $Membres,
                         'isAllowed' => $IsAllowedUser,
                         'alert_info' => $InfoSupp,
-                        'alert_class' => 'info'
+                        'alert_class' => 'info',
+                        "form" => $form->createView()
                     ));
                     break;
                 default:

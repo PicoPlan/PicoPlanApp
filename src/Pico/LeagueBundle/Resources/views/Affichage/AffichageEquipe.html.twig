@@ -14,6 +14,16 @@
 	<h4>Sport :</h4>
 	<p>{{Equipe.sport.nom}}</p>
 	<br />
+	<!-- Score form -->
+	{% if isAllowed %}
+		{% if form is defined %}
+			{{ form(form) }}
+		{% endif %}
+	{% else %}
+		<p>Points : {{ Equipe.score }}</p>
+	{% endif %}
+
+	<!-- End score form -->
 	{% include 'PicoLeagueBundle:Affichage:subView/calendrier.html.twig' with {'type': 'groupe','id':Equipe.id, 'AllowedUser':isAllowed} %}
 	<br />
 	<br />

@@ -53,7 +53,7 @@ class Equipe
     private $listeModo;
 
     /**
-    * @var integer @ORM\Column(name="score", type="integer", nullable=true)
+    * @var integer @ORM\Column(name="score", type="integer", nullable=false)
     */
     private $score;
 
