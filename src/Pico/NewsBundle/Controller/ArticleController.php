@@ -47,15 +47,20 @@ class ArticleController extends Controller
             // Load the main Article picture
             $image = $this->em->getRepository('PicoNewsBundle:NewsImages')->findOneById($article->getImageId());
 
-            // Unset the Article Object created to avoid memory issues
-            $image->setNews(null);
+            if($image){
+                // Unset the Article Object created to avoid memory issues
+                $image->setNews(null);
 
-            // Setting the web Path to the image
-            $image->setPath($image->getUploadDir().$image->getPath());
+                // Setting the web Path to the image
+                $image->setPath($image->getUploadDir().$image->getPath());
 
-            // Pushes the image object in the Article object list
-            $list[$article->getId()]["image"] = $image;
+                // Pushes the image object in the Article object list
+                $list[$article->getId()]["image"] = $image;
 
+            }
+            else{
+                $list[$article->getId()]["image"] = false;
+            }
         }
         
         $response = [];

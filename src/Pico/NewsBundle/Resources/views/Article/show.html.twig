@@ -11,7 +11,9 @@
   {% if articles is defined %}
     {% for item in articles %}
       <div class="col-md-6">
+        {% if item.image != false %}
           <img width="150" height="150" src="{{ item.image.path }}" />
+        {% endif %}
         <h2><a href="{{ url('pico_news_show_detail',{'idNews': item.id}) }}">{{ item.title }}</a></h2>
         <h3>Par {{ item.author }}</h3>
         <h4>Publié le {{ item.date }}</h4>
