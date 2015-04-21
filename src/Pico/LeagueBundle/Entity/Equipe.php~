@@ -53,7 +53,7 @@ class Equipe
     private $listeModo;
 
     /**
-    * @var integer @ORM\Column(name="score", type="integer", nullable=false)
+    * @var integer @ORM\Column(name="score", type="integer", nullable=true)
     */
     private $score;
 
@@ -231,28 +231,5 @@ class Equipe
     public function getListeModo()
     {
         return $this->listeModo;
-    }
-
-    /**
-     * Set score
-     *
-     * @param integer $score
-     * @return Equipe
-     */
-    public function setScore($score)
-    {
-        $this->score = $score;
-
-        return $this;
-    }
-
-    /**
-     * Get score
-     *
-     * @return integer 
-     */
-    public function getScore()
-    {
-        return $this->score;
     }
 }

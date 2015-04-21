@@ -53,7 +53,7 @@ class LeagueController extends Controller
      * Default :
      * Affiche le menu de choix
      */
-    public function indexAction($Type = false, $Id = false, $InfoSupp = false)
+    public function indexAction(Request $request, $Type = false, $Id = false, $InfoSupp = false)
     {
         $this->__init();
         // $this->test();
@@ -117,6 +117,21 @@ class LeagueController extends Controller
                         ->getUserCreator()
                         ->getId();
                     $IsAllowedUser = ($this->CurrentUser != false && in_array($this->CurrentUser->getId(), $ListeModo));
+                    
+                    /*
+                    *Team score form
+                    */
+                    $formBuilder = $this->get("form.factory")->createBuilder("form", $Equipe);
+                    $formBuilder
+                        ->add("score", "integer")
+                        ->add("OK", "submit");
+                    $form = $formBuilder->getForm();
+                    $form->handleRequest($request);
+                    if($form->isValid()){
+                        $this->em->persist($Equipe);
+                        $this->em->flush();
+                    }
+
                     // Vue Equipe
                     return $this->render('PicoLeagueBundle:Affichage:AffichageEquipe.html.twig', array(
                         'League' => $League,
@@ -124,7 +139,8 @@ class LeagueController extends Controller
                         'Membres' => $Membres,
                         'isAllowed' => $IsAllowedUser,
                         'alert_info' => $InfoSupp,
-                        'alert_class' => 'info'
+                        'alert_class' => 'info',
+                        "form" => $form->createView()
                     ));
                     break;
                 default:
