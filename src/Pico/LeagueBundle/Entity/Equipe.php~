@@ -232,27 +232,4 @@ class Equipe
     {
         return $this->listeModo;
     }
-
-    /**
-     * Set score
-     *
-     * @param integer $score
-     * @return Equipe
-     */
-    public function setScore($score)
-    {
-        $this->score = $score;
-
-        return $this;
-    }
-
-    /**
-     * Get score
-     *
-     * @return integer 
-     */
-    public function getScore()
-    {
-        return $this->score;
-    }
 }
