@@ -28,7 +28,8 @@ class ProfileController extends BaseController {
             ->getToken()
             ->getUser();
 
-        $data = array(
+        if($user){
+            $data = array(
             'username' => array(
                 'content' => $user->getUsername(),
                 'title' => 'Pseudo',
@@ -49,7 +50,11 @@ class ProfileController extends BaseController {
                 'content' => $user->getPhone(),
                 'title' => 'Téléphone',
                 'icon' => 'glyphicon-phone'),
-        );
+            );
+        }
+        else{
+            $data = null;
+        }
 
 
         return $this->render('PicoUserBundle:User:show.html.twig', array(
