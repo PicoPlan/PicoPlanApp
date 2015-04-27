@@ -4,12 +4,19 @@ namespace Pico\LeagueBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+
 /**
  * Equipe
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Pico\LeagueBundle\Entity\EquipeRepository")
  * @UniqueEntity(fields="nom", message="Ce nom est déjà utilisé")
+ *
+ * @ExclusionPolicy("all")
  */
 class Equipe
 {
@@ -37,23 +44,27 @@ class Equipe
     /**
      *
      * @var string @ORM\Column(name="nom", type="string", length=255, unique=true)
+     * @Expose
      */
     private $nom;
 
     /**
      *
      * @var string @ORM\Column(name="description", type="text")
+     * @Expose
      */
     private $description;
 
     /**
      *
      * @var string @ORM\Column(name="liste_modo", type="text")
+     * @Expose
      */
     private $listeModo;
 
     /**
     * @var integer @ORM\Column(name="score", type="integer", nullable=false)
+    * @Expose
     */
     private $score;
 

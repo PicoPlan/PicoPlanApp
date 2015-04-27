@@ -2,3 +2,8 @@ leagues :
   type: rest
   resource:     "PicoLeagueBundle:LeagueRest"
   name_prefix:  api_
+
+teams :
+    type: rest
+    resource: "PicoLeagueBundle:LeagueRest"
+    name_prefix: api_
