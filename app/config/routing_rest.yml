@@ -1,3 +1,5 @@
+
+# Users
 Rest_User : 
   type : rest
   resource: "@PicoUserBundle/Resources/config/routing_rest.yml"
@@ -6,3 +8,8 @@ users :
   type: rest
   resource:     "@PicoUserBundle/Controller/UserRestController.php"
   name_prefix:  api_
+
+# Leagues
+Rest_League : 
+  type : rest
+  resource: "@PicoLeagueBundle/Resources/config/routing_rest.yml"

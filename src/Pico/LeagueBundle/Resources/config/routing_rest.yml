@@ -1,0 +1,4 @@
+leagues : 
+  type: rest
+  resource:     "PicoLeagueBundle:LeagueRest"
+  name_prefix:  api_

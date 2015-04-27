@@ -3,12 +3,19 @@
 namespace Pico\LeagueBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+
 
 /**
  * League
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Pico\LeagueBundle\Entity\LeagueRepository")
+ *
+ * @ExclusionPolicy("all")
  */
 class League
 {
@@ -18,18 +25,21 @@ class League
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Expose
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Pico\LeagueBundle\Entity\Sport")
      * @ORM\JoinColumn(nullable=false)
+     * @Expose
      */
     private $sport;
     
     /**
      * @ORM\ManyToOne(targetEntity="Pico\UserBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
+     * @Expose
      */
     private $userCreator;
     
@@ -37,6 +47,7 @@ class League
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)
+     * @Expose
      */
     private $nom;
 
@@ -44,6 +55,7 @@ class League
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Expose
      */
     private $description;
 
