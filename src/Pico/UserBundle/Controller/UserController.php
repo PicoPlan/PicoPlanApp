@@ -96,6 +96,10 @@ class UserController extends Controller
             $response["alert_info"] = "Vous ne pouvez pas accéder à cette section sans identification.";
             $response["alert_class"] ="warning";
         }
+        elseif(!$user) {
+            $response["alert_info"] = "Cet utilisateur n'existe pas.";
+            $response["alert_class"] = "danger";
+        }
         else {
             $response["user"] = $user;
             $response["data"] = array(
