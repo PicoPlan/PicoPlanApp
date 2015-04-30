@@ -2,10 +2,11 @@
 
 {% block content %}
       <div class="col-md-6">
+        {% if image is defined %}
           <img width="150" height="150" src="{{ image.path }}" />
+        {% endif %}
         <h2>{{ title }}</h2>
-        <h3>Par {{ author }}</h3>
-        <h4>Publié le {{ date }}</h4>
+        <h4>Publié par <a href="{{ path('user_show', {'username': author}) }}">{{ author }}</a> le {{ date }}</h4>
         <p>{{ content }}</p>
 {% endblock content %}
 

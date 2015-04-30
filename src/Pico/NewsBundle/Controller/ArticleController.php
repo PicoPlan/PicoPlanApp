@@ -87,9 +87,11 @@ class ArticleController extends Controller
             "id" => $article->getId()
         );
         $image = $this->em->getRepository('PicoNewsBundle:NewsImages')->findOneById($article->getImageId());
-        $image->setPath($image->getUploadDir().$image->getPath());
+        if ($image){
+            $image->setPath($image->getUploadDir().$image->getPath());
+            $response['image'] = $image;
+        }
 
-        $response['image'] = $image;
 
         return $this->render("PicoNewsBundle:Article:detail.html.twig", $response);
     }
