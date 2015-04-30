@@ -29,7 +29,7 @@ gestion_equipe:
         
 pico_league_get_form:
     path:    /ajax/form/{Type}/{Id}/{IdCible}
-    defaults: { _controller: PicoLeagueBundle:League:manageForm,IdCible: false}
+    defaults: { _controller: PicoLeagueBundle:League:manageForm,Id: false, IdCible: false}
     requirements:
         Id:  \d+
         Type: Ligues|Clubs|Equipes

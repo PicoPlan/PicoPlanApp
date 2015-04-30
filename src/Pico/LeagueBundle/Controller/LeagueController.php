@@ -1,11 +1,15 @@
 <?php
 namespace Pico\LeagueBundle\Controller;
 
+//App
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+//Forms
 use Pico\LeagueBundle\Form\EquipeType;
+use Pico\LeagueBundle\Form\ClubType;
+//Entitys
 use Pico\LeagueBundle\Entity\Equipe;
 use Pico\LeagueBundle\Entity\Sport;
 use Pico\LeagueBundle\Entity\League;
@@ -223,8 +227,10 @@ class LeagueController extends Controller
      */
     public function manageFormAction($Type, $Id, $IdCible = false)
     {
-        // Initialisation du formulaire
+        
         $this->__init();
+        $Request = $this->getRequest();
+        
         switch ($Type) {
             case 'Equipes':
                 
@@ -246,18 +252,60 @@ class LeagueController extends Controller
                         'IdCible' => $IdCible
                     )) . '");'
                 ));
+                
                 // On recupere le vue de retour
                 $RedirectUrl = $this->generateUrl('pico_league_affichage', array(
                     'Type' => 'Clubs',
                     'Id' => $Id,
                     'InfoSupp' => 'L\'equipe à bien été crée'
                 ));
+                break;
+            case 'Clubs':
+                // On récupere les entitées
+                if ($IdCible != false) {
+                    $Entity = $this->em->getRepository('PicoLeagueBundle:Club')->find($IdCible);
+                } else {
+                    // Ou l'on en crée une nouvelle
+                    $Entity = new Club();
+                    $Entity->setUserCreator($this->CurrentUser);
+                }
+                // On crée le form
+                $Form = $this->get('form.factory')->create(new ClubType(), $Entity, array(
+                    'action' => 'javascript:validateFormClub("' . $this->generateUrl('pico_league_get_form', array(
+                        'Type' => 'Clubs'
+                    )) . '");'
+                ));
+                if ($Request->isMethod('GET')) {
+                    return $this->render('PicoLeagueBundle:Affichage:CreateClub.html.twig', array(
+                        'Form' => $Form->createView()
+                    ));
+                    
+                } else {
+                    //On insere pour avoir l'id
+                    if($Form->handleRequest($Request)->isValid() && $Entity->getId() === NULL) {
+                        $this->em->persist($Entity);
+                        $this->em->flush();
+                        $Id = $Entity->getId();
+                        $flagAlreadyDone = true;
+                    } else {
+                        $Id = 1;
+                    }
+                    // On recupere le vue de retour
+                    $RedirectUrl = $this->generateUrl('pico_league_affichage', array(
+                        'Type' => 'Clubs',
+                        'Id' => $Id,
+                        'InfoSupp' => 'Le club à bien été crée'
+                    ));
+                }
         }
         
         // Verification si validation :
-        $Request = $this->getRequest();
-        if ($Form->handleRequest($Request)->isValid()) {
-            $this->em->merge($Entity);
+        if (isset($flagAlreadyDone) OR $Form->handleRequest($Request)->isValid()) {
+            if($Entity->getId()=== NULL) {
+                $this->em->persist($Entity);
+            } else {
+                $this->em->merge($Entity);
+            }
             $this->em->flush();
             // On renvois la reponse en json
             return new JsonResponse(array(

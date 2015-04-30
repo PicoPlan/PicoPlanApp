@@ -73,6 +73,9 @@ class Equipe
     public function __construct($EntityManager = false)
     {
         $this->em = $EntityManager;
+        if(is_null($this->getScore())) {
+            $this->setScore(0);
+        }
     }
     
     public function setEm($EntityManager)
