@@ -2,8 +2,11 @@
 namespace Pico\NewsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 use Pico\NewsBundle\Entity\NewsImages;
 use Pico\NewsBundle\Entity\Article;
 use Pico\NewsBundle\Form\Type\ArticleFormType;
@@ -41,26 +44,10 @@ class ArticleController extends Controller
                 "title" => $article->getTitle(),
                 "content" => $article->getContent(),
                 "date" => $article->getDate()->format("d-m-Y"),
-                "id" => $article->getId()
+                "id" => $article->getId(),
+                "image" => $article->getImage()->getWebPath()
             );
 
-            // Load the main Article picture
-            $image = $this->em->getRepository('PicoNewsBundle:NewsImages')->findOneById($article->getImageId());
-
-            if($image){
-                // Unset the Article Object created to avoid memory issues
-                $image->setNews(null);
-
-                // Setting the web Path to the image
-                $image->setPath($image->getUploadDir().$image->getPath());
-
-                // Pushes the image object in the Article object list
-                $list[$article->getId()]["image"] = $image;
-
-            }
-            else{
-                $list[$article->getId()]["image"] = false;
-            }
         }
         
         $response = [];
@@ -101,7 +88,8 @@ class ArticleController extends Controller
         $this->__init();
         
         $article = new Article();
-        
+        $picture = new NewsImages();
+
         if (! $this->em->getRepository("PicoUserBundle:User")->calculateUserRight($this->user)) {
             throw new AccessDeniedException("Cet utilisateur n'a pas accès à cette section.");
         }
@@ -109,9 +97,24 @@ class ArticleController extends Controller
         // Instanciate form
         $form = $this->createForm(new ArticleFormType(), $article);
         $form->handleRequest($request);
+        // echo "<pre>"; var_dump((array) $article); echo "</pre>";
+        // die;
         $response["form"] = $form->createView();
-        
+
         if ($form->isValid()) {
+            if($form["image"]["picture"]->getData() != null){
+                $extension = $form["image"]["picture"]->getData()->guessExtension();
+                if(!$extension){
+                    $extension = "bin";
+                }
+                # Randomly name the file to prevent injection
+                $fileName = $this->user->getId()."_".rand(1, 99999).".".$extension;
+                $picture = $article->getImage();
+                $picture->setPicture($form["image"]["picture"]->getData());
+                $picture->upload($fileName);
+                var_dump($picture->getUploadRootDir());
+                var_dump($picture->getPath());
+            }
             $article->setAuthor($this->user);
             $this->em->persist($article);
             $this->em->flush();

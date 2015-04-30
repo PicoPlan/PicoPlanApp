@@ -14,7 +14,7 @@
             <div class="row article-in-list {% if loop.index < 3 %}big{% endif %}">
               <div class="col-sm-6 article-image">
                 {% if item.image != false %}
-                  <img src="{{ item.image.path }}" />
+                  <img src="{{ item.image }}" />
                 {% else %}
                   <img src="{{ asset('bundles/picoassets/images/pcp_default.png') }}">
                 {% endif %}
