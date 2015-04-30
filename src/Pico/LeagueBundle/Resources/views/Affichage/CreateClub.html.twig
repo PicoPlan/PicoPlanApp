@@ -1,0 +1,25 @@
+{% extends "::base.html.twig" %}
+
+{% block content %}
+
+  <div id='FormClub' class="col-md-6">
+    {% include 'PicoLeagueBundle:Affichage:subView/Formulaire.html.twig' with {'Form':Form} %}
+  </div>
+
+{% endblock content %}
+{% block extrascript %}
+		<script type="text/javascript">
+			function validateFormClub(url){
+				var validateFormClub = Routing.generate('pico_league_get_form', { "Type":"Clubs" })
+				$.ajax({
+					type: "POST",
+					url: validateFormClub,
+					data: $('#FormClub form').serialize(), // serializes the form's elements.
+					success: function(data)
+					{
+							$(location).attr('href',data['url']);
+					}
+				});
+			}
+		</script>
+{% endblock %}
