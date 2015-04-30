@@ -27,7 +27,7 @@ class Article {
 
     /**
      * @var int
-     * @ORM\Column(name="imageId", type="integer")
+     * @ORM\Column(name="imageId", type="integer", nullable=true)
      * @ORM\OneToOne(targetEntity="Pico\NewsBundle\Entity\NewsImage")
      */
     private $imageId;
