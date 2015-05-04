@@ -2,6 +2,28 @@
 
 {% block content %}
     <div class="col-md-6">
-        {{ form(form) }}
+        {{ form_start(form, {"attr": {"class": "form-horizontal"}}) }}
+        {{ form_errors(form) }}
+
+        {{ form_errors(form.title)}}
+        {{ form_label(form.title, "Titre : ", {"label_attr": {"class": "control-label"}}) }}
+        {{ form_widget(form.title, {"attr": {"class": "form-control"}}) }}
+
+        {{ form_errors(form.content)}}
+        {{ form_label(form.content, "Contenu : ", {"label_attr": {"class": "control-label"}}) }}
+        {{ form_widget(form.content, {"attr": {"class": "form-control"}}) }}
+
+        {{ form_errors(form.image)}}
+        {{ form_label(form.image, "Image : ", {"label_attr": {"class": "control-label"}}) }}
+        {{ form_widget(form.image.picture, {"attr": {"class": "form-control"}}) }}
+
+        {{ form_widget(form._token) }}
+
+        <div class="col-sm-6 col-sm-offset-3">
+          <button class="btn btn-primary form-control" type="submit" value="{{ 'registration.submit'|trans }}">
+            VALIDER !
+          </button>
+        </div>
     </div>
+
 {% endblock content %}

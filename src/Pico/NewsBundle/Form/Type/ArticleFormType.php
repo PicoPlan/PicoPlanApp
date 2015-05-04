@@ -13,8 +13,7 @@ class ArticleFormType extends AbstractType{
             ->add("title")
             ->add("content")
             ->add("image", new NewsImagesFormType(), array(
-                "data_class" => "Pico\NewsBundle\Entity\NewsImages"))
-            ->add("save", "submit");
+                "data_class" => "Pico\NewsBundle\Entity\NewsImages"));
     }
 
     public function getName(){

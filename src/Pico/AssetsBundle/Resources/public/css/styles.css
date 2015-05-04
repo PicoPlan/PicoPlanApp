@@ -8939,13 +8939,14 @@ body {
 }
 /* line 354, ../sass/styles.scss */
 #article-list .article-in-list .article-image img {
-  width: 100%;
+  max-height: 250px;
+  height: 200px;
 }
-/* line 359, ../sass/styles.scss */
+/* line 360, ../sass/styles.scss */
 #article-list .article-in-list .article-title h2 {
   font-family: opensans-bold;
 }
-/* line 363, ../sass/styles.scss */
+/* line 364, ../sass/styles.scss */
 #article-list .article-in-list .article-content {
   margin-top: 10px;
 }
