@@ -52,7 +52,7 @@ class NewsImages
 
     public function getUploadDir()
     {
-        return '/uploads/news';
+        return '/uploads/news/';
     }
     /**
      * Get id

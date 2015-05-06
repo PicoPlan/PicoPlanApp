@@ -8882,7 +8882,7 @@ body {
   border: 6px solid #9CC5D7;
 }
 
-/****************************
+/*******************
     -- SEARCH BY --
 *******************/
 /* line 304, ../sass/styles.scss */
@@ -8905,11 +8905,48 @@ body {
   text-align: center;
 }
 
-/***************************
+/*************************
     -- TABLE-LEAGUES
 *************************/
 /* line 326, ../sass/styles.scss */
 .table-leagues tr .name {
   font-size: 20px;
   font-family: opensans-bold;
+}
+
+/**************************
+    -- ARTICLE-LIST --
+**************************/
+/* line 339, ../sass/styles.scss */
+#article-list .article-in-list {
+  background-color: #FFFFFF;
+  height: 300px;
+  max-height: 300px;
+  overflow: hidden;
+  margin: 10px 15px;
+  padding: 10px 15px;
+  border-bottom: 3px solid #5E5E5E;
+}
+/* line 347, ../sass/styles.scss */
+#article-list .article-in-list.big {
+  height: 400px;
+  max-height: 400px;
+}
+/* line 351, ../sass/styles.scss */
+#article-list .article-in-list .article-image {
+  overflow: hidden;
+  padding: 0px;
+}
+/* line 354, ../sass/styles.scss */
+#article-list .article-in-list .article-image img {
+  max-height: 250px;
+  height: 200px;
+}
+/* line 360, ../sass/styles.scss */
+#article-list .article-in-list .article-title h2 {
+  font-family: opensans-bold;
+}
+/* line 364, ../sass/styles.scss */
+#article-list .article-in-list .article-content {
+  margin-top: 10px;
 }

@@ -1,53 +1,65 @@
 {% extends "::base.html.twig" %}
 
 {% block content %}
-  <div class="col-md-6">
+  <div class="col-sm-10 col-sm-offset-1">
   	{% if showEditButton %}
     	<a href="{{ url('pico_news_create') }}" class="btn btn-primary">
     		Publier un nouvel article
     	</a>
   	{% endif %}
-  </div>
-  {% if articles is defined %}
-    {% for item in articles %}
-      <div class="col-md-6">
-        {% if item.image != false %}
-          <img width="150" height="150" src="{{ item.image.path }}" />
-        {% endif %}
-        <h2><a href="{{ url('pico_news_show_detail',{'idNews': item.id}) }}">{{ item.title }}</a></h2>
-        <h3>Par {{ item.author }}</h3>
-        <h4>Publié le {{ item.date }}</h4>
-        <p>{{ item.content[:20] }}...</p>
-        {% if showEditButton %}
-        	<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete_{{ item.id }}">
-          		Supprimer cet article
-        	</button>
-        {% endif %}
-        <div class="modal fade" id="delete_{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="delete_{{item.id }}Label" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h3>Etes-vous certain de vouloir supprimer cet article ?</h3>
+    <div class="row" id="article-list">
+      {% if articles is defined %}
+        {% for item in articles %}
+          <div class="{% if loop.index < 3 %}col-sm-6{% else %}col-sm-4{% endif %}">
+            <div class="row article-in-list {% if loop.index < 3 %}big{% endif %}">
+              <div class="col-sm-6 article-image">
+                {% if item.image != false %}
+                  <img src="{{ item.image }}" />
+                {% else %}
+                  <img src="{{ asset('bundles/picoassets/images/pcp_default.png') }}">
+                {% endif %}
               </div>
-              <div class="modal-body">
-                <button class="btn btn-primary" data-dismiss="modal">
-                  NON
-                </button>
-                <form action="{{ url('pico_news_delete')}}" method="post">
-                  <input type="hidden" name="delete_article" id="delete_article" value="{{ item.id }}">
-                  <button type="submit" class="btn btn-danger">
-                    OUI
-                  </button>
-                </form>
+              <div class="col-sm-6 article-title">
+                <h2><a href="{{ url('pico_news_show_detail',{'idNews': item.id}) }}">{{ item.title }}</a></h2>
+                <p>Publié par <a href="{{ path('user_show', {'username': item.author}) }}">{{ item.author }}</a> le {{ item.date }}</p>
+              </div>
+              <div class="clearfix"></div>
+              <div class="article-content">
+              <p>{{ item.content[:100] }}...</p>
+                {% if showEditButton %}
+                	<button class="btn btn-danger" type="button" data-toggle="modal" data-target="#delete_{{ item.id }}">
+                  		Supprimer cet article
+                	</button>
+                {% endif %}
+              </div>
+              <div class="modal fade" id="delete_{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="delete_{{item.id }}Label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3>Etes-vous certain de vouloir supprimer cet article ?</h3>
+                    </div>
+                    <div class="modal-body">
+                      <button class="btn btn-primary" data-dismiss="modal">
+                        NON
+                      </button>
+                      <form action="{{ url('pico_news_delete')}}" method="post">
+                        <input type="hidden" name="delete_article" id="delete_article" value="{{ item.id }}">
+                        <button type="submit" class="btn btn-danger">
+                          OUI
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <h2>Pas d'article pour le moment</h2>
-  {% endif %}
+        {% endfor %}
+      {% else %}
+        <h2>Pas d'article pour le moment</h2>
+      {% endif %}
+    </div>
+  </div>
 {% endblock content %}
 
 {% block extrascript %}

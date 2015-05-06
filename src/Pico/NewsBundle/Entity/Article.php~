@@ -26,7 +26,7 @@ class Article {
     private $title;
 
     /**
-    * @ORM\OneToOne(targetEntity="Pico\NewsBundle\Entity\NewsImages", cascade={"persist"})
+    * @ORM\OneToOne(targetEntity="Pico\NewsBundle\Entity\NewsImages")
     */
     private $image;
 
@@ -156,6 +156,51 @@ class Article {
         return $this->author;
     }
 
+    /**
+     * Set imageId
+     *
+     * @param integer $imageId
+     * @return Article
+     */
+    public function setImageId($imageId)
+    {
+        $this->imageId = $imageId;
+
+        return $this;
+    }
+
+    /**
+     * Get imageId
+     *
+     * @return integer 
+     */
+    public function getImageId()
+    {
+        return $this->imageId;
+    }
+
+    /**
+     * Set images
+     *
+     * @param \Pico\NewsBundle\Entity\NewsImages $images
+     * @return Article
+     */
+    public function setImages(\Pico\NewsBundle\Entity\NewsImages $images = null)
+    {
+        $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Pico\NewsBundle\Entity\NewsImages 
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
 
     /**
      * Set image
