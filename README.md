@@ -1,13 +1,24 @@
-Known Issues
-------------
+PicoPlanApp
+===================
 
--> Fullcalendar Bundle needs FOSRoutingJsBundle :
 
-https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/blob/master/Resources/doc/index.md
+PicoPlanApp est un "booster social" pour la M2L.
 
-This bundle needs php_intl to work properly :
+PicoPlanApp permet aux administrateurs de ligue, aux capitaines d'équipes et aux organisateurs de s'organiser autour d'un calendrier commun.
 
--> On linux : sudo apt-get install php5-intl
--> On Windows : http://stackoverflow.com/questions/1451468/intl-extension-installing-php-intl-dll
--> O mac OS with MAMP : http://openclassrooms.com/forum/sujet/tuto-installation-extension-php-intl-29409
+C'est une application SasS.
+
+----------
+
+
+Pour Commencer
+-------------
+
+Vous n'avez besoin que d'un environnement PHP/MySQL.
+Clonez le repo, installez les dépendendances (composer), et c'est tout !
+
+> **Problèmes connus :**
+
+> - Attention à la dépendance FOSRoutingJsBundle de Fullcalendar.
+> - Il sera nécessaire d'installer php5-intl si ce n'est déjà fait.
 
