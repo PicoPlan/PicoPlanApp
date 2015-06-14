@@ -73,7 +73,7 @@ class ArticleController extends Controller
             "date" => $article->getDate()->format("d-m-Y"),
             "id" => $article->getId()
         );
-        $image = $this->em->getRepository('PicoNewsBundle:NewsImages')->findOneById($article->getImageId());
+        $image = $this->em->getRepository('PicoNewsBundle:NewsImages')->findOneById($article->getImage()->getWebPath());
         if ($image){
             $image->setPath($image->getUploadDir().$image->getPath());
             $response['image'] = $image;

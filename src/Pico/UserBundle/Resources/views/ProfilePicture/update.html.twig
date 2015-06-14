@@ -18,17 +18,19 @@
 	<div class="col-md-6">
 		<h2>Vos photos</h2>
     {% if pictures is defined %}
-      <form action="{{ url('user_update_profile_picture') }}" method="POST">
+      <form class="profile-picture-update" action="{{ url('user_update_profile_picture') }}" method="POST">
         {% for item in pictures %}
-    			<img src="{{ asset('uploads/user/img/') }}/{{ item.name }}" name="{{ item.name }}" alt="{{ item.name }}">
-          <label>
-            <input type="radio" name="set_active" value="{{ item.name }}">
-            Faire de cette image mon image de profil
-          </label>
-          <label>
-            <input type="checkbox" name="delete_picture" value="{{ item.name }}">
-            Supprimer cette image
-          </label>
+          <div class="form-group">
+      			<img src="{{ asset('uploads/user/img/') }}/{{ item.name }}" name="{{ item.name }}" alt="{{ item.name }}">
+            <label>
+              <input type="radio" name="set_active" value="{{ item.name }}">
+              Faire de cette image mon image de profil
+            </label>
+            <label>
+              <input type="checkbox" name="delete_picture" value="{{ item.name }}">
+              Supprimer cette image
+            </label>
+          </div>
     		{% endfor %}
         <button class="btn btn-primary" type="submit">
           Valider

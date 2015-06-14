@@ -8950,3 +8950,11 @@ body {
 #article-list .article-in-list .article-content {
   margin-top: 10px;
 }
+
+/*********************************
+    -- PROFILE-PICTURE-UPDATE --
+**********************************/
+/* line 376, ../sass/styles.scss */
+.profile-picture-update .form-group img {
+  width: 100px;
+}
