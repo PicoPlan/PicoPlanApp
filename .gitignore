@@ -29,3 +29,6 @@ app/check.php
 #web assets
 web/css
 web/js
+
+#Webstorm
+.idea/
